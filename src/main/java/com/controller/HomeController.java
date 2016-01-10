@@ -10,6 +10,6 @@ public class HomeController {
     public String home(Model model) {
         model.addAttribute("message", "hello, world!!!!");
         //return "WEB-INF/views/home.jsp";
-        return "home";
+        return "nexthome";
     }
 }
