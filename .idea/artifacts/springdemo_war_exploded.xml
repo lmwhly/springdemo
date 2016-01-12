@@ -19,6 +19,7 @@
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-test:3.2.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.2" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.2" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.2.0" />
