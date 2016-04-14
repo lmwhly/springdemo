@@ -24,9 +24,7 @@ public class Canvas {
     static <T> void fromArrayToCollection(T[] a,Collection<T> c){
 
         for (T t : a) {
-
             c.add(t);
-
         }
 
     }
