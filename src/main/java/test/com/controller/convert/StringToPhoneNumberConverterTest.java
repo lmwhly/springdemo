@@ -2,39 +2,37 @@ package test.com.controller.convert;
 
 import com.controller.convert.StringToPhoneNumberConverter;
 import com.model.PhoneNumberModel;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-
 /**
  * StringToPhoneNumberConverter Tester.
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>Ò»ÔÂ 12, 2016</pre>
+ * @since <pre>ä¸€æœˆ 12, 2016</pre>
  */
 
-/*ÓÃÓÚÅäÖÃspringÖĞ²âÊÔµÄ»·¾³*/
+/*ç”¨äºé…ç½®springä¸­æµ‹è¯•çš„ç¯å¢ƒ*/
 @RunWith(SpringJUnit4ClassRunner.class)
 
 /*
-ÓÃÀ´Ö¸¶¨¼ÓÔØµÄSpringÅäÖÃÎÄ¼şµÄÎ»ÖÃ,»á¼ÓÔØÄ¬ÈÏÅäÖÃÎÄ¼ş
-@ContextConfiguration ×¢½âÓĞÒÔÏÂÁ½¸ö³£ÓÃµÄÊôĞÔ£º
-locations£º¿ÉÒÔÍ¨¹ı¸ÃÊôĞÔÊÖ¹¤Ö¸¶¨ Spring ÅäÖÃÎÄ¼şËùÔÚµÄÎ»ÖÃ£¬¿ÉÒÔÖ¸¶¨Ò»¸ö»ò¶à¸ö Spring ÅäÖÃÎÄ¼ş¡£
-inheritLocations£ºÊÇ·ñÒª¼Ì³Ğ¸¸²âÊÔÓÃÀıÀàÖĞµÄ Spring ÅäÖÃÎÄ¼ş£¬Ä¬ÈÏÎª true¡£
+ç”¨æ¥æŒ‡å®šåŠ è½½çš„Springé…ç½®æ–‡ä»¶çš„ä½ç½®,ä¼šåŠ è½½é»˜è®¤é…ç½®æ–‡ä»¶
+@ContextConfiguration æ³¨è§£æœ‰ä»¥ä¸‹ä¸¤ä¸ªå¸¸ç”¨çš„å±æ€§ï¼š
+locationsï¼šå¯ä»¥é€šè¿‡è¯¥å±æ€§æ‰‹å·¥æŒ‡å®š Spring é…ç½®æ–‡ä»¶æ‰€åœ¨çš„ä½ç½®ï¼Œå¯ä»¥æŒ‡å®šä¸€ä¸ªæˆ–å¤šä¸ª Spring é…ç½®æ–‡ä»¶ã€‚
+inheritLocationsï¼šæ˜¯å¦è¦ç»§æ‰¿çˆ¶æµ‹è¯•ç”¨ä¾‹ç±»ä¸­çš„ Spring é…ç½®æ–‡ä»¶ï¼Œé»˜è®¤ä¸º trueã€‚
 */
 @ContextConfiguration(locations = "classpath:servlet-context.xml")
 /*
-@TransactionConfigurationÊÇÅäÖÃÊÂÎñÇé¿öµÄ×¢½â.
-µÚÒ»¸ö²ÎÊıtransactionManagerÊÇÄãÔÚapplicationContext.xml»òbean.xmlÖĞ¶¨ÒåµÄÊÂÎñ¹ÜÀíÆ÷µÄbeanµÄid;
-µÚ¶ş¸ö²ÎÊıdefaultRollbackÊÇ±íÊ¾²âÊÔÍê³ÉºóÊÂÎñÊÇ·ñ»á¹ö ²ÎÊıÊÇ²¼¶ûĞÍµÄ Ä¬ÈÏ¾ÍÊÇtrue µ«Ç¿ÁÒ½¨ÒéĞ´ÉÏtrue
+@TransactionConfigurationæ˜¯é…ç½®äº‹åŠ¡æƒ…å†µçš„æ³¨è§£.
+ç¬¬ä¸€ä¸ªå‚æ•°transactionManageræ˜¯ä½ åœ¨applicationContext.xmlæˆ–bean.xmlä¸­å®šä¹‰çš„äº‹åŠ¡ç®¡ç†å™¨çš„beançš„id;
+ç¬¬äºŒä¸ªå‚æ•°defaultRollbackæ˜¯è¡¨ç¤ºæµ‹è¯•å®Œæˆåäº‹åŠ¡æ˜¯å¦ä¼šæ»š å‚æ•°æ˜¯å¸ƒå°”å‹çš„ é»˜è®¤å°±æ˜¯true ä½†å¼ºçƒˆå»ºè®®å†™ä¸Štrue
 */
 @TransactionConfiguration(defaultRollback = true)
 @Transactional
@@ -61,4 +59,4 @@ public class StringToPhoneNumberConverterTest {
     }
 
 
-} 
+}
