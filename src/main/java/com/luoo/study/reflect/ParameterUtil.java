@@ -16,6 +16,7 @@ public class ParameterUtil {
         Method[] ms = c.getMethods();
 
         for (int i = 0; i < ms.length; i++) {
+
             String name = ms[i].getName();
 
             if (name.startsWith("set")) {

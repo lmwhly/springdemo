@@ -1,6 +1,5 @@
-package test.com.controller.convert;
+package com.controller.convert;
 
-import com.controller.convert.StringToPhoneNumberConverter;
 import com.model.PhoneNumberModel;
 import org.junit.After;
 import org.junit.Before;
@@ -56,6 +55,20 @@ public class StringToPhoneNumberConverterTest {
 //TODO: Test goes here...
         StringToPhoneNumberConverter contest = new StringToPhoneNumberConverter();
         PhoneNumberModel testmodel = new PhoneNumberModel();
+
+
+        int i = 0;
+
+        if(i!=-1){
+            System.out.println("-----------YouMeek.com-----------值=" +  i+ "," + "当前类=StringToPhoneNumberConverterTest.testConvert()");
+        }
+
+
+
+
+
+
+
     }
 
 

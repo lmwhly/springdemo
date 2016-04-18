@@ -1,7 +1,5 @@
 package com.luoo.study.reflect;
 
-import static java.lang.System.out;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -10,24 +8,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.System.out;
+
 public class GenericParamType {
 
-    // Ğ©¹¦ÄÜÊÇÑİÊ¾µÃµ½·ºĞÍÀàÖĞµÄ²ÎÊı±äÁ¿µÄÀàĞÍ
+    // äº›åŠŸèƒ½æ˜¯æ¼”ç¤ºå¾—åˆ°æ³›å‹ç±»ä¸­çš„å‚æ•°å˜é‡çš„ç±»å‹
     public static void main(String args[]) throws Exception {
-        /* type ÊÇËùÓĞÀàĞÍµÄ¸ß¼¶¹«¹²½Ó¿Ú£¬µ±È»Ò²ÊÇClass¡¡µÄ¸¸Àà
-         * ËüÃÇ°üÀ¨Ô­Ê¼ÀàĞÍ¡¢²ÎÊı»¯ÀàĞÍ¡¢Êı×éÀàĞÍ¡¢ÀàĞÍ±äÁ¿ºÍ»ù±¾ÀàĞÍ¡£
+        /* type æ˜¯æ‰€æœ‰ç±»å‹çš„é«˜çº§å…¬å…±æ¥å£ï¼Œå½“ç„¶ä¹Ÿæ˜¯Classã€€çš„çˆ¶ç±»
+         * å®ƒä»¬åŒ…æ‹¬åŸå§‹ç±»å‹ã€å‚æ•°åŒ–ç±»å‹ã€æ•°ç»„ç±»å‹ã€ç±»å‹å˜é‡å’ŒåŸºæœ¬ç±»å‹ã€‚
 
-          ÏÈÀ´¿´Ò»ÏÂ¡¡Type µÄÓÃ·¨
-          type ÊÇÒ»ÖÖ±íÊ¾±à³ÌÓïÑÔÖĞµÄËùÓĞÀàĞÍµÄÀà³¬¼¶½Ó¿Ú£¬Èç¹û¡¡int Integer String
-          Õâ¶¼ÊÇ±íÊ¾Ò»±à³ÌÓïÑÔµÄÀàĞÍ£¬¶øÆäÖĞµÄ int.class Integer.class String.class ËüÃÇ±íÊ¾µÄÊÇÀàĞÍµÄÊµÀı
-          Èç¹û£¬ÎÒÃÇÇ°ÃæÑ§Ï°µÄ·´Éä Class c = Integer.class Class Ïàµ±ÓÚ±íÊ¾ÀàĞÍµÄÀà,¶øInteger.class ÔòÊÇÒ»ÖÖ
-          ÃûÎªÕûĞÎÀàĞÍµÄÀàĞÍÊµÀı¡¡
-          Àí½âÁËÉÏÃæµÄÄÇĞ©£¬Æä¡¡Àí½â type ¾Í²»ÄÑÁË£¬type Óë class Ò»Ñù£¬²»¹ı type ÊÇÒ»ÖÖ±È¡¡Class ±íÊ¾·¶Î§²»Òª¹ãµÄ
-          ³¬¼¶½Ó¿Ú£¬Ëü±íÊ¾JavaÓïÑÔÖĞÀàĞÍµÄËùÓĞ½Ó¿Ú
+          å…ˆæ¥çœ‹ä¸€ä¸‹ã€€Type çš„ç”¨æ³•
+          type æ˜¯ä¸€ç§è¡¨ç¤ºç¼–ç¨‹è¯­è¨€ä¸­çš„æ‰€æœ‰ç±»å‹çš„ç±»è¶…çº§æ¥å£ï¼Œå¦‚æœã€€int Integer String
+          è¿™éƒ½æ˜¯è¡¨ç¤ºä¸€ç¼–ç¨‹è¯­è¨€çš„ç±»å‹ï¼Œè€Œå…¶ä¸­çš„ int.class Integer.class String.class å®ƒä»¬è¡¨ç¤ºçš„æ˜¯ç±»å‹çš„å®ä¾‹
+          å¦‚æœï¼Œæˆ‘ä»¬å‰é¢å­¦ä¹ çš„åå°„ Class c = Integer.class Class ç›¸å½“äºè¡¨ç¤ºç±»å‹çš„ç±»,è€ŒInteger.class åˆ™æ˜¯ä¸€ç§
+          åä¸ºæ•´å½¢ç±»å‹çš„ç±»å‹å®ä¾‹ã€€
+          ç†è§£äº†ä¸Šé¢çš„é‚£äº›ï¼Œå…¶ã€€ç†è§£ type å°±ä¸éš¾äº†ï¼Œtype ä¸ class ä¸€æ ·ï¼Œä¸è¿‡ type æ˜¯ä¸€ç§æ¯”ã€€Class è¡¨ç¤ºèŒƒå›´ä¸è¦å¹¿çš„
+          è¶…çº§æ¥å£ï¼Œå®ƒè¡¨ç¤ºJavaè¯­è¨€ä¸­ç±»å‹çš„æ‰€æœ‰æ¥å£
         */
 
         //typeTest();
-        //¶ø¶ÔÓÚ¡¡Type£¬ÆäÊµÏÖÁË CenericArrayType ½Ó¿Ú
+        //è€Œå¯¹äºã€€Typeï¼Œå…¶å®ç°äº† CenericArrayType æ¥å£
         List list = new ArrayList<Date>();
         //convert();
         typeVariable(list);
@@ -39,19 +39,19 @@ public class GenericParamType {
 
     public static void applyMethod(List<Date> list) throws Exception {
         Method m = GenericParamType.class.getMethod("applyMethod", List.class);
-        Type[] t1 = m.getParameterTypes();// Æä·µ»ØÊÇ²ÎÊıµÄÀàĞÍ
-        Type[] t2 = m.getGenericParameterTypes();//Æä·µ»ØµÄÊÇ²ÎÊıµÄ²ÎÊı»¯µÄÀàĞÍ,ÀïÃæµÄ´øÓĞÊµ¼ÊµÄ²ÎÊıÀàĞÍ
+        Type[] t1 = m.getParameterTypes();// å…¶è¿”å›æ˜¯å‚æ•°çš„ç±»å‹
+        Type[] t2 = m.getGenericParameterTypes();//å…¶è¿”å›çš„æ˜¯å‚æ•°çš„å‚æ•°åŒ–çš„ç±»å‹,é‡Œé¢çš„å¸¦æœ‰å®é™…çš„å‚æ•°ç±»å‹
         Method m2 = GenericParamType.class.getMethod("main", String[].class);
-        Type[] t3 = m2.getGenericParameterTypes();//²ÎÊıÀïÃæÈç¹û²»ÊÇ²ÎÊı»¯ÀàĞÍµÄ»°£¬ÄÇÃ´ getGenericParameterTypes¾Í·µ»ØÓë getParameterTypes Ò»Ñù¡¡
+        Type[] t3 = m2.getGenericParameterTypes();//å‚æ•°é‡Œé¢å¦‚æœä¸æ˜¯å‚æ•°åŒ–ç±»å‹çš„è¯ï¼Œé‚£ä¹ˆ getGenericParameterTypeså°±è¿”å›ä¸ getParameterTypes ä¸€æ ·ã€€
         Type[] t4 = m2.getParameterTypes();
         out.println(t1[0]);//interface java.util.List
         out.println(t2[0]);//java.util.List<java.util.Date>
-        //ÎÒÃÇÍ¨¹ı¡¡getGenericParameterTypes µÃµ½µÄÊÇ List<Date>£¬ÄÇÃ´ÎÒÃÇÔõÃ´ÄÜµÃµ½ËüµÄ²ÎÊı»¯ÀàĞÍµÄÊµÀıÄØ
-        // type »¹ÓĞºÃ¶à×Ó½Ó¿Ú£¬ÎÒÃÇÍ¨¹ı×Ó½Ó¿ÚÀ´²Ù×÷
+        //æˆ‘ä»¬é€šè¿‡ã€€getGenericParameterTypes å¾—åˆ°çš„æ˜¯ List<Date>ï¼Œé‚£ä¹ˆæˆ‘ä»¬æ€ä¹ˆèƒ½å¾—åˆ°å®ƒçš„å‚æ•°åŒ–ç±»å‹çš„å®ä¾‹å‘¢
+        // type è¿˜æœ‰å¥½å¤šå­æ¥å£ï¼Œæˆ‘ä»¬é€šè¿‡å­æ¥å£æ¥æ“ä½œ
         out.println(t2.getClass());
-        ParameterizedType t = (ParameterizedType) t2[0];//½«ÀàĞÍÏò²ÎÊı»¯ÀàĞÍ×ª»»
+        ParameterizedType t = (ParameterizedType) t2[0];//å°†ç±»å‹å‘å‚æ•°åŒ–ç±»å‹è½¬æ¢
         out.println(t.getClass());
-        out.println(t.getActualTypeArguments()[0]);// ¿ÉÒÔµÃµ½²ÎÊı»¯ÀàĞÍµÄ²ÎÊıÊµÀı
+        out.println(t.getActualTypeArguments()[0]);// å¯ä»¥å¾—åˆ°å‚æ•°åŒ–ç±»å‹çš„å‚æ•°å®ä¾‹
 
     }
 
