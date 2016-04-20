@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
@@ -18,4 +18,53 @@
         <servlet-name>appServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>HelloForm</servlet-name>
+        <servlet-class>com.luoo.study.servlet.HelloForm</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloForm</servlet-name>
+        <url-pattern>/helloForm</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ReadCookie</servlet-name>
+        <servlet-class>com.luoo.study.servlet.ReadCookies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadCookie</servlet-name>
+        <url-pattern>/readCookie</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteCookie</servlet-name>
+        <servlet-class>com.luoo.study.servlet.DeleteCookies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCookie</servlet-name>
+        <url-pattern>/delCookie</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SessionTrack</servlet-name>
+        <servlet-class>com.luoo.study.servlet.SessionTrack</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SessionTrack</servlet-name>
+        <url-pattern>/SessionTrack</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>com.luoo.study.servlet.UploadFile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadFile</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+            D:\apache-tomcat-7.0.53\webapps\data\
+        </param-value>
+    </context-param>
 </web-app>
