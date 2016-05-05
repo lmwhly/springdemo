@@ -8,7 +8,7 @@
     <name>springdemo</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <org.springframework.version>3.2.2.RELEASE</org.springframework.version>
+        <org.springframework.version>3.2.8.RELEASE</org.springframework.version>
     </properties>
 
 
@@ -37,9 +37,6 @@
 
             <version>${org.springframework.version}</version>
 
-            <type>jar</type>
-
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.easymock</groupId>
@@ -74,23 +71,6 @@
 
         <dependency>
 
-            <groupId>c3p0</groupId>
-
-            <artifactId>c3p0</artifactId>
-
-            <version>0.9.1.2</version>
-        </dependency>
-
-        <dependency>
-
-            <groupId>mysql</groupId>
-
-            <artifactId>mysql-connector-java</artifactId>
-
-            <version>5.1.31</version>
-        </dependency>
-        <dependency>
-
             <!--会级联加载：log4j -->
 
             <groupId>org.slf4j</groupId>
@@ -99,14 +79,7 @@
 
             <version>1.6.1</version>
         </dependency>
-        <dependency>
 
-            <groupId>org.apache.poi</groupId>
-
-            <artifactId>poi</artifactId>
-
-            <version>3.9</version>
-        </dependency>
         <dependency>
 
             <groupId>org.apache.poi</groupId>
@@ -160,15 +133,6 @@
 
             <version>1.2</version>
         </dependency>
-        <dependency>
-
-            <groupId>org.glassfish.web</groupId>
-
-            <artifactId>jstl-impl</artifactId>
-
-            <version>1.2</version>
-        </dependency>
-
 
         <dependency>
 
@@ -190,11 +154,7 @@
 
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>3.2.2.RELEASE</version>
-        </dependency>
+
     </dependencies>
     <build>
         <finalName>springdemo</finalName>
