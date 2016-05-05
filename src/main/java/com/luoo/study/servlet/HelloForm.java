@@ -20,10 +20,7 @@ public class HelloForm extends HttpServlet {
     public static void main(String[] args) throws ServletException {
         UploadFile uploadFile = new UploadFile();
         uploadFile.init();
-
-
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
@@ -40,6 +37,7 @@ public class HelloForm extends HttpServlet {
 
         resp.addCookie(firstName);
         resp.addCookie(lastName);
+
 
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
@@ -59,7 +57,6 @@ public class HelloForm extends HttpServlet {
                 + req.getParameter("last_name") + "\n" +
                 "</ul>\n" +
                 "</body></html>");
-
 
     }
 

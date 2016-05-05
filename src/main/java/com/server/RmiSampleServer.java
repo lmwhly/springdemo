@@ -4,7 +4,6 @@ import com.remote.service.impl.RmiSampleImpl;
 
 import java.net.MalformedURLException;
 
-import java.nio.channels.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -21,16 +20,13 @@ public class RmiSampleServer {
             LocateRegistry.createRegistry(8808);
             RmiSampleImpl server = new RmiSampleImpl();
             Naming.rebind("//localhost:8808/SAMPLE-SERVER", server);
-            System.out.println   (" Ô¶³Ì¶ÔÏó×¢²á³É¹¦£¬ RMI ·þÎñÒÑ¾­Æô¶¯£¬µÈ´ý¿Í»§¶Ëµ÷ÓÃ ....");
+            System.out.println   (" Ô¶ï¿½Ì¶ï¿½ï¿½ï¿½×¢ï¿½ï¿½É¹ï¿½ï¿½ï¿½ RMI ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½ ....");
 
 
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }catch(AlreadyBoundException abe){
-            System.out.println (" (AlreadyBound exception:"+ abe .toString());
-
         }
 
     }

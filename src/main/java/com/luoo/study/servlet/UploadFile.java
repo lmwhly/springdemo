@@ -104,4 +104,11 @@ public class UploadFile extends HttpServlet {
         throw new ServletException("GET method used with " + getClass().getName() + ": POST method required.");
 
     }
+
+    public static void main(String[] args) throws ServletException {
+        UploadFile up = new UploadFile();
+        up.init();
+    }
 }
+
+
