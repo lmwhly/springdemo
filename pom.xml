@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.luoo</groupId>
@@ -14,144 +14,78 @@
 
     <dependencies>
         <dependency>
-
             <groupId>org.springframework</groupId>
-
             <artifactId>spring-webmvc</artifactId>
-
             <version>${org.springframework.version}</version>
         </dependency>
+
         <dependency>
-
             <groupId>org.springframework</groupId>
-
             <artifactId>spring-orm</artifactId>
-
             <version>${org.springframework.version}</version>
         </dependency>
-        <dependency>
 
+        <dependency>
             <groupId>org.springframework</groupId>
-
             <artifactId>spring-test</artifactId>
-
             <version>${org.springframework.version}</version>
-
         </dependency>
-        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymock</artifactId>
-            <version>3.4</version>
-        </dependency>
-        <dependency>
 
+
+        <dependency>
             <groupId>org.aspectj</groupId>
-
             <artifactId>aspectjweaver</artifactId>
-
             <version>1.8.2</version>
         </dependency>
+
         <dependency>
-
             <groupId>org.mybatis</groupId>
-
             <artifactId>mybatis</artifactId>
-
             <version>3.2.2</version>
         </dependency>
+
         <dependency>
-
             <groupId>org.mybatis</groupId>
-
             <artifactId>mybatis-spring</artifactId>
-
             <version>1.2.0</version>
         </dependency>
 
-
         <dependency>
-
-            <!--会级联加载：log4j -->
-
             <groupId>org.slf4j</groupId>
-
             <artifactId>slf4j-log4j12</artifactId>
-
             <version>1.6.1</version>
         </dependency>
 
         <dependency>
-
             <groupId>org.apache.poi</groupId>
-
             <artifactId>poi-ooxml</artifactId>
-
             <version>3.9</version>
         </dependency>
 
+
         <dependency>
-
-            <groupId>jfree</groupId>
-
-            <artifactId>jfreechart</artifactId>
-
-            <version>1.0.13</version>
-        </dependency>
-        <dependency>
-
             <groupId>junit</groupId>
-
             <artifactId>junit</artifactId>
-
             <version>4.9</version>
         </dependency>
 
 
         <dependency>
-
             <groupId>commons-fileupload</groupId>
-
             <artifactId>commons-fileupload</artifactId>
-
             <version>1.2.2</version>
         </dependency>
-        <dependency>
-
-            <groupId>commons-io</groupId>
-
-            <artifactId>commons-io</artifactId>
-
-            <version>2.0.1</version>
-        </dependency>
-
 
         <dependency>
-
-            <groupId>javax.servlet.jsp.jstl</groupId>
-
-            <artifactId>jstl-api</artifactId>
-
-            <version>1.2</version>
-        </dependency>
-
-        <dependency>
-
             <groupId>jexcelapi</groupId>
-
             <artifactId>jxl</artifactId>
-
             <version>2.4.2</version>
         </dependency>
 
-
         <dependency>
-
             <groupId>org.apache.tomcat</groupId>
-
             <artifactId>tomcat-servlet-api</artifactId>
-
             <version>7.0.53</version>
-
             <scope>provided</scope>
         </dependency>
 

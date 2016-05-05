@@ -1,8 +1,5 @@
 package com.luoo.study.reflect;
 
-import com.luoo.study.json.bo.Book;
-import org.easymock.EasyMock;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
@@ -34,12 +31,6 @@ public class ParameterUtil {
 
     public static void main(String[] args) {
 
-
-        HttpServletRequest request = EasyMock.createMock(HttpServletRequest.class);
-
-        Book book = new Book();
-
-        ParameterUtil.setFormBean(request,book);
 
     }
 }
