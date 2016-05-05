@@ -1,0 +1,6 @@
+# 忽略springdemo.iml文件
+springdemo.iml
+# 只忽略.idea文件夹,不忽略.idea文件
+.idea/
+# 只忽略target文件夹,不忽略target文件
+target/
