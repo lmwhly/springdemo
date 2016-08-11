@@ -16,10 +16,11 @@ public class MyClient extends absTest {
         MyClient myClient = new MyClient();
 
         myClient.doTest1();
-
         myClient.doTest2();
 
         System.out.println("hello");
+
+
     }
 
     @Override
@@ -29,6 +30,7 @@ public class MyClient extends absTest {
 
     @Override
     public void doTest2() {
+
 
     }
 

@@ -14,4 +14,9 @@ public class TestSVImpl implements ITestSV {
     public void getTestResult() {
         System.out.println("get Test Result");
     }
+
+    @Override
+    public void secondTestResult() {
+
+    }
 }

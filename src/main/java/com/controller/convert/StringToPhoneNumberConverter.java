@@ -13,19 +13,19 @@ public class StringToPhoneNumberConverter implements Converter<String, PhoneNumb
     @Override
     public PhoneNumberModel convert(String source) {
         if (!StringUtils.hasLength(source)) {
-//¢ÙÈç¹ûsourceÎª¿Õ ·µ»Ønull
+//â‘ å¦‚æžœsourceä¸ºç©º è¿”å›žnull
             return null;
         }
         Matcher matcher = pattern.matcher(source);
         if (matcher.matches()) {
-//¢ÚÈç¹ûÆ¥Åä ½øÐÐ×ª»»
+//â‘¡å¦‚æžœåŒ¹é… è¿›è¡Œè½¬æ¢
             PhoneNumberModel phoneNumber = new PhoneNumberModel();
             phoneNumber.setAreaCode(matcher.group(1));
             phoneNumber.setPhoneNumber(matcher.group(2));
             return phoneNumber;
         } else {
-//¢ÛÈç¹û²»Æ¥Åä ×ª»»Ê§°Ü
-            throw new IllegalArgumentException(String.format("ÀàÐÍ×ª»»Ê§°Ü£¬ÐèÒª¸ñÊ½[010 - 12345678]£¬µ«¸ñÊ½ÊÇ[ % s]", source));
+//â‘¢å¦‚æžœä¸åŒ¹é… è½¬æ¢å¤±è´¥
+            throw new IllegalArgumentException(String.format("ç±»åž‹è½¬æ¢å¤±è´¥ï¼Œéœ€è¦æ ¼å¼[010 - 12345678]ï¼Œä½†æ ¼å¼æ˜¯[ % s]", source));
         }
     }
 }

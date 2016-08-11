@@ -10,6 +10,12 @@ import com.luoo.study.keymap.interfaces.ITestSV;
  */
 
 public abstract class absTest implements ITestSV{
+    @Override
+    public void secondTestResult() {
+//
+
+    }
+
     public void doTest1() {
         System.out.println("do test1");
     }

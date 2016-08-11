@@ -7,5 +7,7 @@ public interface ITestSV {
 
     void getTestResult();
 
+    void secondTestResult();
+
 
 }
