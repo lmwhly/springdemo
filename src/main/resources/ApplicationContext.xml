@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <!--1定义一个jdbc数据源，创建一个驱动管理数据源的bean -->
+    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+        <property name="username" value="luoo"/>
+        <property name="password" value="admin"/>
+    </bean>
+    <!--&lt;!&ndash;2创建一个sql会话工厂bean，指定数据源&ndash;&gt;
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="jdbcDataSource"/>&lt;!&ndash; 指定数据源 &ndash;&gt;
+        <property name="configLocation" value="classpath:MyBatisCfg.xml"></property>&lt;!&ndash; 指定配置文件 &ndash;&gt;
+    </bean>
+    &lt;!&ndash;3创建一个booTypeDAO&ndash;&gt;
+    <bean id="bookTypeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        &lt;!&ndash;指定映射文件 &ndash;&gt;
+        <property name="mapperInterface" value="com.luoo.study.Spring061.mapping.BookTypeDAO"></property>
+        &lt;!&ndash; 指定sql会话工厂&ndash;&gt;
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>-->
+
+
+    <!--创建一个sql会话工厂bean，指定数据源 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 1指定数据源 -->
+        <property name="dataSource" ref="jdbcDataSource"/>
+        <!-- 2类型别名包，默认引入com.zhangguo.Spring61.entities下的所有类 -->
+        <property name="typeAliasesPackage" value="com.luoo.study.Spring061.entities"></property>
+        <!-- 3指定sql映射xml文件的路径 -->
+        <property name="mapperLocations" value="classpath:com/luoo/study/Spring061/mapping/*Mapper.xml"></property>
+    </bean>
+
+
+    <!--下面的配置暂时未使用 -->
+    <context:component-scan base-package="com.luoo.study.Spring061"></context:component-scan>
+    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+</beans>
