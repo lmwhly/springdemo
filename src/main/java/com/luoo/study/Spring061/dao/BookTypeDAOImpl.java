@@ -29,4 +29,9 @@ public class BookTypeDAOImpl implements BookTypeDAO {
         }
     }
 
+    @Override
+    public int add(BookType entity) {
+        return 0;
+    }
+
 }

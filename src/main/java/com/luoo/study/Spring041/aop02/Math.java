@@ -1,13 +1,10 @@
 package com.luoo.study.Spring041.aop02;
 
-import org.springframework.stereotype.Service;
-
 /**
  * @author Luoo
  * @create 2016-08-11 16:29
  */
 
-@Service
 public class Math {
     //加
     public int add(int n1, int n2) {

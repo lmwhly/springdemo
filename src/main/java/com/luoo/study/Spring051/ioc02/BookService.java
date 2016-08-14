@@ -2,7 +2,6 @@ package com.luoo.study.Spring051.ioc02;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Luoo
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 /**
  * 图书业务类
  */
-@Component
 public class BookService {
    IBookDAO bookDAO;
 

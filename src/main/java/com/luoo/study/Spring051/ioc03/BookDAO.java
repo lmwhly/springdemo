@@ -5,12 +5,9 @@ package com.luoo.study.Spring051.ioc03;
  * @create 2016-08-11 9:28
  */
 
-import org.springframework.stereotype.Repository;
-
 /**
  * 图书数据访问实现类
  */
-@Repository
 public class BookDAO implements IBookDAO {
     @Override
     public String addBook(String bookname) {

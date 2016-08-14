@@ -1,7 +1,6 @@
 package com.luoo.study.Spring051.ioc03;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Luoo
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 /**
  * 图书业务类
  */
-@Service
 public class BookService {
     @Autowired
     IBookDAO bookDAO;

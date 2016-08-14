@@ -3,17 +3,13 @@ package com.luoo.study.Spring041.aop02;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Luoo
  * @create 2016-08-11 17:47
  */
 
-@Component
-@Aspect
 public class Advices {
     //前置通知
     @Before("execution(* com.luoo.study.Spring041.aop02.Math.*(..))")

@@ -16,4 +16,8 @@ public interface BookTypeDAO {
      */
     public List<BookType> getAllBookTypes();
 
+    /**
+     * 添加新的图书类型
+     */public int add(BookType entity);
+
 }
