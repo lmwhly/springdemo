@@ -9,8 +9,8 @@
 
 <script src="${ctxStatic}/jquery/jquery-1.12.0.min.js" type="text/javascript"></script>
 
-
-<script src="${ctxStatic}/bootstrap/3.3.5/bootstrap.min.js" type="text/javascript"></script>
+<link href="${ctxStatic}/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="${ctxStatic}/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
 
 <link href="${ctxStatic}/jquery-select2/3.4/select2.min.css" rel="stylesheet"/>
 <script src="${ctxStatic}/jquery-select2/3.4/select2.min.js" type="text/javascript"></script>
