@@ -3,10 +3,10 @@
  */
 package com.luoo.mywork.modules.sys.service;
 
-import com.thinkgem.jeesite.common.service.TreeService;
-import com.thinkgem.jeesite.modules.sys.dao.OfficeDao;
-import com.thinkgem.jeesite.modules.sys.entity.Office;
-import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+import com.luoo.mywork.common.service.TreeService;
+import com.luoo.mywork.modules.sys.dao.OfficeDao;
+import com.luoo.mywork.modules.sys.entity.Office;
+import com.luoo.mywork.modules.sys.utils.UserUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

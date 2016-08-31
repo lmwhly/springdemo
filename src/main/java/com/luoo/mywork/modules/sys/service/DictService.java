@@ -3,11 +3,11 @@
  */
 package com.luoo.mywork.modules.sys.service;
 
-import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.common.utils.CacheUtils;
-import com.thinkgem.jeesite.modules.sys.dao.DictDao;
-import com.thinkgem.jeesite.modules.sys.entity.Dict;
-import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+import com.luoo.mywork.common.service.CrudService;
+import com.luoo.mywork.common.utils.CacheUtils;
+import com.luoo.mywork.modules.sys.dao.DictDao;
+import com.luoo.mywork.modules.sys.entity.Dict;
+import com.luoo.mywork.modules.sys.utils.DictUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

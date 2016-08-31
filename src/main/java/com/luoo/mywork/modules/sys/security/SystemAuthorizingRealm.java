@@ -4,13 +4,17 @@
 package com.luoo.mywork.modules.sys.security;
 
 import com.luoo.mywork.common.config.Global;
+import com.luoo.mywork.common.servlet.ValidateCodeServlet;
 import com.luoo.mywork.common.utils.Encodes;
 import com.luoo.mywork.common.utils.SpringContextHolder;
 import com.luoo.mywork.common.web.Servlets;
+import com.luoo.mywork.modules.sys.entity.Menu;
+import com.luoo.mywork.modules.sys.entity.Role;
 import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.service.SystemService;
 import com.luoo.mywork.modules.sys.utils.LogUtils;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
+import com.luoo.mywork.modules.sys.web.LoginController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

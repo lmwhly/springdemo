@@ -132,6 +132,16 @@ public abstract class BaseController {
 		}
 		redirectAttributes.addFlashAttribute("message", sb.toString());
 	}
+
+	/**
+	 * 客户端返回JSON字符串
+	 * @param response
+	 * @param object
+	 * @return
+	 */
+	protected String renderString(HttpServletResponse response, Object object) {
+		return renderString(response, "", "application/json");
+	}
 	
 	/**
 	 * 客户端返回字符串

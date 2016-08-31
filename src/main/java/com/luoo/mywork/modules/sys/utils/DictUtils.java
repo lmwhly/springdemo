@@ -79,6 +79,14 @@ public class DictUtils {
 		}
 		return dictList;
 	}
-	
 
+	/**
+	 * 返回字典列表（JSON）
+	 * @param type
+	 * @return
+	 */
+	public static String getDictListJson(String type){
+//		return JsonMapper.toJsonString(getDictList(type));
+		return "";
+	}
 }
