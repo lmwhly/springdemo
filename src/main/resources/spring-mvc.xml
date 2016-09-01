@@ -9,7 +9,7 @@
     <description>Spring MVC Configuration</description>
 
     <!-- 加载配置属性文件 -->
-    <context:property-placeholder ignore-unresolvable="true" location="classpath:jeesite.properties"/>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:luoo.properties"/>
 
     <!-- 使用Annotation自动注册Bean,只扫描@Controller -->
     <context:component-scan base-package="com.luoo.mywork" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
@@ -32,9 +32,7 @@
             <!-- 将Jackson2HttpMessageConverter的默认格式化输出为false -->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="supportedMediaTypes">
-                    <list>
-                        <value>application/json;charset=UTF-8</value>
-                    </list>
+                    <list><value>application/json;charset=UTF-8</value></list>
                 </property>
                 <property name="prettyPrint" value="false"/>
                 <property name="objectMapper">
@@ -51,9 +49,6 @@
                         <property name="annotatedClasses">
                             <list>
                                 <value>com.luoo.mywork.common.persistence.BaseEntity</value>
-                                <value>com.luoo.mywork.common.supcan.treelist.TreeList</value>
-                                <value>com.luoo.mywork.common.supcan.treelist.cols.Col</value>
-                                <value>com.luoo.mywork.common.supcan.treelist.cols.Group</value>
                             </list>
                         </property>
                     </bean>
@@ -101,11 +96,7 @@
             <mvc:exclude-mapping path="${adminPath}/oa/oaNotify/self/count"/>
             <bean class="com.luoo.mywork.modules.sys.interceptor.LogInterceptor"/>
         </mvc:interceptor>
-        <!-- 手机视图拦截器 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.luoo.mywork.modules.sys.interceptor.MobileInterceptor"/>
-        </mvc:interceptor>
+
     </mvc:interceptors>
 
     <!-- 支持Shiro对Controller的方法级AOP安全控制 begin-->

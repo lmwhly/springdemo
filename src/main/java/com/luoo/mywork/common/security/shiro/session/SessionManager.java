@@ -1,7 +1,7 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
  */
-package com.luoo.mywork.common.security.session;
+package com.luoo.mywork.common.security.shiro.session;
 
 import com.luoo.mywork.common.utils.StringUtils;
 import org.apache.shiro.session.InvalidSessionException;

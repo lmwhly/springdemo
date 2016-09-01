@@ -1,4 +1,4 @@
-package com.luoo.mywork.common.security.session;
+package com.luoo.mywork.common.security.shiro.session;
 
 import org.apache.shiro.session.Session;
 

@@ -1,11 +1,11 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.sys.web;
 
 import com.google.common.collect.Maps;
 import com.luoo.mywork.common.config.Global;
-import com.luoo.mywork.common.security.session.SessionDAO;
+import com.luoo.mywork.common.security.shiro.session.SessionDAO;
 import com.luoo.mywork.common.servlet.ValidateCodeServlet;
 import com.luoo.mywork.common.utils.CacheUtils;
 import com.luoo.mywork.common.utils.CookieUtils;
@@ -167,8 +167,8 @@ public class LoginController extends BaseController {
 
 //		System.out.println("==========================a");
 //		try {
-//			byte[] bytes = com.thinkgem.jeesite.common.utils.FileUtils.readFileToByteArray(
-//					com.thinkgem.jeesite.common.utils.FileUtils.getFile("c:\\sxt.dmp"));
+//			byte[] bytes = com.luoo.mywork.common.utils.FileUtils.readFileToByteArray(
+//					com.luoo.mywork.common.utils.FileUtils.getFile("c:\\sxt.dmp"));
 //			UserUtils.getSession().setAttribute("kkk", bytes);
 //			UserUtils.getSession().setAttribute("kkk2", bytes);
 //		} catch (Exception e) {
