@@ -100,8 +100,7 @@
                     validateCode: {remote: "${pageContext.request.contextPath}/servlet/validateCodeServlet"}
                 },
                 messages: {
-                    username: {required: "请填写用户名."},
-                    password: {required: "请填写密码."},
+                    username: {required: "请填写用户名."}, password: {required: "请填写密码."},
                     validateCode: {remote: "验证码不正确.", required: "请填写验证码."}
                 },
                 errorLabelContainer: "#messageBox",
@@ -118,6 +117,7 @@
     </script>
 </head>
 <body>
+
 <div class="header">
     <div id="messageBox" class="alert alert-error ${empty message ? 'hide' : ''}">
         <button data-dismiss="alert" class="close">×</button>
@@ -126,7 +126,7 @@
 </div>
 <h1 class="form-signin-heading">${fns:getConfig('productName')}</h1>
 <form id="loginForm" class="form-signin" action="${ctx}/login" method="post">
-    <label class="input-label" for="username">登录名</label>
+    <label class="input-label" for="username">登录</label>
     <input type="text" id="username" name="username" class="input-block-level required" value="${username}">
     <label class="input-label" for="password">密码</label>
     <input type="password" id="password" name="password" class="input-block-level required">
@@ -139,27 +139,13 @@
     <input class="btn btn-large btn-primary" type="submit" value="登 录"/>&nbsp;&nbsp;
     <label for="rememberMe" title="下次不需要再登录">
         <input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''}/>
-        记住我（公共场所慎用）
-    </label>
-    <div id="themeSwitch" class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown"
-           href="#">${fns:getDictLabel(cookie.theme.value,'theme','默认主题')}<b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <c:forEach items="${fns:getDictList('theme')}" var="dict">
-                <li><a href="#"
-                       onclick="location='${pageContext.request.contextPath}/theme/${dict.value}?url='+location.href">${dict.label}</a>
-                </li>
-            </c:forEach>
-        </ul>
-
-    </div>
+        记住我（公共场所慎用）</label>
 </form>
 <div class="footer">
-    Copyright &copy; 2012-${fns:getConfig('copyrightYear')}
-    <a href="${pageContext.request.contextPath}${fns:getFrontPath()}">${fns:getConfig('productName')}</a>
-    - Powered By
-    <a href="http://jeesite.com" target="_blank">JeeSite</a>
-    ${fns:getConfig('version')}
+    Copyright &copy; 2012-${fns:getConfig('copyrightYear')} <a
+        href="${pageContext.request.contextPath}${fns:getFrontPath()}">${fns:getConfig('productName')}</a> - Powered By
+    <a href="http://jeesite.com" target="_blank">JeeSite</a> ${fns:getConfig('version')}
 </div>
+<script src="${ctxStatic}/flash/zoom.min.js" type="text/javascript"></script>
 </body>
 </html>
