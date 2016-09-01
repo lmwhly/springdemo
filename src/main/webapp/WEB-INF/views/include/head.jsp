@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="no-store">
 
 
-<script src="${ctxStatic}/jquery/jquery-1.12.0.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
 
 <link href="${ctxStatic}/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="${ctxStatic}/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
