@@ -154,18 +154,7 @@ function promptx(title, lable, href, closed){
 	return false;
 }
 
-// 添加TAB页面
-function addTabPage(title, url, closeable, $this, refresh){
-	top.$.fn.jerichoTab.addTab({
-        tabFirer: $this,
-        title: title,
-        closeable: closeable == undefined,
-        data: {
-            dataType: 'iframe',
-            dataLink: url
-        }
-    }).loadData(refresh != undefined);
-}
+
 
 // cookie操作
 function cookie(name, value, options) {

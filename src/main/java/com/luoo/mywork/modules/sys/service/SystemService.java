@@ -22,8 +22,6 @@ import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.security.SystemAuthorizingRealm;
 import com.luoo.mywork.modules.sys.utils.LogUtils;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.identity.Group;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -389,7 +386,7 @@ public class SystemService extends BaseService implements InitializingBean {
 	public static boolean printKeyLoadMessage(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("\r\n======================================================================\r\n");
-		sb.append("\r\n    欢迎使用 "+ Global.getConfig("productName")+"  - Powered By http://jeesite.com\r\n");
+		sb.append("\r\n    欢迎使用 "+ Global.getConfig("productName")+"  - Powered By http://luoo.com\r\n");
 		sb.append("\r\n======================================================================\r\n");
 		System.out.println(sb.toString());
 		return true;
@@ -400,10 +397,5 @@ public class SystemService extends BaseService implements InitializingBean {
 
 	}
 
-	///////////////// Synchronized to the Activiti //////////////////
-	
-	// 已废弃，同步见：ActGroupEntityServiceFactory.java、ActUserEntityServiceFactory.java
 
-	///////////////// Synchronized to the Activiti end //////////////////
-	
 }
