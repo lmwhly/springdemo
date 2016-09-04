@@ -5,7 +5,11 @@
 <head>
     <title>${fns:getConfig('productName')}</title>
     <meta name="decorator" content="blank"/>
-
+    <c:set var="tabmode" value="${empty cookie.tabmode.value ? '0' : cookie.tabmode.value}"/>
+    <c:if test="${tabmode eq '1'}">
+        <link rel="Stylesheet" href="${ctxStatic}/jerichotab/css/jquery.jerichotab.css"/>
+        <script type="text/javascript" src="${ctxStatic}/jerichotab/js/jquery.jerichotab.js"></script>
+    </c:if>
     <style type="text/css">
         #main {
             padding: 0;
@@ -50,6 +54,14 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            // <c:if test="${tabmode eq '1'}"> 初始化页签
+            $.fn.initJerichoTab({
+                renderTo: '#right', uniqueId: 'jerichotab',
+                contentCss: {'height': $('#right').height() - tabTitleHeight},
+                tabs: [], loadOnce: true, tabWidth: 110, titleHeight: tabTitleHeight
+            });
+            //</c:if>
+
             // 绑定菜单单击事件
             $("#menu a.menu").click(function () {
                 // 一级菜单焦点
@@ -59,6 +71,11 @@
                 if ($(this).attr("target") == "mainFrame") {
                     $("#left,#openClose").hide();
                     wSizeWidth();
+
+                    // <c:if test="${tabmode eq '1'}"> 隐藏页签
+                    $(".jericho_tab").hide();
+                    $("#mainFrame").show();//</c:if>
+
                     return true;
                 }
                 // 左侧区域显示
@@ -119,6 +136,9 @@
                                 return false;
                             }
 
+                            // <c:if test="${tabmode eq '1'}"> 打开显示页签
+                            return addTab($(this)); // </c:if>
+
                         });
                         // 默认选中第一个菜单
                         $(menuId + " .panel-collapse a:first span").click();
@@ -131,6 +151,11 @@
             });
             // 初始化点击第一个一级菜单
             $("#menu a.menu:first span").click();
+
+            // <c:if test="${tabmode eq '1'}"> 下拉菜单以选项卡方式打开
+            $("#userInfo .dropdown-menu a").mouseup(function () {
+                return addTab($(this), true);
+            });// </c:if>
 
             // 鼠标移动到边界自动弹出左侧菜单
             $("#openClose").mouseover(function () {
@@ -155,6 +180,23 @@
             setInterval(getNotifyNum, ${oaNotifyRemindInterval});
             //</c:if>
         });
+
+
+        // <c:if test="${tabmode eq '1'}"> 添加一个页签
+        function addTab($this, refresh) {
+            $(".jericho_tab").show();
+            $("#mainFrame").hide();
+            $.fn.jerichoTab.addTab({
+                tabFirer: $this,
+                title: $this.text(),
+                closeable: true,
+                data: {
+                    dataType: 'iframe',
+                    dataLink: $this.attr('href')
+                }
+            }).loadData(refresh);
+            return false;
+        }// </c:if>
 
     </script>
 </head>
@@ -187,6 +229,19 @@
 
             <ul id="userControl" class="nav navbar-nav navbar-right">
                 <li><a href="#" target="_blank" title="访问网站主页"><span class="glyphicon glyphicon-home"></span></a></li>
+
+
+                <li id="themeSwitch" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="页签模式">
+                        <span class="glyphicon glyphicon-th-large"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:cookie('tabmode','${tabmode eq '1' ? '0' : '1'}');location=location.href">${tabmode eq '1' ? '关闭' : '开启'}页签模式</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li id="userInfo" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="个人信息">您好, ${fns:getUser().name}&nbsp;<span id="notifyNum" class="label label-info hide"></span></a>
                     <ul class="dropdown-menu">

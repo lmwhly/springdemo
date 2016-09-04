@@ -21,7 +21,7 @@
         .form-signin {
             position: relative;
             text-align: left;
-            width: 280px;
+            width: 290px;
             padding: 25px 29px 29px;
             margin: 0 auto 20px;
             background-color: #fff;
@@ -31,8 +31,9 @@
             border-radius: 5px;
             -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
             -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            box-shadow: 0px 1px 2px rgba(0,0,0,0.05);
         }
+
 
         .form-signin .checkbox {
             margin-bottom: 10px;
