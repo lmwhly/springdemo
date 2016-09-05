@@ -55,28 +55,28 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 	public String getMobileLoginParam() {
 		return mobileLoginParam;
 	}
-	
+
 	protected boolean isMobileLogin(ServletRequest request) {
-        return WebUtils.isTrue(request, getMobileLoginParam());
-    }
-	
+		return WebUtils.isTrue(request, getMobileLoginParam());
+	}
+
 	public String getMessageParam() {
 		return messageParam;
 	}
-	
+
 	/**
 	 * 登录成功之后跳转URL
 	 */
 	public String getSuccessUrl() {
 		return super.getSuccessUrl();
 	}
-	
+
 	@Override
 	protected void issueSuccessRedirect(ServletRequest request,
-			ServletResponse response) throws Exception {
+										ServletResponse response) throws Exception {
 //		Principal p = UserUtils.getPrincipal();
 //		if (p != null && !p.isMobileLogin()){
-			 WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+		WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
 //		}else{
 //			super.issueSuccessRedirect(request, response);
 //		}
@@ -87,7 +87,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 	 */
 	@Override
 	protected boolean onLoginFailure(AuthenticationToken token,
-			AuthenticationException e, ServletRequest request, ServletResponse response) {
+									 AuthenticationException e, ServletRequest request, ServletResponse response) {
 		String className = e.getClass().getName(), message = "";
 		if (IncorrectCredentialsException.class.getName().equals(className)
 				|| UnknownAccountException.class.getName().equals(className)){
@@ -100,9 +100,9 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 			message = "系统出现点问题，请稍后再试！";
 			e.printStackTrace(); // 输出到控制台
 		}
-        request.setAttribute(getFailureKeyAttribute(), className);
-        request.setAttribute(getMessageParam(), message);
-        return true;
+		request.setAttribute(getFailureKeyAttribute(), className);
+		request.setAttribute(getMessageParam(), message);
+		return true;
 	}
-	
+
 }

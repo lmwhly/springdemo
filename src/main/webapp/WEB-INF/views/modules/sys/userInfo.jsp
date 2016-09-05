@@ -18,6 +18,9 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
+
+//            layer.msg('更新失败！');
+
             $("#inputForm").validate({
                 submitHandler: function (form) {
                     loading('正在提交，请稍等...');
@@ -44,82 +47,83 @@
 <br/>
 <form:form id="inputForm" modelAttribute="user" action="${ctx}/sys/user/info" method="post" class="form-horizontal">
     <sys:message content="${message}"/>
-    <div class="form-group">
-        <label class="col-md-1 control-label">头像:</label>
-        <div class="col-md-4">
-            <form:hidden id="nameImage" path="photo" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-                <%--<sys:ckfinder input="nameImage" type="images" uploadPath="/photo" selectMultiple="false" maxWidth="100" maxHeight="100"/>--%>
+        <div class="form-group">
+            <label class="col-md-1 control-label">头像:</label>
+            <div class="col-md-5">
+                <form:hidden id="nameImage" path="photo" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+                    <%--&lt;%&ndash;<sys:ckfinder input="nameImage" type="images" uploadPath="/photo" selectMultiple="false" maxWidth="100" maxHeight="100"/>&ndash;%&gt;--%>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">归属公司:</label>
-        <div class="col-md-4">
-            <label class="form-control">${user.company.name}</label>
+        <div class="form-group">
+            <label class="col-md-1 control-label">归属公司:</label>
+            <div class="col-md-5">
+                <label class="form-control">${user.company.name}</label>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">归属部门:</label>
-        <div class="col-md-4">
-            <label class="form-control">${user.office.name}</label>
+        <div class="form-group">
+            <label class="col-md-1 control-label">归属部门:</label>
+            <div class="col-md-5">
+                <label class="form-control">${user.office.name}</label>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">姓名:</label>
-        <div class="col-md-4">
-            <form:input path="name" htmlEscape="false" maxlength="50" class="form-control required" readonly="true"/>
+        <div class="form-group">
+            <label class="col-md-1 control-label">姓名:</label>
+            <div class="col-md-5">
+                <form:input path="name" htmlEscape="false" maxlength="50" class="form-control required" readonly="true"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">邮箱:</label>
-        <div class="col-md-4">
-            <form:input path="email" htmlEscape="false" maxlength="50" class="form-control email"/>
+        <div class="form-group">
+            <label class="col-md-1 control-label">邮箱:</label>
+            <div class="col-md-5">
+                <form:input path="email" htmlEscape="false" maxlength="50" class="form-control email"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">电话:</label>
-        <div class="col-md-4">
-            <form:input path="phone" htmlEscape="false" maxlength="50" class="form-control"/>
+        <div class="form-group">
+            <label class="col-md-1 control-label">电话:</label>
+            <div class="col-md-5">
+                <form:input path="phone" htmlEscape="false" maxlength="50" class="form-control"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">手机:</label>
-        <div class="col-md-4">
-            <form:input path="mobile" htmlEscape="false" maxlength="50" class="form-control"/>
+        <div class="form-group">
+            <label class="col-md-1 control-label">手机:</label>
+            <div class="col-md-5">
+                <form:input path="mobile" htmlEscape="false" maxlength="50" class="form-control"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">备注:</label>
-        <div class="col-md-4">
-            <form:textarea path="remarks" htmlEscape="false" rows="3" maxlength="200"
-                           class="form-control input-xlarge"/>
+        <div class="form-group">
+            <label class="col-md-1 control-label">备注:</label>
+            <div class="col-md-5">
+                <form:textarea path="remarks" htmlEscape="false" rows="3" maxlength="200"
+                               class="form-control input-xlarge"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">用户类型:</label>
-        <div class="col-md-4">
-            <label class="form-control">${fns:getDictLabel(user.userType, 'sys_user_type', '无')}</label>
+        <div class="form-group">
+            <label class="col-md-1 control-label">用户类型:</label>
+            <div class="col-md-5">
+                <label class="form-control">${fns:getDictLabel(user.userType, 'sys_user_type', '无')}</label>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">用户角色:</label>
-        <div class="col-md-4">
-            <label class="form-control">${user.roleNames}</label>
+        <div class="form-group">
+            <label class="col-md-1 control-label">用户角色:</label>
+            <div class="col-md-5">
+                <label class="form-control">${user.roleNames}</label>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">上次登录:</label>
-        <div class="col-md-4">
-            <label class="form-control">IP: ${user.oldLoginIp}&nbsp;&nbsp;&nbsp;&nbsp;时间：<fmt:formatDate
-                    value="${user.oldLoginDate}" type="both" dateStyle="full"/></label>
+        <div class="form-group">
+            <label class="col-md-1 control-label">上次登录:</label>
+            <div class="col-md-5">
+                <label class="form-control">IP: ${user.oldLoginIp}&nbsp;&nbsp;&nbsp;&nbsp;时间：<fmt:formatDate
+                        value="${user.oldLoginDate}" type="both" dateStyle="full"/></label>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2">
-            <input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>
+        <div class="form-group">
+            <div class="col-sm-offset-2">
+                <input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>
+            </div>
         </div>
-    </div>
 
 </form:form>
 </body>
 </html>
+
