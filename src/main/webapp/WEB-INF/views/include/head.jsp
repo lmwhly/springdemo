@@ -15,6 +15,15 @@
 <script src="${ctxStatic}/jquery-jbox/2.3/jquery.jBox-2.3.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/layer-v2.4/layer/layer.js" type="text/javascript"></script>
 <script src="${ctxStatic}/common/mustache.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/bootstrap-datetimepicker/moment/moment-with-locales.js" type="text/javascript"></script>
+<link href="${ctxStatic}/bootstrap-datetimepicker/eonasdan/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="${ctxStatic}/bootstrap-datetimepicker/eonasdan/build/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/bootstrap-fileinput/kartik-v/js/fileinput.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/bootstrap-fileinput/kartik-v/js/locales/zh.js" type="text/javascript"></script>
+<link href="${ctxStatic}/bootstrap-fileinput/kartik-v/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+
+
+
 <link href="${ctxStatic}/common/mywork.css" type="text/css" rel="stylesheet"/>
 <script src="${ctxStatic}/common/mywork.js" type="text/javascript"></script>
 <script type="text/javascript">var ctx = '${ctx}', ctxStatic = '${ctxStatic}';</script>

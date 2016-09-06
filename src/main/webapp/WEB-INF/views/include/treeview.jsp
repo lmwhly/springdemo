@@ -1,2 +1,2 @@
-<link href="${ctxStatic}/jquery-ztree/3.5.12/css/zTreeStyle/zTreeStyle.min.css" rel="stylesheet" type="text/css"/>
-<script src="${ctxStatic}/jquery-ztree/3.5.12/js/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="${ctxStatic}/jquery-ztree/zTree_v3/css/metroStyle/metroStyle.css" type="text/css">
+<script type="text/javascript" src="${ctxStatic}/jquery-ztree/zTree_v3/js/jquery.ztree.all.min.js"></script>
