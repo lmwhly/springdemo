@@ -20,7 +20,7 @@
 <script src="${ctxStatic}/bootstrap-datetimepicker/eonasdan/build/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/bootstrap-fileinput/kartik-v/js/fileinput.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/bootstrap-fileinput/kartik-v/js/locales/zh.js" type="text/javascript"></script>
-<link href="${ctxStatic}/bootstrap-fileinput/kartik-v/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<link href="${ctxStatic}/bootstrap-fileinput/kartik-v/css/fileinput.css"  rel="stylesheet" type="text/css" />
 
 
 
