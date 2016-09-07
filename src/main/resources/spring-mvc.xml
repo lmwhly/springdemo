@@ -29,6 +29,13 @@
                     </list>
                 </property>
             </bean>
+
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.github.miemiedev.mybatis.paginator.jackson2.PageListJsonMapper"/>
+                </property>
+            </bean>
+
             <!-- 将Jackson2HttpMessageConverter的默认格式化输出为false -->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="supportedMediaTypes">

@@ -13,6 +13,7 @@ import com.luoo.mywork.common.utils.excel.annotation.ExcelField;
 import com.luoo.mywork.common.utils.excel.fieldtype.RoleListType;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class User extends DataEntity<User> {
 	private Date loginDate;	// 最后登陆日期
 	private String loginFlag;	// 是否允许登陆
 	private String photo;	// 头像
+	private MultipartFile imgFile;	//头像文件
 
 	private String oldLoginName;// 原登录名
 	private String newPassword;	// 新密码
@@ -50,6 +52,17 @@ public class User extends DataEntity<User> {
 	private Role role;	// 根据角色查询用户条件
 	
 	private List<Role> roleList = Lists.newArrayList(); // 拥有角色列表
+
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
+	private String page;
 
 	public User() {
 		super();
@@ -317,4 +330,23 @@ public class User extends DataEntity<User> {
 	public String toString() {
 		return id;
 	}
+
+	public MultipartFile getImgFile() {
+		return imgFile;
+	}
+
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
+	}
+
+	/*public boolean validateFile() throws ServiceException{
+		if(!ConstantUtil.fileTypeImg.contains(this.getImgFile().getContentType())){
+			throw new ServiceException("文件类型只能是jpeg、png！");
+		}
+		if(this.getImgFile().getSize() > 1000 * 100){
+			throw new ServiceException("文件最大不能超过100KB！");
+		}
+		return true;
+	}*/
+
 }

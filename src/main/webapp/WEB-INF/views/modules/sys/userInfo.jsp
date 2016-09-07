@@ -15,35 +15,25 @@
         }
 
 
-
-
     </style>
     <script type="text/javascript">
-        projectfileoptions : {
-            showUpload : false,
-                    showRemove : false,
-                    language : 'zh',
-                    allowedPreviewTypes : [ 'image' ],
-                    allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
-                    maxFileSize : 2000
-        }
-
-
-
 
         $(document).ready(function () {
 
+            projectfileoptions = {
+                showUpload: false,
+                showRemove: true,
+                language: 'zh',
+                allowedPreviewTypes: ['image'],
+                allowedFileExtensions: ['jpg', 'png', 'gif'],
+                maxFileSize: 2000
+            }
 
-            // 文件上传框
             $('input[class=projectfile]').each(function () {
                 var imageurl = $(this).attr("value");
-
                 if (imageurl) {
-                    var op = $.extend({
-                        initialPreview: [ // 预览图片的设置
-                            "<img src='" + imageurl + "' class='file-preview-image'>",]
-                    }, projectfileoptions);
-
+                    var op = $.extend({ initialPreview: [ // 预览图片的设置
+                            "<img src='" + imageurl + "' class='file-preview-image'>"] }, projectfileoptions);
                     $(this).fileinput(op);
                 } else {
                     $(this).fileinput(projectfileoptions);
@@ -56,28 +46,6 @@
                 locale: 'zh-CN',     //中文化
                 showClear: true
             });
-
-
-            /*  $("#imgUpload")
-             .fileinput({
-             language: 'zh',
-             uploadUrl: "/Product/imgDeal",
-             autoReplace: true,
-             maxFileCount: 1,
-             allowedFileExtensions: ["jpg", "png", "gif"],
-             browseClass: "btn btn-primary", //按钮样式
-             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
-             })
-             .on("fileuploaded", function (e, data) {
-             var res = data.response;
-             if (res.state > 0) {
-             alert('上传成功');
-             alert(res.path);
-             }
-             else {
-             alert('上传失败')
-             }
-             })*/
 
 
 //            layer.msg('更新失败！');
@@ -99,90 +67,6 @@
             });
 
 
-            function iframeCallback(form, callback) {
-                YUNM.debug("带文件上传处理");
-
-                var $form = $(form), $iframe = $("#callbackframe");
-
-                var data = $form.data('bootstrapValidator');
-                if (data) {
-                    if (!data.isValid()) {
-                        return false;
-                    }
-                }
-
-                // 富文本编辑器
-                $("div.summernote", $form).each(function () {
-                    var $this = $(this);
-
-                    if (!$this.summernote('isEmpty')) {
-                        var editor = "<input type='hidden' name='" + $this.attr("name") + "' value='" + $this.summernote('code') + "' />";
-                        $form.append(editor);
-                    } else {
-                        $.showErr("请填写项目详情");
-                        return false;
-                    }
-
-                });
-
-                if ($iframe.size() == 0) {
-                    $iframe = $("<iframe id='callbackframe' name='callbackframe' src='about:blank' style='display:none'></iframe>").appendTo("body");
-                }
-                if (!form.ajax) {
-                    $form.append('<input type="hidden" name="ajax" value="1" />');
-                }
-                form.target = "callbackframe";
-
-                _iframeResponse($iframe[0], callback || YUNM.ajaxDone);
-            }
-
-
-            function _iframeResponse(iframe, callback) {
-                var $iframe = $(iframe), $document = $(document);
-
-                $document.trigger("ajaxStart");
-
-                $iframe.bind("load", function (event) {
-                    $iframe.unbind("load");
-                    $document.trigger("ajaxStop");
-
-                    if (iframe.src == "javascript:'%3Chtml%3E%3C/html%3E';" || // For
-                            // Safari
-                            iframe.src == "javascript:'<html></html>';") { // For FF, IE
-                        return;
-                    }
-
-                    var doc = iframe.contentDocument || iframe.document;
-
-                    // fixing Opera 9.26,10.00
-                    if (doc.readyState && doc.readyState != 'complete')
-                        return;
-                    // fixing Opera 9.64
-                    if (doc.body && doc.body.innerHTML == "false")
-                        return;
-
-                    var response;
-
-                    if (doc.XMLDocument) {
-                        // response is a xml document Internet Explorer property
-                        response = doc.XMLDocument;
-                    } else if (doc.body) {
-                        try {
-                            response = $iframe.contents().find("body").text();
-                            response = jQuery.parseJSON(response);
-                        } catch (e) { // response is html document or plain text
-                            response = doc.body.innerHTML;
-                        }
-                    } else {
-                        // response is a xml document
-                        response = doc;
-                    }
-
-                    callback(response);
-                });
-            }
-
-
         });
     </script>
 </head>
@@ -194,19 +78,18 @@
 <br/>
 
 
-<form:form id="inputForm" modelAttribute="user" action="${ctx}/sys/user/info" method="post" class="form-horizontal"
-           enctype="multipart/form-data" onsubmit="return iframeCallback(this, pageAjaxDone)">
+<form:form id="inputForm" modelAttribute="user" enctype="multipart/form-data" action="${ctx}/sys/user/info"
+           method="post" class="form-horizontal">
     <sys:message content="${message}"/>
     <div class="form-group">
         <label class="col-md-1 control-label">头像:</label>
         <div class="col-md-5">
             <form:hidden id="nameImage" path="photo" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-                <%--&lt;%&ndash;<sys:ckfinder input="nameImage" type="images" uploadPath="/photo" selectMultiple="false" maxWidth="100" maxHeight="100"/>&ndash;%&gt;--%>
-                <%--<input id="imgUpload" type="file" class="file-loading" accept="image/*">--%>
-            <input type="file" name="image" class="file-loading" value="${deal.image}"/>
+            <input id="imgUpload" type="file" name="imgFile" class="projectfile" accept="image/*" value="${user.photo}">
             <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p>
         </div>
     </div>
+
     <div class="form-group">
         <label class="col-md-1 control-label">测试日期:</label>
         <div class="col-md-5">
