@@ -8,7 +8,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-import com.github.miemiedev.mybatis.paginator.domain.Paginator;
 import com.google.common.collect.Lists;
 import com.luoo.mywork.common.beanvalidator.BeanValidators;
 import com.luoo.mywork.common.config.Global;
@@ -16,8 +15,10 @@ import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.common.utils.excel.ExportExcel;
 import com.luoo.mywork.common.utils.excel.ImportExcel;
 import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.modules.sys.entity.Department;
 import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.service.SystemService;
+import com.luoo.mywork.modules.sys.utils.JSPUtil;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class UserController extends BaseController {
      */
     @RequiresPermissions("user")
     @RequestMapping(value = "info")
-    public String info( User user, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+    public String info(User user, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 
         User currentUser = UserUtils.getUser();
         if (StringUtils.isNotBlank(user.getName())) {
@@ -81,8 +82,6 @@ public class UserController extends BaseController {
         model.addAttribute("Global", new Global());
         return "modules/sys/userInfo";
     }
-
-
 
 
     /**
@@ -254,125 +253,91 @@ public class UserController extends BaseController {
     }
 
     //根据传入的pageSize，offset参数决定查哪一页,根据其他参数决定查询哪些数据
-    @RequestMapping(value = "/data")
+    @RequestMapping( value = "testdata", method = RequestMethod.POST, produces = "application/json;charset=UTF-8" )
     @ResponseBody
     public Object channelDivideDetailsData( HttpServletRequest request, @RequestBody JSONObject jsonObj ) {
         String html = "[]";
         Map<String, Object> map = new HashMap<String, Object>();
-        String startDateStr = jsonObj.getString("startDate");
-        String endDateStr = jsonObj.getString("endDate");
-        String merName = jsonObj.getString("merName");
+//        String startDateStr = jsonObj.getString("startDate");
+//        String endDateStr = jsonObj.getString("endDate");
+//        String merName = jsonObj.getString("loginName");
         int pageSize = jsonObj.getIntValue("pageSize");
         int offset = jsonObj.getIntValue("offset");
         try {
-            map.put("startDate", startDateStr);
+            /*map.put("startDate", startDateStr);
             map.put("endDate", endDateStr);
             if(merName != null && merName != "") {
                 map.put("merName", merName);
-            }
+            }*/
+            pageSize = 2;
+            offset = 1;
             PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(pageSize, offset);
 
-            List<User> list = systemService.findUsers(map, pageBounds);
+//            List<Department> list = systemService.findMyDepartment(map, pageBounds);
+
+            List<Department> list = Lists.newArrayList();
+            for (int i = 0; i < 2; i++) {
+                Department oModel = new Department();
+                oModel.setId(i + "");
+                oModel.setName("销售部" + i);
+                list.add(oModel);
+            }
+
+
 
             if(list != null && list.size() > 0) {
-                Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<User>) list);
+                Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<Department>) list);
                 html = JSON.toJSONStringWithDateFormat(retMap, "yyyy-MM-dd", SerializerFeature.WriteDateUseDateFormat);
             }
+
         }
         catch(Exception e) {
             logger.error("系统异常e:{}", e);
         }
+
+//        {"rows":[{"currentUser":{"admin":true,"company":{"area":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"2","isNewRecord":false,"name":"山东省","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{}},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{}},"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"name":"山东省总公司","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"0","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{},"type":"2"},"parentId":"0","parentIds":"0,","sort":30,"sqlMap":{},"type":"2"},"createBy":{"admin":true,"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"loginFlag":"1","roleIdList":[],"roleList":[],"roleNames":"","sqlMap":{}},"createDate":"2013-05-27","currentUser":{"$ref":"@"},"delFlag":"0","email":"thinkgem@163.com","id":"1","isNewRecord":false,"loginDate":"2016-09-08","loginFlag":"1","loginIp":"127.0.0.1","loginName":"thinkgem","mobile":"8675","name":"系统管理员","no":"0001","office":{"area":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"2","isNewRecord":false,"name":"山东省","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{}},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{}},"currentUser":{"$ref":".."},"delFlag":"0","id":"2","isNewRecord":false,"name":"公司领导","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{},"type":"2"},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{},"type":"2"},"oldLoginDate":"2016-09-08","oldLoginIp":"127.0.0.1","password":"e53573f56e9a729779c3dffd88b9e1058503ed7a564f9a420602fa2d","phone":"8675","photo":"/fileUpload/1473215841912.jpg","remarks":"最高管理员","roleIdList":["2","1"],"roleList":[{"currentUser":{"$ref":"$.rows[0].currentUser"},"dataScope":"2","delFlag":"0","enname":"hr","id":"2","isNewRecord":false,"menuIdList":[],"menuIds":"","menuList":[],"name":"公司管理员","officeIdList":[],"officeIds":"","officeList":[],"permissions":[],"roleType":"assignment","sqlMap":{},"useable":"1"},{"currentUser":{"$ref":"$.rows[0].currentUser"},"dataScope":"1","delFlag":"0","enname":"dept","id":"1","isNewRecord":false,"menuIdList":[],"menuIds":"","menuList":[],"name":"系统管理员","officeIdList":[],"officeIds":"","officeList":[],"permissions":[],"roleType":"assignment","sqlMap":{},"useable":"1"}],"roleNames":"公司管理员,系统管理员","sqlMap":{},"updateBy":{"admin":true,"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"loginFlag":"1","roleIdList":[],"roleList":[],"roleNames":"","sqlMap":{}},"updateDate":"2016-09-07"},"delFlag":"0","id":"4","isNewRecord":false,"name":"市场部","sqlMap":{}},{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"5","isNewRecord":false,"name":"技术部","sqlMap":{}}],"total":13}
         return html;
     }
 
-
+    @RequestMapping(value = "data")
     @ResponseBody
-    public Object  GetDepartment(Integer  limit, Integer  offset, String departmentname, String statu)
-    {
+    public PageResponse<Department> GetDepartment(Integer limit, Integer offset, String departmentname, String statu) {
+        PageResponse<Department> list =   new PageResponse<Department>();
         List<Department> lstRes = Lists.newArrayList();
-        for (int i = 0; i < 50; i++)
-        {
+        for (int i = 0; i < 50; i++) {
             Department oModel = new Department();
-            oModel.setId(i+"");
+            oModel.setId(i + "");
             oModel.setName("销售部" + i);
-            oModel.setLevel(i+"");
-            oModel.setDesc("暂无描述信息");
             lstRes.add(oModel);
         }
 
         int total = lstRes.size();
-        int rows = 10;
-        return lstRes.toString();
+        list.setRecords(lstRes);
+        list.setTotal(total);
+        return list;
     }
 
 
-    private class Department {
-        public String getId() {
-            return id;
+    public class PageResponse<T> implements Serializable {
+        private static final long serialVersionUID = 768549219446295665L;
+        private Integer total;  //总条数
+        private List<T> records; //当前页显示数据
+
+        public Integer getTotal() {
+            return total;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setTotal(Integer total) {
+            this.total = total;
         }
 
-        public String getName() {
-            return name;
+        public List<T> getRecords() {
+            return records;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getLevel() {
-            return level;
-        }
-
-        public void setLevel(String level) {
-            this.level = level;
-        }
-
-        public String getDesc() {
-            return desc;
-        }
-
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
-
-        String id;
-        String name;
-        String level;
-        String desc;
-    }
-
-    private static class JSPUtil {
-
-        @SuppressWarnings( { "rawtypes", "unchecked" } )
-        public static Object pagelistToJSONMapNew( PageList list ) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            if(list != null) {
-                Paginator paginator = list.getPaginator();
-                map.put("total", paginator.getTotalCount());
-                map.put("rows", new ArrayList(list));
-            }
-            return map;
-        }
-
-        /**
-         * 取得分页对象
-         *
-         * @param pageSize
-         * @param offset
-         * @return
-         */
-        @SuppressWarnings( "unused" )
-        public static PageBounds getPagerBoundsByParameter( int pageSize, int offset ) {
-            if(pageSize == 0) {
-                return null;
-            }
-
-            PageBounds pageBounds = new PageBounds(offset / pageSize + 1, pageSize);
-            return pageBounds;
+        public void setRecords(List<T> records) {
+            this.records = records;
         }
     }
+
 }

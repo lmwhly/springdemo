@@ -87,12 +87,7 @@
         <label class="col-md-1 control-label">头像:</label>
         <div class="col-md-5">
             <form:hidden id="nameImage" path="photo" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-<<<<<<< HEAD
             <input id="imgUpload" type="file" name="imgFile" class="projectfile" accept="image/*" value="${user.photo}">
-=======
-                <%--&lt;%&ndash;<sys:ckfinder input="nameImage" type="images" uploadPath="/photo" selectMultiple="false" maxWidth="100" maxHeight="100"/>&ndash;%&gt;--%>
-            <input id="imgUpload" type="file" name="file" class="projectfile" accept="image/*" value="${user.photo}">
->>>>>>> 76387c33aa8cc03424ad006399bbf1350c9d4f37
             <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p>
         </div>
     </div>

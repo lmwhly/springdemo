@@ -13,19 +13,17 @@ import com.luoo.mywork.common.utils.CacheUtils;
 import com.luoo.mywork.common.utils.Encodes;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.common.web.Servlets;
+import com.luoo.mywork.modules.sys.dao.DepartmentDao;
 import com.luoo.mywork.modules.sys.dao.MenuDao;
 import com.luoo.mywork.modules.sys.dao.RoleDao;
 import com.luoo.mywork.modules.sys.dao.UserDao;
-import com.luoo.mywork.modules.sys.entity.Menu;
-import com.luoo.mywork.modules.sys.entity.Office;
-import com.luoo.mywork.modules.sys.entity.Role;
-import com.luoo.mywork.modules.sys.entity.User;
+import com.luoo.mywork.modules.sys.entity.*;
 import com.luoo.mywork.modules.sys.security.SystemAuthorizingRealm;
 import com.luoo.mywork.modules.sys.utils.LogUtils;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shiro.session.Session;
-import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +50,10 @@ public class SystemService extends BaseService implements InitializingBean {
     public static final String HASH_ALGORITHM = "SHA-1";
     public static final int HASH_INTERATIONS = 1024;
     public static final int SALT_SIZE = 8;
+
+
+    @Autowired
+    private DepartmentDao departmentDao;
 
     @Autowired
     private UserDao userDao;
@@ -479,12 +481,24 @@ public class SystemService extends BaseService implements InitializingBean {
     }
 
 
-    public List<User> findUsers(Map<String, Object> map, PageBounds pageBounds) {
+    public List<Department> findMyDepartment(Map<String, Object> map, PageBounds pageBounds) {
 
 
         Map<String, Object> params = new HashMap<String, Object>();
-//        params.put("city", city);
-        return SqlSessionUtils.getSqlSession(sqlSessionFactory).selectList("UserDao.findList", params, pageBounds);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+//        UserDao userOperation = sqlSession.getMapper(UserDao.class);
+//        List<User> users = userOperation.findList(new User());
+
+        params.put("DEL_FLAG_NORMAL","0");
+
+//        List<User> users = departmentDao.findMyUser(new User(), params, pageBounds);
+        List<Department> users = sqlSession.selectList("com.luoo.mywork.modules.sys.dao.DepartmentDao.findMyDepartment", params, pageBounds);
+//        List<User> users=sqlSession.selectList("com.luoo.mywork.modules.sys.dao.UserDao.findAllList", params, pageBounds);
+
+        System.out.println(users.size());
+
+        return users;
 
     }
 }

@@ -24,7 +24,7 @@
 
 
 <link href="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table.min.css"  rel="stylesheet" type="text/css" />
-<script src="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table-locale-all.min.js" type="text/javascript"></script>
+<%--<script src="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table-locale-all.min.js" type="text/javascript"></script>--%>
 <script src="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table.min.js" type="text/javascript"></script>
 
 <link href="${ctxStatic}/common/mywork.css" type="text/css" rel="stylesheet"/>
