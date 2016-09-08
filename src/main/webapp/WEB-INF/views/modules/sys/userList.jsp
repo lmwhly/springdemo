@@ -11,29 +11,54 @@
             querys();
         });
 
+        function queryTable() {
+            //先销毁表格
+            $('#empUserList').bootstrapTable('destroy');
+            querys();
+        }
+
 
         function querys() {
             $("#edit").attr({"disabled": "disabled"});
             $("#delete").attr({"disabled": "disabled"});
             $("#empUserList").bootstrapTable({
                 url: '${ctx}/sys/user/testdata',
-                method: "post",
-                height: '500',
+                method: "post",  //请求方式（*）
+                dataType: "json",
+                height: $(window).height - 200,
+                singleSelect: true,//复选框只能选择一条记录
+                sortable: true,      //是否启用排序
+                sortOrder: "asc",     //排序方式
+                search: true,
+
                 undefinedText: '-',
+                //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+                //设置为limit可以获取limit, offset, search, sort, order
+                queryParamsType: 'limit',
                 striped: true, // 是否显示行间隔色
                 queryParams: queryParams,
-                cache: false, // 是否使用缓存
-                toolbar: "#toolbar",// 指定工具栏
+                responseHandler: responseHandler,
+                toolbar: "#toolbar",// 指定工具栏,工具按钮用哪个容器
+                cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+
+
                 showColumns: true, // 显示隐藏列
                 showRefresh: true, // 显示刷新按钮
-                uniqueId: "id", // 每一行的唯一标识
-                pagination: true, // 分页
-                sidePagination: "server", // 服务端处理分页
-                pageNumber: 1,//默认加载页
-                pageSize: 1,//每页数据
-                pageList: [2, 4, 8],
-                columns: [
+                clickToSelect: true,    //是否启用点击选中行
+                showToggle: true,     //是否显示详细视图和列表视图的切换按钮
 
+                uniqueId: "id", //每一行的唯一标识，一般为主键列
+
+                pagination: true, // 是否显示分页（*）
+
+                sidePagination: "server", // 服务端处理分页
+                pageNumber: 1,//初始化加载第一页，默认第一页
+
+                pageSize: 5,//每页的记录行数（*）
+
+                pageList: [10, 20, 50, 100],  //可供选择的每页的行数（*）
+
+                columns: [
                     {
                         field: 'state',
                         checkbox: true,
@@ -60,51 +85,8 @@
                         formatter: genderFormatter,
                         sortable: true
                     }
-
-                    /*{
-                     field: 'state',
-                     checkbox: true,
-                     align: 'center',
-                     valign: 'middle'
-                     }, {
-                     title: '用户名',
-                     field: 'userName', // 字段
-                     align: 'center', // 对齐方式（左 中 右）
-                     valign: 'middle', //
-                     sortable: true
-                     }, {
-                     title: '用户编号',
-                     field: 'empNo',
-                     align: 'center',
-                     valign: 'middle',
-                     sortable: true
-                     }, {
-                     title: '姓名',
-                     field: 'empName',
-                     align: 'center',
-                     valign: 'middle',
-                     sortable: true
-                     }, {
-                     title: '职位',
-                     field: 'position',
-                     align: 'center',
-                     valign: 'middle',
-                     sortable: true
-                     }, {
-                     title: '状态',
-                     field: 'isDelete',
-                     align: 'center',
-                     valign: 'middle',
-                     formatter: genderFormatter,
-                     sortable: true
-                     }*/
                 ],
-                responseHandler: function (res) {
-                    return {
-                        total: res.total,
-                        rows: res.records
-                    };
-                },
+
                 onCheck: function () {
                     buttonControl('#empUserList', '#edit', '#delete');
                 },
@@ -134,16 +116,42 @@
             $('#empUserList').bootstrapTable('refresh');
         }
         /**查询条件与分页数据 */
-        function queryParams(pageReqeust) {
-//            pageReqeust.enabled = $("#enabled").val();
-//            pageReqeust.querys = $("#querys").val();
+        function queryParams(params) {
+            var temp = {
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                order: params.order,//排位命令（desc，asc）
+                search:params.search,
+                sort:params.sort,
+                departmentname: $("#txt_search_departmentname").val(),
 
-            pageReqeust.pageSize = this.limit;
-            pageReqeust.offset = this.offset;
-
-
-            return pageReqeust;
+            };
+            return temp;
         }
+
+
+        function responseHandler(res) {
+
+//分页后的返回值， 是有格式要求的，必须满足如下格式
+            /*           "total": 500,
+             "rows": [{},{}.....]*/
+
+
+            if (res.IsOk) {
+                return {
+                    total: res.total,
+                    rows: res.records
+                };
+            } else {
+                return {
+                    "rows": [],
+                    "total": 0
+                };
+            }
+
+        }
+
+
         /** 编辑数据 */
         /*function editHr() {
          var selectRow = $("#empUserList").bootstrapTable('getSelections');
@@ -209,7 +217,7 @@
                         <input type="text" class="form-control" id="txtMerName">
                     </div>
                     <div class="col-sm-4" style="text-align:left;">
-                        <button type="button" style="margin-left:50px" id="btn_query" onclick="initTable()"
+                        <button type="button" style="margin-left:50px" id="btn_query" onclick="queryTable()"
                                 class="btn btn-primary">查询
                         </button>
                     </div>

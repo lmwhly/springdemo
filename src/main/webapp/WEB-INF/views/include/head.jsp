@@ -22,10 +22,9 @@
 <script src="${ctxStatic}/bootstrap-fileinput/kartik-v/js/locales/zh.js" type="text/javascript"></script>
 <link href="${ctxStatic}/bootstrap-fileinput/kartik-v/css/fileinput.css"  rel="stylesheet" type="text/css" />
 
-
 <link href="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table.min.css"  rel="stylesheet" type="text/css" />
-<%--<script src="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table-locale-all.min.js" type="text/javascript"></script>--%>
 <script src="${ctxStatic}/bootstrap-table/wenzhixin/dist/bootstrap-table.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/bootstrap-table/wenzhixin/dist/locale/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
 
 <link href="${ctxStatic}/common/mywork.css" type="text/css" rel="stylesheet"/>
 <script src="${ctxStatic}/common/mywork.js" type="text/javascript"></script>

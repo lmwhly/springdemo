@@ -21,7 +21,9 @@ public class JSPUtil {
         if (list != null) {
             Paginator paginator = list.getPaginator();
             map.put("total", paginator.getTotalCount());
-            map.put("rows", new ArrayList(list));
+            map.put("records", new ArrayList(list));
+            map.put("IsOk", true);
+
         }
         return map;
     }

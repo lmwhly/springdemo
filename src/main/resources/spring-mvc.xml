@@ -30,12 +30,6 @@
                 </property>
             </bean>
 
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper">
-                    <bean class="com.github.miemiedev.mybatis.paginator.jackson2.PageListJsonMapper"/>
-                </property>
-            </bean>
-
             <!-- 将Jackson2HttpMessageConverter的默认格式化输出为false -->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="supportedMediaTypes">
@@ -45,6 +39,9 @@
                 <property name="objectMapper">
                     <bean class="com.luoo.mywork.common.mapper.JsonMapper"></bean>
                 </property>
+              <!--  <property name="objectMapper">
+                    <bean class="com.github.miemiedev.mybatis.paginator.jackson2.PageListJsonMapper"/>
+                </property>-->
             </bean>
             <!-- 使用XML格式输出数据 -->
             <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">

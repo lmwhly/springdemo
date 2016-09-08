@@ -3,9 +3,7 @@
  */
 package com.luoo.mywork.modules.sys.web;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.google.common.collect.Lists;
@@ -261,7 +259,7 @@ public class UserController extends BaseController {
 //        String startDateStr = jsonObj.getString("startDate");
 //        String endDateStr = jsonObj.getString("endDate");
 //        String merName = jsonObj.getString("loginName");
-        int pageSize = jsonObj.getIntValue("pageSize");
+        int limit = jsonObj.getIntValue("limit");
         int offset = jsonObj.getIntValue("offset");
         try {
             /*map.put("startDate", startDateStr);
@@ -269,25 +267,15 @@ public class UserController extends BaseController {
             if(merName != null && merName != "") {
                 map.put("merName", merName);
             }*/
-            pageSize = 2;
-            offset = 1;
-            PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(pageSize, offset);
+             PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(limit, offset);
 
-//            List<Department> list = systemService.findMyDepartment(map, pageBounds);
+            List<Department> list = systemService.findMyDepartment(map, pageBounds);
 
-            List<Department> list = Lists.newArrayList();
-            for (int i = 0; i < 2; i++) {
-                Department oModel = new Department();
-                oModel.setId(i + "");
-                oModel.setName("销售部" + i);
-                list.add(oModel);
-            }
-
-
-
-            if(list != null && list.size() > 0) {
+                    if(list != null && list.size() > 0) {
                 Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<Department>) list);
-                html = JSON.toJSONStringWithDateFormat(retMap, "yyyy-MM-dd", SerializerFeature.WriteDateUseDateFormat);
+//                html = JSON.toJSONStringWithDateFormat(retMap, "yyyy-MM-dd", SerializerFeature.WriteDateUseDateFormat);
+                    return retMap;
+
             }
 
         }
@@ -296,7 +284,7 @@ public class UserController extends BaseController {
         }
 
 //        {"rows":[{"currentUser":{"admin":true,"company":{"area":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"2","isNewRecord":false,"name":"山东省","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{}},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{}},"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"name":"山东省总公司","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"0","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{},"type":"2"},"parentId":"0","parentIds":"0,","sort":30,"sqlMap":{},"type":"2"},"createBy":{"admin":true,"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"loginFlag":"1","roleIdList":[],"roleList":[],"roleNames":"","sqlMap":{}},"createDate":"2013-05-27","currentUser":{"$ref":"@"},"delFlag":"0","email":"thinkgem@163.com","id":"1","isNewRecord":false,"loginDate":"2016-09-08","loginFlag":"1","loginIp":"127.0.0.1","loginName":"thinkgem","mobile":"8675","name":"系统管理员","no":"0001","office":{"area":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"2","isNewRecord":false,"name":"山东省","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{}},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{}},"currentUser":{"$ref":".."},"delFlag":"0","id":"2","isNewRecord":false,"name":"公司领导","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{},"type":"2"},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{},"type":"2"},"oldLoginDate":"2016-09-08","oldLoginIp":"127.0.0.1","password":"e53573f56e9a729779c3dffd88b9e1058503ed7a564f9a420602fa2d","phone":"8675","photo":"/fileUpload/1473215841912.jpg","remarks":"最高管理员","roleIdList":["2","1"],"roleList":[{"currentUser":{"$ref":"$.rows[0].currentUser"},"dataScope":"2","delFlag":"0","enname":"hr","id":"2","isNewRecord":false,"menuIdList":[],"menuIds":"","menuList":[],"name":"公司管理员","officeIdList":[],"officeIds":"","officeList":[],"permissions":[],"roleType":"assignment","sqlMap":{},"useable":"1"},{"currentUser":{"$ref":"$.rows[0].currentUser"},"dataScope":"1","delFlag":"0","enname":"dept","id":"1","isNewRecord":false,"menuIdList":[],"menuIds":"","menuList":[],"name":"系统管理员","officeIdList":[],"officeIds":"","officeList":[],"permissions":[],"roleType":"assignment","sqlMap":{},"useable":"1"}],"roleNames":"公司管理员,系统管理员","sqlMap":{},"updateBy":{"admin":true,"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"loginFlag":"1","roleIdList":[],"roleList":[],"roleNames":"","sqlMap":{}},"updateDate":"2016-09-07"},"delFlag":"0","id":"4","isNewRecord":false,"name":"市场部","sqlMap":{}},{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"5","isNewRecord":false,"name":"技术部","sqlMap":{}}],"total":13}
-        return html;
+        return null;
     }
 
     @RequestMapping(value = "data")
