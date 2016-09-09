@@ -251,9 +251,9 @@ public class UserController extends BaseController {
     }
 
     //根据传入的pageSize，offset参数决定查哪一页,根据其他参数决定查询哪些数据
-    @RequestMapping( value = "testdata", method = RequestMethod.POST, produces = "application/json;charset=UTF-8" )
+    @RequestMapping(value = "testdata", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public Object channelDivideDetailsData( HttpServletRequest request, @RequestBody JSONObject jsonObj ) {
+    public Object channelDivideDetailsData(HttpServletRequest request, @RequestBody JSONObject jsonObj) {
         String html = "[]";
         Map<String, Object> map = new HashMap<String, Object>();
 //        String startDateStr = jsonObj.getString("startDate");
@@ -262,35 +262,28 @@ public class UserController extends BaseController {
         int limit = jsonObj.getIntValue("limit");
         int offset = jsonObj.getIntValue("offset");
         try {
-            /*map.put("startDate", startDateStr);
-            map.put("endDate", endDateStr);
-            if(merName != null && merName != "") {
-                map.put("merName", merName);
-            }*/
-             PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(limit, offset);
 
-            List<Department> list = systemService.findMyDepartment(map, pageBounds);
+            PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(limit, offset);
 
-                    if(list != null && list.size() > 0) {
-                Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<Department>) list);
-//                html = JSON.toJSONStringWithDateFormat(retMap, "yyyy-MM-dd", SerializerFeature.WriteDateUseDateFormat);
-                    return retMap;
+            List<User> list = systemService.findMyUser(map, pageBounds);
+
+            if (list != null && list.size() > 0) {
+                Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<User>) list);
+                return retMap;
 
             }
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             logger.error("系统异常e:{}", e);
         }
 
-//        {"rows":[{"currentUser":{"admin":true,"company":{"area":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"2","isNewRecord":false,"name":"山东省","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{}},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{}},"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"name":"山东省总公司","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"0","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{},"type":"2"},"parentId":"0","parentIds":"0,","sort":30,"sqlMap":{},"type":"2"},"createBy":{"admin":true,"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"loginFlag":"1","roleIdList":[],"roleList":[],"roleNames":"","sqlMap":{}},"createDate":"2013-05-27","currentUser":{"$ref":"@"},"delFlag":"0","email":"thinkgem@163.com","id":"1","isNewRecord":false,"loginDate":"2016-09-08","loginFlag":"1","loginIp":"127.0.0.1","loginName":"thinkgem","mobile":"8675","name":"系统管理员","no":"0001","office":{"area":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"2","isNewRecord":false,"name":"山东省","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{}},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{}},"currentUser":{"$ref":".."},"delFlag":"0","id":"2","isNewRecord":false,"name":"公司领导","parent":{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"1","isNewRecord":false,"parentId":"0","sort":30,"sqlMap":{},"type":"2"},"parentId":"1","parentIds":"0,1,","sort":30,"sqlMap":{},"type":"2"},"oldLoginDate":"2016-09-08","oldLoginIp":"127.0.0.1","password":"e53573f56e9a729779c3dffd88b9e1058503ed7a564f9a420602fa2d","phone":"8675","photo":"/fileUpload/1473215841912.jpg","remarks":"最高管理员","roleIdList":["2","1"],"roleList":[{"currentUser":{"$ref":"$.rows[0].currentUser"},"dataScope":"2","delFlag":"0","enname":"hr","id":"2","isNewRecord":false,"menuIdList":[],"menuIds":"","menuList":[],"name":"公司管理员","officeIdList":[],"officeIds":"","officeList":[],"permissions":[],"roleType":"assignment","sqlMap":{},"useable":"1"},{"currentUser":{"$ref":"$.rows[0].currentUser"},"dataScope":"1","delFlag":"0","enname":"dept","id":"1","isNewRecord":false,"menuIdList":[],"menuIds":"","menuList":[],"name":"系统管理员","officeIdList":[],"officeIds":"","officeList":[],"permissions":[],"roleType":"assignment","sqlMap":{},"useable":"1"}],"roleNames":"公司管理员,系统管理员","sqlMap":{},"updateBy":{"admin":true,"currentUser":{"$ref":".."},"delFlag":"0","id":"1","isNewRecord":false,"loginFlag":"1","roleIdList":[],"roleList":[],"roleNames":"","sqlMap":{}},"updateDate":"2016-09-07"},"delFlag":"0","id":"4","isNewRecord":false,"name":"市场部","sqlMap":{}},{"currentUser":{"$ref":"$.rows[0].currentUser"},"delFlag":"0","id":"5","isNewRecord":false,"name":"技术部","sqlMap":{}}],"total":13}
         return null;
     }
 
     @RequestMapping(value = "data")
     @ResponseBody
     public PageResponse<Department> GetDepartment(Integer limit, Integer offset, String departmentname, String statu) {
-        PageResponse<Department> list =   new PageResponse<Department>();
+        PageResponse<Department> list = new PageResponse<Department>();
         List<Department> lstRes = Lists.newArrayList();
         for (int i = 0; i < 50; i++) {
             Department oModel = new Department();

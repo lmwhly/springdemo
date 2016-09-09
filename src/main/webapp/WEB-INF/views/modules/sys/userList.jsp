@@ -24,6 +24,21 @@
 
         $(document).ready(function () {
             querys();
+
+            $("#btnExport").click(function(){
+                top.$.jBox.confirm("确认要导出用户数据吗？","系统提示",function(v,h,f){
+                    if(v=="ok"){
+                        $("#searchForm").attr("action","${ctx}/sys/user/export");
+                        $("#searchForm").submit();
+                    }
+                },{buttonsFocus:1});
+                top.$('.jbox-body .jbox-icon').css('top','55px');
+            });
+            $("#btnImport").click(function(){
+                $.jBox($("#importBox").html(), {title:"导入数据", buttons:{"关闭":true},
+                    bottomText:"导入文件不能超过5M，仅允许导入“xls”或“xlsx”格式文件！"});
+            });
+
         });
 
         function queryTable() {
@@ -81,25 +96,49 @@
                         valign: 'middle'
                     },
                     {
-                        title: 'id',
-                        field: 'id', // 字段
+                        title: '归属公司',
+                        field: 'company', // 字段
+                        align: 'center', // 对齐方式（左 中 右）
+                        valign: 'middle', //
+                        sortable: true
+                    },
+
+                    {
+                        title: '归属部门',
+                        field: 'office', // 字段
                         align: 'center', // 对齐方式（左 中 右）
                         valign: 'middle', //
                         sortable: true
                     },
                     {
-                        title: 'id',
-                        field: 'id', // 字段
+                        title: '登录名',
+                        field: 'loginName', // 字段
                         align: 'center', // 对齐方式（左 中 右）
                         valign: 'middle', //
                         sortable: true
-                    }, {
-                        title: '用户名',
+                    },
+                    {
+                        title: '姓名',
                         field: 'name', // 字段
                         align: 'center', // 对齐方式（左 中 右）
                         valign: 'middle', //
                         sortable: true
                     }, {
+                        title: '电话',
+                        field: 'phone', // 字段
+                        align: 'center', // 对齐方式（左 中 右）
+                        valign: 'middle', //
+                        sortable: true
+                    },
+
+                    {
+                        title: '手机',
+                        field: 'mobile', // 字段
+                        align: 'center', // 对齐方式（左 中 右）
+                        valign: 'middle', //
+                        sortable: true
+                    },
+                    {
                         title: '状态',
                         field: 'isNewRecord',
                         align: 'center',
@@ -157,7 +196,7 @@
 //分页后的返回值， 是有格式要求的，必须满足如下格式
             /*           "total": 500,
              "rows": [{},{}.....]*/
-
+alert(res.records);
 
             if (res.IsOk) {
                 return {
@@ -220,6 +259,18 @@
     </script>
 </head>
 <body>
+<div id="importBox" class="hide">
+    <form id="importForm" action="${ctx}/sys/user/import" method="post" enctype="multipart/form-data"
+          class="form-search" style="padding-left:20px;text-align:center;" onsubmit="loading('正在导入，请稍等...');"><br/>
+        <input id="uploadFile" name="file" type="file" style="width:330px"/><br/><br/>　　
+        <input id="btnImportSubmit" class="btn btn-primary" type="submit" value="   导    入   "/>
+        <a href="${ctx}/sys/user/import/template">下载模板</a>
+    </form>
+</div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="${ctx}/sys/user/list">用户列表</a></li>
+    <shiro:hasPermission name="sys:user:edit"><li><a href="${ctx}/sys/user/form">用户添加</a></li></shiro:hasPermission>
+</ul>
 <div class="container">
     <div class="panel-body">
         <div class="panel panel-default">

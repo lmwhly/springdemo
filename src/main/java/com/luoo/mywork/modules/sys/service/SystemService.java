@@ -483,22 +483,29 @@ public class SystemService extends BaseService implements InitializingBean {
 
     public List<Department> findMyDepartment(Map<String, Object> map, PageBounds pageBounds) {
 
-
         Map<String, Object> params = new HashMap<String, Object>();
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
-//        UserDao userOperation = sqlSession.getMapper(UserDao.class);
-//        List<User> users = userOperation.findList(new User());
-
         params.put("DEL_FLAG_NORMAL","0");
 
-//        List<User> users = departmentDao.findMyUser(new User(), params, pageBounds);
         List<Department> users = sqlSession.selectList("com.luoo.mywork.modules.sys.dao.DepartmentDao.findMyDepartment", params, pageBounds);
-//        List<User> users=sqlSession.selectList("com.luoo.mywork.modules.sys.dao.UserDao.findAllList", params, pageBounds);
 
         System.out.println(users.size());
 
         return users;
+    }
 
+    public List<User> findMyUser(Map<String, Object> map, PageBounds pageBounds) {
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        params.put("DEL_FLAG_NORMAL","0");
+
+        List<User> users = sqlSession.selectList("com.luoo.mywork.modules.sys.dao.UserDao.findAllList", params, pageBounds);
+
+        System.out.println(users.size());
+
+        return users;
     }
 }
