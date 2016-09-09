@@ -4,6 +4,21 @@
 <head>
     <title>用户管理</title>
     <meta name="decorator" content="default"/>
+    <style type="text/css">
+
+        .container {
+            width: 100%;
+        }
+        .form-group{
+            padding: 5px;
+            margin:0px;
+        }
+        .panel-body {
+            padding: 5px;
+            margin:0px;
+        }
+
+    </style>
     <script type="text/javascript">
 
 
@@ -71,6 +86,13 @@
                         align: 'center', // 对齐方式（左 中 右）
                         valign: 'middle', //
                         sortable: true
+                    },
+                    {
+                        title: 'id',
+                        field: 'id', // 字段
+                        align: 'center', // 对齐方式（左 中 右）
+                        valign: 'middle', //
+                        sortable: true
                     }, {
                         title: '用户名',
                         field: 'name', // 字段
@@ -121,8 +143,8 @@
                 limit: params.limit,   //页面大小
                 offset: params.offset,  //页码
                 order: params.order,//排位命令（desc，asc）
-                search:params.search,
-                sort:params.sort,
+                search: params.search,
+                sort: params.sort,
                 departmentname: $("#txt_search_departmentname").val(),
 
             };
@@ -198,36 +220,47 @@
     </script>
 </head>
 <body>
-<div class="panel-body" style="padding-bottom:0px;">
-    <div class="panel panel-default">
-        <div class="panel-heading">查询条件</div>
-        <div class="panel-body">
-            <form id="formSearch" class="form-horizontal">
-                <div class="form-group" style="margin-top:15px">
-                    <label class="control-label col-sm-1" for="txtStartDate">开始时间</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="txtStartDate">
+<div class="container">
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form:form id="formSearch" modelAttribute="user" action="${ctx}/sys/user/list" method="post" class="form-horizontal">
+                    <div class="form-group" >
+                        <label class="control-label col-sm-2" for="company">归属公司</label>
+                        <div class="col-sm-3">
+                            <sys:treeselect id="company" name="company.id" value="${user.company.id}"
+                                            labelName="company.name" labelValue="${user.company.name}"
+                                            title="公司" url="/sys/office/treeData?type=1" cssClass="form-control" allowClear="true"/>
+                        </div>
+                        <label class="control-label col-sm-2  " for="loginName">登录名</label>
+                        <div class="col-sm-3">
+                            <form:input path="loginName" htmlEscape="false" maxlength="50" class="form-control"/>
+                        </div>
                     </div>
-                    <label class="control-label col-sm-1" for="txtEndDate">结束时间</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="txtEndDate">
+                    <div class="form-group" >
+                        <label class="control-label col-sm-2" for="office">归属部门</label>
+                        <div class="col-sm-3">
+                            <sys:treeselect id="office" name="office.id" value="${user.office.id}" labelName="office.name"
+                                            labelValue="${user.office.name}"
+                                            title="部门" url="/sys/office/treeData?type=2" cssClass="form-control"
+                                            allowClear="true"
+                                            notAllowSelectParent="true"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="name">姓&nbsp;&nbsp;&nbsp;名</label>
+                        <div class="col-sm-3">
+                            <form:input path="name" htmlEscape="false" maxlength="50" class="form-control"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询
+                            </button>
+                        </div>
+
                     </div>
-                    <label class="control-label col-sm-1" for="txtMerName">名称</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="txtMerName">
-                    </div>
-                    <div class="col-sm-4" style="text-align:left;">
-                        <button type="button" style="margin-left:50px" id="btn_query" onclick="queryTable()"
-                                class="btn btn-primary">查询
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form:form>
+            </div>
         </div>
-    </div>
 
-
-    <div class="container-fluid">
         <div id="toolbar" class="btn-group">
             <a href="<@url value='/view/user/emp/add' />">
                 <button type="button" id="add" class="btn btn-default">
@@ -254,14 +287,16 @@
             <button id="btn_delete" type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
             </button>
-
-
+            <button id="btnExport" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>导出
+            </button>
+            <button id="btnImport" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>导入
+            </button>
         </div>
-        <table id="empUserList">`
-        </table>  <!-- 留意-->
+        <table id="empUserList"></table>
     </div>
 </div>
-
 </body>
 </html>
 
