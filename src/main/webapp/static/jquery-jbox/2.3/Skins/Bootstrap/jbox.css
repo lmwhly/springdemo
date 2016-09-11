@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*
-  ÌáÊ¾£ºCSS ÑùÊ½Ö»ÔÊÐíÐÞ¸ÄÑÕÉ«ÊôÐÔ£¬»òÍ¼Æ¬µÄµØÖ·£¨Í¼Æ¬´óÐ¡ÒªºÍÄ¬ÈÏµÄÒ»ÖÂ£©¡£border:dotted solid double dashed
+  ï¿½ï¿½Ê¾ï¿½ï¿½CSS ï¿½ï¿½Ê½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Äµï¿½Ö·ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Ð¡Òªï¿½ï¿½Ä¬ï¿½Ïµï¿½Ò»ï¿½Â£ï¿½ï¿½ï¿½border:dotted solid double dashed
 */
 *:focus {outline: none;}
 /* fade */
@@ -14,7 +14,7 @@ div.jbox .jbox-border{background: none repeat scroll 0 0 #999999;filter:alpha(op
 /* container */
 div.jbox .jbox-container{background-color:#ffffff;border:1px solid #999999;}
 /* title-panel */
-div.jbox .jbox-title-panel{background:#ffffff;border-bottom:1px solid #CCCCCC;padding: 8px 15px;}
+div.jbox .jbox-title-panel{background:#ffffff;border-bottom:1px solid #CCCCCC;}
 div.jbox .jbox-title{font-weight:bold;color:#333333; font-size: 18px; line-height: 27px;padding-top:0px;}
 div.jbox .jbox-title-icon{background:url(images/jbox-title-icon.gif) no-repeat scroll 3px 5px transparent;}
 div.jbox .jbox-close,div.jbox .jbox-close-hover{background:url(images/jbox-close.gif) no-repeat scroll 0px 0px transparent;margin:7px;}

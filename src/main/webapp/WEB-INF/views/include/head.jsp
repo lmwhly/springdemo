@@ -14,7 +14,7 @@
 <script src="${ctxStatic}/jquery-select2/select2-4.0.0/select2.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/jquery-validation/1.15.1/dist/jquery.validate.js" type="text/javascript"></script>
 
-<link href="${ctxStatic}/jquery-jbox/2.3/Skins/Bootstrap/jbox.min.css" rel="stylesheet" />
+<link href="${ctxStatic}/jquery-jbox/2.3/Skins/Bootstrap/jbox.css" rel="stylesheet" />
 <script src="${ctxStatic}/jquery-jbox/2.3/jquery.jBox-2.3.min.js" type="text/javascript"></script>
 
 
