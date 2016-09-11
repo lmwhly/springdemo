@@ -79,7 +79,7 @@
 					${id}TreeselectCallBack(v, h, f);
 				}
 			}, loaded:function(h){
-				$(".jbox-content", top.document).css("overflow-y","hidden");
+//				$(".jbox-content", top.document).css("overflow-y","hidden");
 			}
 		});
 	});

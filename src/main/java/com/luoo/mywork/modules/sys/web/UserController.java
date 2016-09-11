@@ -13,7 +13,6 @@ import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.common.utils.excel.ExportExcel;
 import com.luoo.mywork.common.utils.excel.ImportExcel;
 import com.luoo.mywork.common.web.BaseController;
-import com.luoo.mywork.modules.sys.entity.Department;
 import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.service.SystemService;
 import com.luoo.mywork.modules.sys.utils.JSPUtil;
@@ -27,13 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,10 +140,16 @@ public class UserController extends BaseController {
 
     @RequiresPermissions("sys:user:edit")
     @RequestMapping(value = "delete")
-    public String delete(User user, RedirectAttributes redirectAttributes) {
+    public ModelAndView delete(User user, RedirectAttributes redirectAttributes) {
+
+        Map map= new HashMap();
+        map.put("userName", "yangjinde");
+        map.put("pwd", "yjd");
+
+
         if (Global.isDemoMode()) {
             addMessage(redirectAttributes, "演示模式，不允许操作！");
-            return "redirect:" + adminPath + "/sys/user/list?repage";
+            return new ModelAndView(new RedirectView(adminPath + "/sys/user/data"),map);
         }
         if (UserUtils.getUser().getId().equals(user.getId())) {
             addMessage(redirectAttributes, "删除用户失败, 不允许删除当前用户");
@@ -153,7 +159,12 @@ public class UserController extends BaseController {
             systemService.deleteUser(user);
             addMessage(redirectAttributes, "删除用户成功");
         }
-        return "redirect:" + adminPath + "/sys/user/list?repage";
+
+//        return new RedirectView(adminPath + "/sys/user/data",true,false,false);//最后的参数为false代表以post方式提交请求
+
+
+        return new ModelAndView(new RedirectView(adminPath + "/sys/user/data"),map);
+
     }
 
 
@@ -250,15 +261,16 @@ public class UserController extends BaseController {
         return "false";
     }
 
-    //根据传入的pageSize，offset参数决定查哪一页,根据其他参数决定查询哪些数据
-    @RequestMapping(value = "testdata", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    //根据传入的pageSize，offset参数决定查哪一页,根据其他参数决定查询哪些数据,
+    @RequestMapping(value = "data")
     @ResponseBody
     public Object channelDivideDetailsData(HttpServletRequest request, @RequestBody JSONObject jsonObj) {
-        String html = "[]";
         Map<String, Object> map = new HashMap<String, Object>();
-//        String startDateStr = jsonObj.getString("startDate");
-//        String endDateStr = jsonObj.getString("endDate");
-//        String merName = jsonObj.getString("loginName");
+        String companyId = jsonObj.getString("companyId");
+        String loginName = jsonObj.getString("loginName");
+        String officeId = jsonObj.getString("officeId");
+        String name = jsonObj.getString("name");
+
         int limit = jsonObj.getIntValue("limit");
         int offset = jsonObj.getIntValue("offset");
         try {
@@ -280,45 +292,7 @@ public class UserController extends BaseController {
         return null;
     }
 
-    @RequestMapping(value = "data")
-    @ResponseBody
-    public PageResponse<Department> GetDepartment(Integer limit, Integer offset, String departmentname, String statu) {
-        PageResponse<Department> list = new PageResponse<Department>();
-        List<Department> lstRes = Lists.newArrayList();
-        for (int i = 0; i < 50; i++) {
-            Department oModel = new Department();
-            oModel.setId(i + "");
-            oModel.setName("销售部" + i);
-            lstRes.add(oModel);
-        }
-
-        int total = lstRes.size();
-        list.setRecords(lstRes);
-        list.setTotal(total);
-        return list;
-    }
 
 
-    public class PageResponse<T> implements Serializable {
-        private static final long serialVersionUID = 768549219446295665L;
-        private Integer total;  //总条数
-        private List<T> records; //当前页显示数据
-
-        public Integer getTotal() {
-            return total;
-        }
-
-        public void setTotal(Integer total) {
-            this.total = total;
-        }
-
-        public List<T> getRecords() {
-            return records;
-        }
-
-        public void setRecords(List<T> records) {
-            this.records = records;
-        }
-    }
 
 }
