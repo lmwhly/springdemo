@@ -6,6 +6,7 @@ package com.luoo.mywork.modules.sys.web;
 import com.alibaba.fastjson.JSONObject;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.luoo.mywork.common.mapper.JsonMapper;
 import com.luoo.mywork.common.web.BaseController;
 import com.luoo.mywork.modules.sys.entity.Log;
 import com.luoo.mywork.modules.sys.service.LogService;
@@ -49,14 +50,23 @@ public class LogController extends BaseController {
     @RequiresPermissions("sys:log:view")
     @RequestMapping(value = "newlist")
     @ResponseBody
-    public Object newlist(HttpServletRequest request, @RequestBody JSONObject jsonObj) {
+    public String newlist(HttpServletRequest request, @RequestBody JSONObject jsonObj) {
 
         Map<String, Object> map = new HashMap<String, Object>();
-        String type = jsonObj.getString("type");
-        String description = jsonObj.getString("description");
-        map.put("type", type);
-        map.put("description", description);
+        String title = jsonObj.getString("title");
+        String id = jsonObj.getString("id");
+        String requestUri = jsonObj.getString("requestUri");
+        String beginDate = jsonObj.getString("beginDate");
+        String endDate = jsonObj.getString("endDate");
+        String exception = jsonObj.getString("exception");
 
+        map.put("title", title);
+        map.put("id", id);
+        map.put("requestUri", requestUri);
+        map.put("beginDate", beginDate);
+        map.put("endDate", endDate);
+        map.put("exception", exception);
+        map.put("id", id);
 
         int limit = jsonObj.getIntValue("limit");
         int offset = jsonObj.getIntValue("offset");
@@ -69,7 +79,8 @@ public class LogController extends BaseController {
 
             if (list != null && list.size() > 0) {
                 Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<Log>) list);
-                return retMap;
+                String ss  = JsonMapper.toJsonString(retMap);
+                return ss;
 
             }
 

@@ -30,19 +30,39 @@
                 </property>
             </bean>
 
+            <!-- 配置Fastjson支持 -->
+            <!--QuoteFieldNames&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;输出key时是否使用双引号,默认为true-->
+            <!--WriteMapNullValue&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;是否输出值为null的字段,默认为false-->
+            <!--WriteNullNumberAsZero&#45;&#45;&#45;&#45;数值字段如果为null,输出为0,而非null-->
+            <!--WriteNullListAsEmpty-&#45;&#45;&#45;&#45;List字段如果为null,输出为[],而非null-->
+            <!--WriteNullStringAsEmpty-&#45;&#45;字符类型字段如果为null,输出为"",而非null-->
+            <!--WriteNullBooleanAsFalse&#45;&#45;Boolean字段如果为null,输出为false,而非null-->
+
+            <!--<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <list>
+                        <value>WriteMapNullValue</value>
+                        <value>QuoteFieldNames</value>
+                    </list>
+                </property>
+            </bean>-->
+
             <!-- 将Jackson2HttpMessageConverter的默认格式化输出为false -->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list><value>application/json;charset=UTF-8</value></list>
-                </property>
-                <property name="prettyPrint" value="false"/>
-                <property name="objectMapper">
-                    <bean class="com.luoo.mywork.common.mapper.JsonMapper"></bean>
-                </property>
-              <!--  <property name="objectMapper">
-                    <bean class="com.github.miemiedev.mybatis.paginator.jackson2.PageListJsonMapper"/>
-                </property>-->
-            </bean>
+            <property name="supportedMediaTypes">
+                <list><value>application/json;charset=UTF-8</value></list>
+            </property>
+            <property name="prettyPrint" value="false"/>
+            <property name="objectMapper">
+                <bean class="com.luoo.mywork.common.mapper.JsonMapper"></bean>
+            </property>
+        </bean>
             <!-- 使用XML格式输出数据 -->
             <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
                 <constructor-arg>

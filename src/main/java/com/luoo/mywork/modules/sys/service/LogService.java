@@ -6,6 +6,7 @@ package com.luoo.mywork.modules.sys.service;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.luoo.mywork.common.service.CrudService;
 import com.luoo.mywork.common.utils.DateUtils;
+import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.modules.sys.dao.LogDao;
 import com.luoo.mywork.modules.sys.entity.Log;
 import org.apache.ibatis.session.SqlSession;
@@ -35,13 +36,15 @@ public class LogService extends CrudService<LogDao, Log> {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         params.put("DEL_FLAG_NORMAL", "0");
+        params.put("TYPE_EXCEPTION", "2");
+
 
         // 设置默认时间范围，默认当前月
-        if (params.get("beginDate") == null) {
+        if (StringUtils.isBlank((String)params.get("beginDate"))) {
             params.put("beginDate", DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
 
         }
-        if (params.get("endDate") == null) {
+        if (StringUtils.isBlank((String)params.get("endDate"))) {
             params.put("endDate", DateUtils.addMonths((Date) params.get("beginDate"), 1));
         }
 
