@@ -3,15 +3,20 @@
  */
 package com.luoo.mywork.modules.sys.service;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.luoo.mywork.common.service.CrudService;
 import com.luoo.mywork.common.utils.CacheUtils;
 import com.luoo.mywork.modules.sys.dao.DictDao;
 import com.luoo.mywork.modules.sys.entity.Dict;
 import com.luoo.mywork.modules.sys.utils.DictUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 字典Service
@@ -21,6 +26,9 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class DictService extends CrudService<DictDao, Dict> {
+
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
 	
 	/**
 	 * 查询字段类型列表
@@ -28,6 +36,17 @@ public class DictService extends CrudService<DictDao, Dict> {
 	 */
 	public List<String> findTypeList(){
 		return dao.findTypeList(new Dict());
+	}
+
+	public List<Dict> findNewTypeList(Map<String, Object> params, PageBounds pageBounds) {
+
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+
+		params.put("DEL_FLAG_NORMAL","0");
+
+		List<Dict> users = sqlSession.selectList("com.luoo.mywork.modules.sys.dao.DictDao.findList", params, pageBounds);
+
+		return users;
 	}
 
 	@Transactional(readOnly = false)
