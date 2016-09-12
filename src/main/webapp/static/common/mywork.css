@@ -257,11 +257,10 @@ legend + .control-group {
     margin: 0 10px;
 }
 
-.form-horizontal .control-group {
-    margin-bottom: 8px;
+
+.form-horizontal .form-group {
+    margin-right: 0px;
 }
-
-
 
 .form-horizontal .controls {
     text-align: left;

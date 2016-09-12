@@ -187,8 +187,9 @@
 	</div>
 	<div id="search" class="form-search" style="padding:10px 0 0 13px;">
 		<label for="key" class="control-label" style="padding:5px 5px 3px 0;">关键字：</label>
-		<input type="text" class="empty" id="key" name="key" maxlength="50" style="width:110px;">
-		<button class="btn btn-default btn-xs" id="btn" onclick="searchNode()">搜索</button>
+		<input type="text" class="empty" id="key" name="key" maxlength="50" style="width:110px;" />
+		<input type="button" class="btn btn-default btn-xs" style="margin-bottom: 5px;" id="btn" value="搜索" onclick="searchNode()" />
+		</div>
 	</div>
 	<div id="tree" class="ztree" style="padding:15px 20px;"></div>
 </body>

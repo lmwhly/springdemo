@@ -84,8 +84,8 @@
            method="post" class="form-horizontal">
     <sys:message content="${message}"/>
     <div class="form-group">
-        <label class="col-md-1 control-label">头像:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">头像:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <form:hidden id="nameImage" path="photo" htmlEscape="false" maxlength="255" class="input-xlarge"/>
             <input id="imgUpload" type="file" name="imgFile" class="projectfile" accept="image/*" value="${user.photo}">
             <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p>
@@ -93,8 +93,8 @@
     </div>
 
     <div class="form-group">
-        <label class="col-md-1 control-label">测试日期:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">测试日期:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <div class='input-group date' id='datetimepicker1'>
                 <input type='text' class="form-control"/>
                 <span class="input-group-addon">
@@ -104,63 +104,63 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">归属公司:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">归属公司:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <label class="form-control">${user.company.name}</label>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">归属部门:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">归属部门:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <label class="form-control">${user.office.name}</label>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">姓名:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">姓名:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <form:input path="name" htmlEscape="false" maxlength="50" class="form-control required" readonly="true"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">邮箱:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">邮箱:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <form:input path="email" htmlEscape="false" maxlength="50" class="form-control email"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">电话:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">电话:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <form:input path="phone" htmlEscape="false" maxlength="50" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">手机:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">手机:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <form:input path="mobile" htmlEscape="false" maxlength="50" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">备注:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">备注:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <form:textarea path="remarks" htmlEscape="false" rows="3" maxlength="200"
                            class="form-control input-xlarge"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">用户类型:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">用户类型:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <label class="form-control">${fns:getDictLabel(user.userType, 'sys_user_type', '无')}</label>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">用户角色:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">用户角色:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <label class="form-control">${user.roleNames}</label>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-1 control-label">上次登录:</label>
-        <div class="col-md-5">
+        <label class="col-md-1 col-xs-1 col-sm-2 control-label">上次登录:</label>
+        <div class="col-md-5 col-sm-5 col-xs-5">
             <label class="form-control">IP: ${user.oldLoginIp}&nbsp;&nbsp;&nbsp;&nbsp;时间：<fmt:formatDate
                     value="${user.oldLoginDate}" type="both" dateStyle="full"/></label>
         </div>
