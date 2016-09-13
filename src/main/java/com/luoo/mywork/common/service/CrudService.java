@@ -1,10 +1,11 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
 package com.luoo.mywork.common.service;
 
 import com.luoo.mywork.common.persistence.CrudDao;
 import com.luoo.mywork.common.persistence.DataEntity;
+import com.luoo.mywork.common.persistence.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,17 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 		return dao.findList(entity);
 	}
 	
+	/**
+	 * 查询分页数据
+	 * @param page 分页对象
+	 * @param entity
+	 * @return
+	 */
+	public Page<T> findPage(Page<T> page, T entity) {
+		entity.setPage(page);
+		page.setList(dao.findList(entity));
+		return page;
+	}
 
 	/**
 	 * 保存数据（插入或更新）

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoo.mywork.modules.dlj.dao.ComStaffAssessRecordDao">
+    
+	<sql id="comStaffAssessRecordColumns">
+		a.record_id AS "id",
+		a.record_id AS "recordId",
+		a.template_id AS "template.templateId",
+		a.assess_month AS "assessMonth",
+		a.total_score AS "totalScore",
+		a.state AS "state",
+		a.target_user_id AS "targetUser.id",
+		a.grade_user_id AS "gradeUser.id",
+		a.create_date AS "createDate",
+		a.remark AS "remark",
+		a.ext1 AS "ext1",
+		a.ext2 AS "ext2",
+		a.ext3 AS "ext3",
+		b.template_name AS "template.templateName",
+		u6.name AS "targetUser.name",
+		u7.name AS "gradeUser.name"
+	</sql>
+	
+	<sql id="comStaffAssessRecordJoins">
+		LEFT JOIN sys_staff_assess_template_define b ON b.template_id = a.template_id
+		LEFT JOIN sys_user u6 ON u6.id = a.target_user_id
+		LEFT JOIN sys_user u7 ON u7.id = a.grade_user_id
+	</sql>
+    
+	<select id="get" resultType="ComStaffAssessRecord">
+		SELECT 
+			<include refid="comStaffAssessRecordColumns"/>
+		FROM com_staff_assess_record a
+		<include refid="comStaffAssessRecordJoins"/>
+		WHERE a.record_id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ComStaffAssessRecord">
+		SELECT 
+			<include refid="comStaffAssessRecordColumns"/>
+		FROM com_staff_assess_record a
+		<include refid="comStaffAssessRecordJoins"/>
+		<where>
+			
+			<if test="assessMonth != null and assessMonth != ''">
+				AND a.assess_month = #{assessMonth}
+			</if>
+			<if test="targetUser != null and targetUser.id != null and targetUser.id != ''">
+				AND a.target_user_id = #{targetUser.id}
+			</if>
+			<if test="state != null and state != ''">
+				AND a.state = #{state}
+			</if>
+			<if test="ext1 != null and ext1 != ''">
+				AND a.ext1 = #{ext1}
+			</if>
+			<if test="gradeUser != null and gradeUser.id != null and gradeUser.id != ''">
+				AND a.grade_user_id = #{gradeUser.id}
+			</if>
+			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="findAllList" resultType="ComStaffAssessRecord">
+		SELECT 
+			<include refid="comStaffAssessRecordColumns"/>
+		FROM com_staff_assess_record a
+		<include refid="comStaffAssessRecordJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="recordId">
+
+			SELECT LAST_INSERT_ID() AS recordId
+
+		</selectKey>
+		INSERT INTO com_staff_assess_record(
+			template_id,
+			assess_month,
+			total_score,
+			state,
+			target_user_id,
+			grade_user_id,
+			create_date,
+			remark,
+			ext1,
+			ext2,
+			ext3
+		) VALUES (
+			#{template.templateId},
+			#{assessMonth},
+			#{totalScore},
+			#{state},
+			#{targetUser.id},
+			#{gradeUser.id},
+			#{createDate},
+			#{remark},
+			#{ext1},
+			#{ext2},
+			#{ext3}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE com_staff_assess_record SET 	
+			template_id = #{template.templateId},
+			assess_month = #{assessMonth},
+			total_score = #{totalScore},
+			state = #{state},
+			target_user_id = #{targetUser.id},
+			grade_user_id = #{gradeUser.id},
+			remark = #{remark},
+			ext1 = #{ext1},
+			ext2 = #{ext2},
+			ext3 = #{ext3}
+		WHERE record_id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM com_staff_assess_record
+		WHERE record_id = #{id}
+	</update>
+	
+</mapper>

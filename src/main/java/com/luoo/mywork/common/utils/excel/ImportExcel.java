@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
+ * Copyright &copy; 2012-2014  All rights reserved.
  */
 package com.luoo.mywork.common.utils.excel;
 
@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 导入Excel文件（支持“XLS”和“XLSX”格式）
@@ -51,9 +49,11 @@ public class ImportExcel {
 	 */
 	private int headerNum;
 	
+	private List<CellRangeAddress> list = new ArrayList<>();
+	
 	/**
 	 * 构造函数
-	 * @param fileName 导入文件，读取第一个工作表
+	 * @param path 导入文件，读取第一个工作表
 	 * @param headerNum 标题行号，数据行号=标题行号+1
 	 * @throws InvalidFormatException 
 	 * @throws IOException 
@@ -65,7 +65,7 @@ public class ImportExcel {
 	
 	/**
 	 * 构造函数
-	 * @param file 导入文件对象，读取第一个工作表
+	 * @param path 导入文件对象，读取第一个工作表
 	 * @param headerNum 标题行号，数据行号=标题行号+1
 	 * @throws InvalidFormatException 
 	 * @throws IOException 
@@ -77,7 +77,7 @@ public class ImportExcel {
 
 	/**
 	 * 构造函数
-	 * @param fileName 导入文件
+	 * @param path 导入文件
 	 * @param headerNum 标题行号，数据行号=标题行号+1
 	 * @param sheetIndex 工作表编号
 	 * @throws InvalidFormatException 
@@ -90,7 +90,7 @@ public class ImportExcel {
 	
 	/**
 	 * 构造函数
-	 * @param file 导入文件对象
+	 * @param path 导入文件对象
 	 * @param headerNum 标题行号，数据行号=标题行号+1
 	 * @param sheetIndex 工作表编号
 	 * @throws InvalidFormatException 
@@ -103,20 +103,20 @@ public class ImportExcel {
 	
 	/**
 	 * 构造函数
-	 * @param multipartFile 导入文件对象
+	 * @param file 导入文件对象
 	 * @param headerNum 标题行号，数据行号=标题行号+1
 	 * @param sheetIndex 工作表编号
 	 * @throws InvalidFormatException 
 	 * @throws IOException 
 	 */
-	public ImportExcel(MultipartFile multipartFile, int headerNum, int sheetIndex)
+	public ImportExcel(MultipartFile multipartFile, int headerNum, int sheetIndex) 
 			throws InvalidFormatException, IOException {
 		this(multipartFile.getOriginalFilename(), multipartFile.getInputStream(), headerNum, sheetIndex);
 	}
 
 	/**
 	 * 构造函数
-	 * @param fileName 导入文件对象
+	 * @param path 导入文件对象
 	 * @param headerNum 标题行号，数据行号=标题行号+1
 	 * @param sheetIndex 工作表编号
 	 * @throws InvalidFormatException 
@@ -138,7 +138,37 @@ public class ImportExcel {
 		}
 		this.sheet = this.wb.getSheetAt(sheetIndex);
 		this.headerNum = headerNum;
+		// 获得一个 sheet 中合并单元格的数量
+		int sheetmergerCount = sheet.getNumMergedRegions();
+		// 遍历合并单元格
+		for (int i = 0; i < sheetmergerCount; i++) {
+			// 获得合并单元格加入list中
+			CellRangeAddress ca = sheet.getMergedRegion(i);
+			list.add(ca);
+		}		
 		log.debug("Initialize success.");
+	}
+	
+	public Sheet getSheet() {
+		return sheet;
+	}
+	
+	public CellRangeAddress inMergedRegion(Cell cell){
+		int firstC = 0;
+		int lastC = 0;
+		int firstR = 0;
+		int lastR = 0;
+		for (CellRangeAddress ca : list) {
+			// 获得合并单元格的起始行, 结束行, 起始列, 结束列
+			firstC = ca.getFirstColumn();
+			lastC = ca.getLastColumn();
+			firstR = ca.getFirstRow();
+			lastR = ca.getLastRow();
+			if (cell.getColumnIndex() <= lastC&& cell.getColumnIndex()>= firstC&&cell.getRowIndex() <= lastR && cell.getRowIndex() >= firstR) {
+				return ca;
+			}
+		}
+		return null;
 	}
 	
 	/**

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoo.mywork.modules.sys.dao.SysStaffAssessTemplateDefineDao">
+    
+	<sql id="sysStaffAssessTemplateDefineColumns">
+		a.template_id AS "id",
+		a.template_id AS "templateId",
+		a.template_name AS "templateName",
+		a.create_date AS "createDate",
+		a.done_date AS "doneDate",
+		a.state AS "state",
+		a.user_id AS "user.id",
+		a.ext1 AS "ext1",
+		a.ext2 AS "ext2",
+		a.ext3 AS "ext3",
+		u6.name AS "user.name"
+	</sql>
+	
+	<sql id="sysStaffAssessTemplateDefineJoins">
+		LEFT JOIN sys_user u6 ON u6.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="SysStaffAssessTemplateDefine">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDefineColumns"/>
+		FROM sys_staff_assess_template_define a
+		<include refid="sysStaffAssessTemplateDefineJoins"/>
+		WHERE a.template_id = #{template_id}
+	</select>
+	
+	<select id="findList" resultType="SysStaffAssessTemplateDefine">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDefineColumns"/>
+		FROM sys_staff_assess_template_define a
+		<include refid="sysStaffAssessTemplateDefineJoins"/>
+		<where>
+			
+			<if test="templateName != null and templateName != ''">
+				AND a.template_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{templateName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{templateName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{templateName},'%')</if>
+			</if>
+			<if test="state != null and state != ''">
+				AND a.state = #{state}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysStaffAssessTemplateDefine">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDefineColumns"/>
+		FROM sys_staff_assess_template_define a
+		<include refid="sysStaffAssessTemplateDefineJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_staff_assess_template_define(
+			template_name,
+			create_date,
+			done_date,
+			user_id,
+			state
+		) VALUES (
+			#{templateName},
+			#{createDate},
+			#{doneDate},
+			#{user.id},
+			#{state}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_staff_assess_template_define SET 	
+			template_name = #{templateName},
+			done_date = #{doneDate},
+			state = #{state}
+		WHERE template_id  = #{templateId}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_staff_assess_template_define
+		WHERE template_id  = #{templateId}
+	</update>
+	
+</mapper>

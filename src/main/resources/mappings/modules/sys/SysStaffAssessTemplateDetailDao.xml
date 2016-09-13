@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoo.mywork.modules.sys.dao.SysStaffAssessTemplateDetailDao">
+    <resultMap id="beanList" type="com.luoo.mywork.modules.sys.entity.SysStaffAssessTemplateDetail">
+        <id property="detailTemplateId" column="detailTemplateId" />
+		<result property="parent.detailTemplateId" column="parent.detailTemplateId" />
+		<result property="templateDefineId" column="templateDefineId" />
+		<result property="templateContent" column="templateContent" />
+		<result property="seqNum" column="seqNum" />
+		<result property="startRow" column="startRow" />
+		<result property="startCol" column="startCol" />
+		<result property="endRow" column="endRow" />
+		<result property="endCol" column="endCol" />
+		<result property="pointType" column="pointType" />
+		<result property="point" column="point" />
+		<result property="createDate" column="createDate" />
+		<result property="user.id" column="user.id" />
+    </resultMap>
+	<sql id="sysStaffAssessTemplateDetailColumns">
+		a.detail_template_id AS "id",
+		a.detail_template_id AS "detailTemplateId",
+		a.parent_id AS "parent.detailTemplateId",
+		a.template_define_id AS "templateDefineId",
+		a.template_content AS "templateContent",
+		a.seq_num AS "seqNum",
+		a.start_row AS "startRow",
+		a.start_col AS "startCol",
+		a.end_row AS "endRow",
+		a.end_col AS "endCol",
+		a.point_type AS "pointType",
+		a.point AS "point",
+		a.create_date AS "createDate",
+		a.user_id AS "user.id",
+		a.ext1 AS "ext1",
+		a.ext2 AS "ext2",
+		a.ext3 AS "ext3",
+		u13.name AS "user.name"
+	</sql>
+	
+	<sql id="sysStaffAssessTemplateDetailJoins">
+		LEFT JOIN sys_user u13 ON u13.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="SysStaffAssessTemplateDetail">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDetailColumns"/>
+		FROM sys_staff_assess_template_detail a
+		<include refid="sysStaffAssessTemplateDetailJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="queryByTemplateId" resultType="SysStaffAssessTemplateDetail"  parameterType="java.lang.String">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDetailColumns"/>
+		FROM sys_staff_assess_template_detail a
+		<include refid="sysStaffAssessTemplateDetailJoins"/>
+		<where>
+						a.template_define_id = #{templateId}
+		</where>
+		ORDER BY ext1,ext2
+	</select>
+	
+	<select id="findList" resultType="SysStaffAssessTemplateDetail">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDetailColumns"/>
+		FROM sys_staff_assess_template_detail a
+		<include refid="sysStaffAssessTemplateDetailJoins"/>
+		<where>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysStaffAssessTemplateDetail">
+		SELECT 
+			<include refid="sysStaffAssessTemplateDetailColumns"/>
+		FROM sys_staff_assess_template_detail a
+		<include refid="sysStaffAssessTemplateDetailJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="detailTemplateId">
+
+		SELECT LAST_INSERT_ID() AS detailTemplateId
+
+	</selectKey>
+	
+		INSERT INTO sys_staff_assess_template_detail(
+			parent_id,
+			template_define_id,
+			template_content,
+			seq_num,
+			start_row,
+			start_col,
+			end_row,
+			end_col,
+			point_type,
+			point,
+			create_date,
+			user_id,
+			ext1,
+			ext2,
+			ext3
+		) VALUES (
+		<choose>
+			<when test="parent==null">
+				-1,
+			</when>
+			<otherwise>
+				#{parent.detailTemplateId},
+			</otherwise>
+		</choose>
+			#{templateDefineId},
+			#{templateContent},
+			#{seqNum},
+			#{startRow},
+			#{startCol},
+			#{endRow},
+			#{endCol},
+			#{pointType},
+			#{point},
+			#{createDate},
+			#{user.id},
+			#{ext1},
+			#{ext2},
+			#{ext3}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_staff_assess_template_detail SET 	
+			parent_id = #{parent.detailTemplateId},
+			template_define_id = #{templateDefineId},
+			template_content = #{templateContent},
+			seq_num = #{seqNum},
+			start_row = #{startRow},
+			start_col = #{startCol},
+			end_row = #{endRow},
+			end_col = #{endCol},
+			point_type = #{pointType},
+			point = #{point}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_staff_assess_template_detail
+		WHERE detailTemplateId = #{id}
+	</update>
+	<update id="deleteAll" >
+		DELETE FROM sys_staff_assess_template_detail
+		WHERE template_define_id = #{templateId}
+	</update>
+	
+</mapper>

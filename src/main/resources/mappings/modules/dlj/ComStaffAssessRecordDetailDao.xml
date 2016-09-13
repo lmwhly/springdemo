@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoo.mywork.modules.dlj.dao.ComStaffAssessRecordDetailDao">
+    
+	<sql id="comStaffAssessRecordDetailColumns">
+		a.detail_id AS "id",
+		a.detail_id AS "detailId",
+		a.detail_template_id AS "detailTemplate.detailTemplateId",
+		b.point AS "detailTemplate.point",
+		a.record_id AS "recordId",
+		a.score_value AS "scoreValue",
+		a.remark AS "remark",
+		a.ext1 AS "ext1",
+		a.ext2 AS "ext2",
+		a.ext3 AS "ext3"
+	</sql>
+	
+	<sql id="comStaffAssessRecordDetailJoins">
+			LEFT JOIN sys_staff_assess_template_detail b ON b.detail_template_id = a.detail_template_id
+	</sql>
+    
+	<select id="get" resultType="ComStaffAssessRecordDetail">
+		SELECT 
+			<include refid="comStaffAssessRecordDetailColumns"/>
+		FROM com_staff_assess_record_detail a
+		<include refid="comStaffAssessRecordDetailJoins"/>
+		WHERE a.detail_id = #{id}
+	</select>
+	<select id="queryByRecordId" resultType="ComStaffAssessRecordDetail"  parameterType="java.lang.Long">
+		SELECT 
+			<include refid="comStaffAssessRecordDetailColumns"/>
+		FROM com_staff_assess_record_detail a
+		<include refid="comStaffAssessRecordDetailJoins"/>
+		<where>
+						a.record_id = #{recordId}
+		</where>
+	</select>
+	<select id="findList" resultType="ComStaffAssessRecordDetail">
+		SELECT 
+			<include refid="comStaffAssessRecordDetailColumns"/>
+		FROM com_staff_assess_record_detail a
+		<include refid="comStaffAssessRecordDetailJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ComStaffAssessRecordDetail">
+		SELECT 
+			<include refid="comStaffAssessRecordDetailColumns"/>
+		FROM com_staff_assess_record_detail a
+		<include refid="comStaffAssessRecordDetailJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO com_staff_assess_record_detail(
+			detail_template_id,
+			record_id,
+			score_value,
+			remark,
+			ext1,
+			ext2,
+			ext3
+		) VALUES (
+			#{detailTemplate.detailTemplateId},
+			#{recordId},
+			#{scoreValue},
+			#{remark},
+			#{ext1},
+			#{ext2},
+			#{ext3}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE com_staff_assess_record_detail SET 	
+			detail_template_id = #{detailTemplate.detailTemplateId},
+			record_id = #{recordId},
+			score_value = #{scoreValue},
+			remark = #{remark},
+			ext1 = #{ext1},
+			ext2 = #{ext2},
+			ext3 = #{ext3}
+		WHERE detail_id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM com_staff_assess_record_detail
+		WHERE detail_id = #{id}
+	</update>
+	<update id="deleteByRecordId">
+		DELETE FROM com_staff_assess_record_detail
+		WHERE record_id = #{recordId}
+	</update>
+	
+</mapper>

@@ -1,7 +1,6 @@
-/**
+package com.luoo.mywork.modules.oa.entity; /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.luoo.mywork.modules.oa.entity;
 
 import com.luoo.mywork.common.persistence.DataEntity;
 import com.luoo.mywork.modules.sys.entity.User;

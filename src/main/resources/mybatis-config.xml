@@ -39,10 +39,20 @@
 
     </settings>
 
-    <plugins>
+    <!--<plugins>
         <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
             <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect"/>
         </plugin>
+    </plugins>-->
+
+    <!-- 类型别名 -->
+    <typeAliases>
+        <typeAlias alias="Page" type="com.luoo.mywork.common.persistence.Page" /><!--分页  -->
+    </typeAliases>
+
+    <!-- 插件配置 -->
+    <plugins>
+        <plugin interceptor="com.luoo.mywork.common.persistence.interceptor.PaginationInterceptor" />
     </plugins>
 
 

@@ -1,10 +1,11 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
 package com.luoo.mywork.common.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
+import com.luoo.mywork.common.config.Global;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
@@ -33,7 +34,11 @@ public abstract class BaseEntity<T> implements Serializable {
 	 */
 	protected User currentUser;
 	
-
+	/**
+	 * 当前实体分页对象
+	 */
+	protected Page<T> page;
+	
 	/**
 	 * 自定义SQL（SQL标识，SQL内容）
 	 */
@@ -77,6 +82,20 @@ public abstract class BaseEntity<T> implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
+	public Page<T> getPage() {
+		if (page == null){
+			page = new Page<T>();
+		}
+		return page;
+	}
+	
+	public Page<T> setPage(Page<T> page) {
+		this.page = page;
+		return page;
+	}
+
+	@JsonIgnore
+	@XmlTransient
 	public Map<String, String> getSqlMap() {
 		if (sqlMap == null){
 			sqlMap = Maps.newHashMap();
@@ -115,7 +134,22 @@ public abstract class BaseEntity<T> implements Serializable {
 		this.isNewRecord = isNewRecord;
 	}
 
-
+	/**
+	 * 全局变量对象
+	 */
+	@JsonIgnore
+	public Global getGlobal() {
+		return Global.getInstance();
+	}
+	
+	/**
+	 * 获取数据库名称
+	 */
+	@JsonIgnore
+	public String getDbName(){
+		return Global.getConfig("jdbc.type");
+	}
+	
     @Override
     public boolean equals(Object obj) {
         if (null == obj) {
