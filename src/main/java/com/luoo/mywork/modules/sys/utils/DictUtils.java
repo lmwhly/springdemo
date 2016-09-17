@@ -5,6 +5,7 @@ package com.luoo.mywork.modules.sys.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.luoo.mywork.common.mapper.JsonMapper;
 import com.luoo.mywork.common.utils.CacheUtils;
 import com.luoo.mywork.common.utils.SpringContextHolder;
 import com.luoo.mywork.modules.sys.dao.DictDao;
@@ -86,7 +87,6 @@ public class DictUtils {
 	 * @return
 	 */
 	public static String getDictListJson(String type){
-//		return JsonMapper.toJsonString(getDictList(type));
-		return "";
+		return JsonMapper.toJsonString(getDictList(type));
 	}
 }

@@ -8,6 +8,8 @@ import com.luoo.mywork.common.persistence.CrudDao;
 import com.luoo.mywork.common.persistence.annotation.MyBatisDao;
 import com.luoo.mywork.modules.sys.entity.SysStaffAssessTemplateDefine;
 
+import java.util.List;
+
 /**
  * 单表增删改查DAO接口
  * @author zhangcan
@@ -15,5 +17,6 @@ import com.luoo.mywork.modules.sys.entity.SysStaffAssessTemplateDefine;
  */
 @MyBatisDao
 public interface SysStaffAssessTemplateDefineDao extends CrudDao<SysStaffAssessTemplateDefine> {
-	
+
+    void deleteSel(List<String> ids);
 }

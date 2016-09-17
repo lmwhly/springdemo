@@ -3,6 +3,7 @@
  */
 package com.luoo.mywork.modules.sys.service;
 
+import com.google.common.base.Splitter;
 import com.luoo.mywork.common.persistence.Page;
 import com.luoo.mywork.common.service.CrudService;
 import com.luoo.mywork.modules.sys.dao.SysStaffAssessTemplateDefineDao;
@@ -52,5 +53,14 @@ public class SysStaffAssessTemplateDefineService extends CrudService<SysStaffAss
 	public void delete(SysStaffAssessTemplateDefine sysStaffAssessTemplateDefine) {
 		super.delete(sysStaffAssessTemplateDefine);
 	}
-	
+
+	@Transactional(readOnly = false)
+	public void deleteSel(String templateIds) {
+
+		Splitter splitter = Splitter.on(",").omitEmptyStrings().trimResults();
+		List<String> ids = splitter.splitToList(templateIds);
+
+
+		dao.deleteSel(ids);
+	}
 }

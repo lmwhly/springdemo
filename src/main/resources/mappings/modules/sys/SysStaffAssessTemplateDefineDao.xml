@@ -99,5 +99,20 @@
 		DELETE FROM sys_staff_assess_template_define
 		WHERE template_id  = #{templateId}
 	</update>
+
+
+	<update id="deleteSel" parameterType="list">
+		DELETE FROM sys_staff_assess_template_define
+		WHERE template_id  IN
+
+		<foreach collection="list" item="ids"  open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+
+
+
+	</update>
+
+
 	
 </mapper>

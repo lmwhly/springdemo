@@ -49,5 +49,8 @@
 		<table id="showTable" style="width: 100%;"  class="table table-striped table-bordered table-condensed"  >
 		</table>
 	</div>
+	<div class="form-actions"  align="center">
+		<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
+	</div>
 </body>
 </html>

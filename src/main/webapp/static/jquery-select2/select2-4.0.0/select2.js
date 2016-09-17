@@ -3420,7 +3420,7 @@ S2.define('select2/data/tags',[
 
       if (tag != null) {
         var $option = self.option(tag);
-        $option.attr('data-select2-tag', true);
+        $option.attr('data-select2-tags', true);
 
         self.addOptions([$option]);
 
@@ -3455,7 +3455,7 @@ S2.define('select2/data/tags',[
   Tags.prototype._removeOldTags = function (_) {
     var tag = this._lastTag;
 
-    var $options = this.$element.find('option[data-select2-tag]');
+    var $options = this.$element.find('option[data-select2-tags]');
 
     $options.each(function () {
       if (this.selected) {

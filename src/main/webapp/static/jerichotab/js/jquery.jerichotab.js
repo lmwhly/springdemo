@@ -24,7 +24,7 @@
 					**closeable(Boolean): the switch that controls whether the tab can be closed (true as default)
 					}
 				*activeTabIndex(Int): the tab you'd like to select after loading(0 as default)
-				*contentHeight(Int): height of the content div tag
+				*contentHeight(Int): height of the content div tags
 				*contentCss(Object): the same as style sheet
 				*loadOnce(Boolean): the switch controls if load tab content at the first time(true as default)
 				*tabWidth(Int): width of each tab(150 as default)
@@ -40,7 +40,7 @@
 									*dataType:'formtag', 
 									//***use the html tags in this page
 									*dataLink:'#example' 
-									//***id of the tag you'd like to display in this tab
+									//***id of the tags you'd like to display in this tab
 								##iframe:
 									*dataType:'iframe', 
 									//***use the iframe to load another page
@@ -130,7 +130,7 @@ $.extend($.fn, {
                 loadOnce: opts.loadOnce,
                 tabpage: $('.tab_pages>.tabs>ul', jerichotab),
                 addTab: function(tabsetting) {
-                    //set as the unique tab id and tabFirer tag
+                    //set as the unique tab id and tabFirer tags
                     tagGuid = (typeof tagGuid == 'undefined' ? 0 : tagGuid + 1);
                     var curIndex = tagGuid;
                     //this function will be open to all users for them to add tab at any time
@@ -145,7 +145,7 @@ $.extend($.fn, {
                         //   dataType:'formtag', 
                         //                  --use the html tags in this page
                         //   dataLink:'#example' 
-                        //                  --id of the tag you'ld like to display in this tab
+                        //                  --id of the tags you'ld like to display in this tab
                         //2.iframe:
                         //   dataType:'iframe', 
                         //                  --use the iframe to load another page
@@ -283,13 +283,13 @@ $.extend($.fn, {
         })
         //window.console && console.log('width :' + $.fn.jerichoTab.tabpage.width());
     },
-    //activate the tag(orderkey is the tab order, start at 1)
+    //activate the tags(orderkey is the tab order, start at 1)
     setTabActiveByOrder: function(orderKey) {
         var lastTab = $.fn.jerichoTab.tabpage.children('li').filter('.tab_selected');
         if (lastTab.length > 0) lastTab.swapTabEnable();
         return $('#jericho_tabs').filter(':nth-child(' + orderKey + ')').swapTabEnable();
     },
-    //activate the tag(orderKey is the tagGuid of each tab)
+    //activate the tags(orderKey is the tagGuid of each tab)
     setTabActive: function(orderKey) {
         var lastTab = $.fn.jerichoTab.tabpage.children('li').filter('.tab_selected');
         if (lastTab.length > 0) lastTab.swapTabEnable();

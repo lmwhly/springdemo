@@ -379,11 +379,11 @@
     var sections = [];     // Stack to hold section tokens
     var tokens = [];       // Buffer to hold the tokens
     var spaces = [];       // Indices of whitespace tokens on the current line
-    var hasTag = false;    // Is there a {{tag}} on the current line?
+    var hasTag = false;    // Is there a {{tags}} on the current line?
     var nonSpace = false;  // Is there a non-space char on the current line?
 
     // Strips all whitespace tokens array for the current line
-    // if there was a {{#tag}} on it and otherwise only space.
+    // if there was a {{#tags}} on it and otherwise only space.
     function stripSpace() {
       if (hasTag && !nonSpace) {
         while (spaces.length) {
@@ -421,15 +421,15 @@
         }
       }
 
-      // Match the opening tag.
+      // Match the opening tags.
       if (!scanner.scan(tagRes[0])) break;
       hasTag = true;
 
-      // Get the tag type.
+      // Get the tags type.
       type = scanner.scan(tagRe) || 'name';
       scanner.scan(whiteRe);
 
-      // Get the tag value.
+      // Get the tags value.
       if (type === '=') {
         value = scanner.scanUntil(eqRe);
         scanner.scan(eqRe);
@@ -443,8 +443,8 @@
         value = scanner.scanUntil(tagRes[1]);
       }
 
-      // Match the closing tag.
-      if (!scanner.scan(tagRes[1])) throw new Error('Unclosed tag at ' + scanner.pos);
+      // Match the closing tags.
+      if (!scanner.scan(tagRes[1])) throw new Error('Unclosed tags at ' + scanner.pos);
 
       token = [type, value, start, scanner.pos];
       tokens.push(token);

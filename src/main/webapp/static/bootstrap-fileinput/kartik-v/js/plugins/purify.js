@@ -530,7 +530,7 @@
 
             /* Remove attribute */
             // Safari (iOS + Mac), last tested v8.0.5, crashes if you try to
-            // remove a "name" attribute from an <img> tag that has an "id"
+            // remove a "name" attribute from an <img> tags that has an "id"
             // attribute at the time.
             if (lcName === 'name'  &&
                     currentNode.nodeName === 'IMG' && attributes.id) {

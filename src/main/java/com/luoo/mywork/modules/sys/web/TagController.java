@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TagController extends BaseController {
 	
 	/**
-	 * 树结构选择标签（treeselect.tag）
+	 * 树结构选择标签（treeselect.tags）
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "treeselect")
@@ -36,7 +36,7 @@ public class TagController extends BaseController {
 	}
 	
 	/**
-	 * 图标选择标签（iconselect.tag）
+	 * 图标选择标签（iconselect.tags）
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "iconselect")

@@ -3,6 +3,7 @@
  */
 package com.luoo.mywork.modules.dlj.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.luoo.mywork.common.config.Global;
 import com.luoo.mywork.common.persistence.Page;
 import com.luoo.mywork.common.utils.StringUtils;
@@ -20,10 +21,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,9 +63,35 @@ public class ComStaffAssessRecordController extends BaseController {
 	@RequiresPermissions("dlj:comStaffAssessRecord:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(ComStaffAssessRecord comStaffAssessRecord, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<ComStaffAssessRecord> page = comStaffAssessRecordService.findPage(new Page<ComStaffAssessRecord>(request, response), comStaffAssessRecord);
-		model.addAttribute("page", page);
+//		Page<ComStaffAssessRecord> page = comStaffAssessRecordService.findPage(new Page<ComStaffAssessRecord>(request, response), comStaffAssessRecord);
+//		model.addAttribute("page", page);
 		return "modules/dlj/comStaffAssessRecordList";
+	}
+
+
+	@RequiresPermissions("dlj:comStaffAssessRecord:view")
+	@RequestMapping(value = "newlist")
+	@ResponseBody
+	public Object newlist(ComStaffAssessRecord comStaffAssessRecord,HttpServletRequest request,HttpServletResponse response, @RequestBody JSONObject jsonObj) {
+
+		String state = jsonObj.getString("state");
+
+//		comStaffAssessRecord.setState(state);
+
+		int pageNumber = jsonObj.getIntValue("pageNumber");
+		int pageSize = jsonObj.getIntValue("pageSize");
+
+		try {
+
+			Page<ComStaffAssessRecord> page = comStaffAssessRecordService.findPage(new Page<ComStaffAssessRecord>(pageNumber, pageSize), comStaffAssessRecord);
+			return page;
+
+
+		} catch (Exception e) {
+			logger.error("系统异常e:{}", e);
+		}
+
+		return null;
 	}
 
 	@RequiresPermissions("dlj:comStaffAssessRecord:view")

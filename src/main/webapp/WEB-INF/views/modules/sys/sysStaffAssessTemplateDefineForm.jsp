@@ -33,24 +33,28 @@
 	<form:form id="inputForm" modelAttribute="sysStaffAssessTemplateDefine" action="${ctx}/sys/sysStaffAssessTemplateDefine/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<div class="control-group">
-			<label class="control-label">模板名称：</label>
-			<div class="controls">
-				<form:input path="templateName" htmlEscape="false" maxlength="256" class="input-xlarge "/>
+		<div class="form-group">
+			<label class="col-md-1 col-xs-1 col-sm-2 control-label">模板名称：</label>
+			<div class="col-md-2 col-sm-2 col-xs-2">
+				<form:input path="templateName" htmlEscape="false" maxlength="256" class="form-control"/>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">状态：</label>
-			<div class="controls">
-				<form:select path="state" class="input-xlarge ">
+		<div class="form-group">
+			<label class="col-md-1 col-xs-1 col-sm-2 control-label">状态：</label>
+			<div class="col-md-1 col-sm-1 col-xs-1">
+				<form:select path="state" class="form-control">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('TEMPLATE_STATE')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</div>
 		</div>
-		<div class="form-actions">
-			<shiro:hasPermission name="sys:sysStaffAssessTemplateDefine:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
-			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-xs-offset-2 col-sm-offset-2">
+				<shiro:hasPermission name="sys:sysStaffAssessTemplateDefine:edit">
+					<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
+				</shiro:hasPermission>
+				<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
+			</div>
 		</div>
 	</form:form>
 </body>

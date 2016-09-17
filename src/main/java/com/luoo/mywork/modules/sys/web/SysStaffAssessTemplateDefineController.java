@@ -73,12 +73,11 @@ public class SysStaffAssessTemplateDefineController extends BaseController {
 	@ResponseBody
 	public Object newlist(SysStaffAssessTemplateDefine sysStaffAssessTemplateDefine,HttpServletRequest request,HttpServletResponse response, @RequestBody JSONObject jsonObj) {
 
-		Map<String, Object> map = new HashMap<String, Object>();
 		String state = jsonObj.getString("state");
 		String templateName = jsonObj.getString("templateName");
-		map.put("state",state);
-		map.put("templateName",templateName);
 
+		sysStaffAssessTemplateDefine.setState(state);
+		sysStaffAssessTemplateDefine.setTemplateName(templateName);
 
 		int pageNumber = jsonObj.getIntValue("pageNumber");
 		int pageSize = jsonObj.getIntValue("pageSize");
@@ -132,6 +131,16 @@ public class SysStaffAssessTemplateDefineController extends BaseController {
 			sysStaffAssessTemplateDefineService.delete(sysStaffAssessTemplateDefine);
 			addMessage(redirectAttributes, "删除考核模板成功");
 		}
+		return "redirect:"+Global.getAdminPath()+"/sys/sysStaffAssessTemplateDefine/?repage";
+	}
+
+	@RequiresPermissions("sys:sysStaffAssessTemplateDefine:edit")
+	@RequestMapping(value = "deleteSel")
+	public String deleteSel(String templateIds, RedirectAttributes redirectAttributes) {
+		sysStaffAssessTemplateDefineService.deleteSel(templateIds);
+		addMessage(redirectAttributes, "删除考核模板成功");
+
+
 		return "redirect:"+Global.getAdminPath()+"/sys/sysStaffAssessTemplateDefine/?repage";
 	}
 	
