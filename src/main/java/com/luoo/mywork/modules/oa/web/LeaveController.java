@@ -1,13 +1,15 @@
-package com.luoo.mywork.modules.oa.web; /**
+/**
  * There are <a href="https://github.com/thinkgem/jeesite">JeeSite</a> code generation
  */
+package com.luoo.mywork.modules.oa.web;
 
-import com.google.common.collect.Maps;
-import com.luoo.mywork.common.mapper.JsonMapper;
-import com.luoo.mywork.common.web.BaseController;
-import com.luoo.mywork.modules.oa.entity.Leave;
-import com.luoo.mywork.modules.oa.service.LeaveService;
-import com.luoo.mywork.modules.sys.utils.UserUtils;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -22,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Maps;
+import com.luoo.mywork.common.mapper.JsonMapper;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.modules.oa.entity.Leave;
+import com.luoo.mywork.modules.oa.service.LeaveService;
+import com.luoo.mywork.modules.sys.utils.UserUtils;
 
 /**
  * 请假Controller
@@ -75,6 +79,7 @@ public class LeaveController extends BaseController {
 
 	/**
 	 * 任务列表
+	 * @param leave	
 	 */
 	@RequiresPermissions("oa:leave:view")
 	@RequestMapping(value = {"list/task",""})
@@ -92,8 +97,8 @@ public class LeaveController extends BaseController {
 	@RequiresPermissions("oa:leave:view")
 	@RequestMapping(value = {"list"})
 	public String list(Leave leave, HttpServletRequest request, HttpServletResponse response, Model model) {
-       /* Page<Leave> page = leaveService.find(new Page<Leave>(request, response), leave);
-        model.addAttribute("page", page);*/
+        Page<Leave> page = leaveService.find(new Page<Leave>(request, response), leave); 
+        model.addAttribute("page", page);
 		return "modules/oa/leaveList";
 	}
 	

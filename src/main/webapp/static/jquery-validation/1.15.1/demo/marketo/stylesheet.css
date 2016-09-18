@@ -509,7 +509,7 @@ div.box-purple a {
 }
 
 * html .icon-text01 {
-	width: 460px; /* must have a width or heigh tags for ie6*/
+	width: 460px; /* must have a width or heigh tag for ie6*/
 	background-image: none;
 	filter: progid : DXImageTransform . Microsoft .
 		AlphaImageLoader(src = "images/icon_search-engine-market.png",
@@ -521,7 +521,7 @@ div.box-purple a {
 }
 
 * html .icon-text02 {
-	width: 460px; /* must have a width or heigh tags for ie6*/
+	width: 460px; /* must have a width or heigh tag for ie6*/
 	background-image: none;
 	filter: progid : DXImageTransform . Microsoft .
 		AlphaImageLoader(src = "images/icon_landing-pages.png", sizingMethod =
@@ -533,7 +533,7 @@ div.box-purple a {
 }
 
 * html .icon-text03 {
-	width: 460px; /* must have a width or heigh tags for ie6*/
+	width: 460px; /* must have a width or heigh tag for ie6*/
 	background-image: none;
 	filter: progid : DXImageTransform . Microsoft .
 		AlphaImageLoader(src = "images/icon_salesforce.png", sizingMethod =

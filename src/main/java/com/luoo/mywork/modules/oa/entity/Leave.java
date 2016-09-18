@@ -1,6 +1,17 @@
-package com.luoo.mywork.modules.oa.entity; /**
+/**
  * There are <a href="https://github.com/thinkgem/jeesite">JeeSite</a> code generation
  */
+package com.luoo.mywork.modules.oa.entity;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.Lists;
@@ -8,15 +19,6 @@ import com.luoo.mywork.common.persistence.DataEntity;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.utils.DictUtils;
-import org.activiti.engine.history.HistoricProcessInstance;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
-import org.hibernate.validator.constraints.Length;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 请假Entity

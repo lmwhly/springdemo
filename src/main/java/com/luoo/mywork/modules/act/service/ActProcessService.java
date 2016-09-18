@@ -3,10 +3,19 @@
  */
 package com.luoo.mywork.modules.act.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.luoo.mywork.common.service.BaseService;
-import com.luoo.mywork.common.utils.StringUtils;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipInputStream;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -16,7 +25,9 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +35,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.ZipInputStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.service.BaseService;
+import com.luoo.mywork.common.utils.StringUtils;
 
 /**
  * 流程定义相关Controller
@@ -49,7 +58,7 @@ public class ActProcessService extends BaseService {
 	/**
 	 * 流程定义列表
 	 */
-	/*public Page<Object[]> processList(Page<Object[]> page, String category) {
+	public Page<Object[]> processList(Page<Object[]> page, String category) {
 
 	    ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery()
 	    		.latestVersion().orderByProcessDefinitionKey().asc();
@@ -68,12 +77,12 @@ public class ActProcessService extends BaseService {
 	    }
 
 		return page;
-	}*/
+	}
 
 	/**
 	 * 流程定义列表
 	 */
-	/*public Page<ProcessInstance> runningList(Page<ProcessInstance> page, String procInsId, String procDefKey) {
+	public Page<ProcessInstance> runningList(Page<ProcessInstance> page, String procInsId, String procDefKey) {
 
 	    ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
 
@@ -88,20 +97,16 @@ public class ActProcessService extends BaseService {
 	    page.setCount(processInstanceQuery.count());
 	    page.setList(processInstanceQuery.listPage(page.getFirstResult(), page.getMaxResults()));
 		return page;
-	}*/
+	}
 	
 	/**
 	 * 读取资源，通过部署ID
-	 *
+	 * @param processDefinitionId  流程定义ID
+	 * @param processInstanceId 流程实例ID
+	 * @param resourceType 资源类型(xml|image)
 	 */
 	public InputStream resourceRead(String procDefId, String proInsId, String resType) throws Exception {
-
-
-		/*@param processDefinitionId  流程定义ID
-		* @param processInstanceId 流程实例ID
-		* @param resourceType 资源类型(xml|image)*/
-
-
+		
 		if (StringUtils.isBlank(procDefId)){
 			ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(proInsId).singleResult();
 			procDefId = processInstance.getProcessDefinitionId();

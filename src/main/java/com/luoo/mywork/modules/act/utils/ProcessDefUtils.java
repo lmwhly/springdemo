@@ -1,5 +1,8 @@
 package com.luoo.mywork.modules.act.utils;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.RepositoryServiceImpl;
@@ -11,9 +14,6 @@ import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.task.TaskDefinition;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.log4j.Logger;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * 流程定义相关操作的封装

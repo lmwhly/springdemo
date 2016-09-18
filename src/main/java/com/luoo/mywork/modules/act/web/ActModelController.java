@@ -3,8 +3,9 @@
  */
 package com.luoo.mywork.modules.act.web;
 
-import com.luoo.mywork.common.web.BaseController;
-import com.luoo.mywork.modules.act.service.ActModelService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.modules.act.service.ActModelService;
 
 /**
  * 流程模型相关Controller
@@ -35,11 +37,11 @@ public class ActModelController extends BaseController {
 	@RequestMapping(value = { "list", "" })
 	public String modelList(String category, HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		/*Page<org.activiti.engine.repository.Model> page = actModelService.modelList(
+		Page<org.activiti.engine.repository.Model> page = actModelService.modelList(
 				new Page<org.activiti.engine.repository.Model>(request, response), category);
 
 		model.addAttribute("page", page);
-		model.addAttribute("category", category);*/
+		model.addAttribute("category", category);
 
 		return "modules/act/actModelList";
 	}
@@ -59,7 +61,7 @@ public class ActModelController extends BaseController {
 	@RequiresPermissions("act:model:edit")
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public void create(String name, String key, String description, String category,
-					   HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			org.activiti.engine.repository.Model modelData = actModelService.create(name, key, description, category);
 			response.sendRedirect(request.getContextPath() + "/act/process-editor/modeler.jsp?modelId=" + modelData.getId());

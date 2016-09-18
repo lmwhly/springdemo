@@ -1,6 +1,11 @@
-package com.luoo.mywork.modules.oa.entity; /**
+/**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
+package com.luoo.mywork.modules.oa.entity;
+
+import java.util.List;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.google.common.collect.Lists;
 import com.luoo.mywork.common.persistence.DataEntity;
@@ -8,9 +13,6 @@ import com.luoo.mywork.common.utils.Collections3;
 import com.luoo.mywork.common.utils.IdGen;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.modules.sys.entity.User;
-import org.hibernate.validator.constraints.Length;
-
-import java.util.List;
 
 /**
  * 通知通告Entity

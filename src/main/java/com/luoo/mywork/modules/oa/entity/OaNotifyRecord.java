@@ -1,12 +1,13 @@
-package com.luoo.mywork.modules.oa.entity; /**
+/**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
+package com.luoo.mywork.modules.oa.entity;
+
+import org.hibernate.validator.constraints.Length;
+import com.luoo.mywork.modules.sys.entity.User;
+import java.util.Date;
 
 import com.luoo.mywork.common.persistence.DataEntity;
-import com.luoo.mywork.modules.sys.entity.User;
-import org.hibernate.validator.constraints.Length;
-
-import java.util.Date;
 
 /**
  * 通知通告记录Entity

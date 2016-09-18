@@ -1,6 +1,8 @@
 package com.luoo.mywork.modules.act.service.creator;
 
-import com.luoo.mywork.modules.act.utils.ProcessDefUtils;
+import java.lang.reflect.Field;
+import java.util.List;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.el.FixedValue;
@@ -11,8 +13,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Assert;
 import org.springframework.beans.BeanUtils;
 
-import java.lang.reflect.Field;
-import java.util.List;
+import com.luoo.mywork.modules.act.utils.ProcessDefUtils;
 
 public abstract class RuntimeActivityCreatorSupport {
 	private static int SEQUNCE_NUMBER = 0;

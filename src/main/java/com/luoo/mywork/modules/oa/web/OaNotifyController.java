@@ -1,11 +1,11 @@
-package com.luoo.mywork.modules.oa.web; /**
+/**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
+package com.luoo.mywork.modules.oa.web;
 
-import com.luoo.mywork.common.utils.StringUtils;
-import com.luoo.mywork.common.web.BaseController;
-import com.luoo.mywork.modules.oa.entity.OaNotify;
-import com.luoo.mywork.modules.oa.service.OaNotifyService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.common.utils.StringUtils;
+import com.luoo.mywork.modules.oa.entity.OaNotify;
+import com.luoo.mywork.modules.oa.service.OaNotifyService;
 
 /**
  * 通知通告Controller
@@ -47,8 +49,8 @@ public class OaNotifyController extends BaseController {
 	@RequiresPermissions("oa:oaNotify:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
-		/*Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify);
-		model.addAttribute("page", page);*/
+		Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify);
+		model.addAttribute("page", page);
 		return "modules/oa/oaNotifyList";
 	}
 
@@ -94,23 +96,23 @@ public class OaNotifyController extends BaseController {
 	 */
 	@RequestMapping(value = "self")
 	public String selfList(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
-		/*oaNotify.setSelf(true);
+		oaNotify.setSelf(true);
 		Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify); 
-		model.addAttribute("page", page);*/
+		model.addAttribute("page", page);
 		return "modules/oa/oaNotifyList";
 	}
 
 	/**
 	 * 我的通知列表-数据
 	 */
-	/*@RequiresPermissions("oa:oaNotify:view")
+	@RequiresPermissions("oa:oaNotify:view")
 	@RequestMapping(value = "selfData")
 	@ResponseBody
 	public Page<OaNotify> listData(OaNotify oaNotify, HttpServletRequest request, HttpServletResponse response, Model model) {
 		oaNotify.setSelf(true);
 		Page<OaNotify> page = oaNotifyService.find(new Page<OaNotify>(request, response), oaNotify);
 		return page;
-	}*/
+	}
 	
 	/**
 	 * 查看我的通知

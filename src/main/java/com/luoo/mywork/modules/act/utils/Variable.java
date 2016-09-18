@@ -3,12 +3,13 @@
  */
 package com.luoo.mywork.modules.act.utils;
 
+import java.util.Map;
+
+import org.apache.commons.beanutils.ConvertUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 import com.luoo.mywork.common.utils.StringUtils;
-import org.apache.commons.beanutils.ConvertUtils;
-
-import java.util.Map;
 
 /**
  * 流程变量对象

@@ -13,7 +13,7 @@
 			type: 2,
 			area: ['700px', '$(top.document).height()-180'],
 
-			content: "${ctx}/tags/iconselect?value=" + $("#${id}").val(),
+			content: "${ctx}/tag/iconselect?value=" + $("#${id}").val(),
 			btn: ['确定', '清除', '关闭'],
 			yes: function (index, layero) {
 //获取子窗口的dom对象
@@ -43,7 +43,7 @@
 		});*/
 
 
-		top.$.jBox.open("iframe:${ctx}/tags/iconselect?value="+$("#${id}").val(), "选择图标", 700, $(top.document).height()-180, {
+		top.$.jBox.open("iframe:${ctx}/tag/iconselect?value="+$("#${id}").val(), "选择图标", 700, $(top.document).height()-180, {
             buttons:{"确定":"ok", "清除":"clear", "关闭":true}, submit:function(v, h, f){
                 if (v=="ok"){
                 	var icon = h.find("iframe")[0].contentWindow.$("#icon").val();

@@ -1,18 +1,20 @@
-package com.luoo.mywork.modules.oa.service; /**
+/**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
+package com.luoo.mywork.modules.oa.service;
 
-import com.luoo.mywork.common.service.CrudService;
-import com.luoo.mywork.modules.oa.dao.OaNotifyDao;
-import com.luoo.mywork.modules.oa.dao.OaNotifyRecordDao;
-import com.luoo.mywork.modules.oa.entity.OaNotify;
-import com.luoo.mywork.modules.oa.entity.OaNotifyRecord;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.service.CrudService;
+import com.luoo.mywork.modules.oa.entity.OaNotify;
+import com.luoo.mywork.modules.oa.entity.OaNotifyRecord;
+import com.luoo.mywork.modules.oa.dao.OaNotifyDao;
+import com.luoo.mywork.modules.oa.dao.OaNotifyRecordDao;
 
 /**
  * 通知通告Service
@@ -41,11 +43,11 @@ public class OaNotifyService extends CrudService<OaNotifyDao, OaNotify> {
 		return oaNotify;
 	}
 	
-	/*public Page<OaNotify> find(Page<OaNotify> page, OaNotify oaNotify) {
+	public Page<OaNotify> find(Page<OaNotify> page, OaNotify oaNotify) {
 		oaNotify.setPage(page);
 		page.setList(dao.findList(oaNotify));
 		return page;
-	}*/
+	}
 	
 	/**
 	 * 获取通知数目

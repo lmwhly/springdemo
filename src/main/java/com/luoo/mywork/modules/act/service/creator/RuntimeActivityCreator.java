@@ -7,5 +7,5 @@ import org.activiti.engine.impl.pvm.process.ActivityImpl;
 public interface RuntimeActivityCreator
 {
 	public ActivityImpl[] createActivities(ProcessEngine processEngine, ProcessDefinitionEntity processDefinition,
-										   RuntimeActivityDefinitionEntity info);
+			RuntimeActivityDefinitionEntity info);
 }

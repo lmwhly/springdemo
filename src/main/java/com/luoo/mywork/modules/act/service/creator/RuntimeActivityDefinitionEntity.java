@@ -1,8 +1,8 @@
 package com.luoo.mywork.modules.act.service.creator;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface RuntimeActivityDefinitionEntity
 {

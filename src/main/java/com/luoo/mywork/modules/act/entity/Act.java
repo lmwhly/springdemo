@@ -3,21 +3,22 @@
  */
 package com.luoo.mywork.modules.act.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.luoo.mywork.common.persistence.BaseEntity;
-import com.luoo.mywork.common.utils.StringUtils;
-import com.luoo.mywork.common.utils.TimeUtils;
-import com.luoo.mywork.modules.act.utils.Variable;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.luoo.mywork.common.persistence.BaseEntity;
+import com.luoo.mywork.common.utils.StringUtils;
+import com.luoo.mywork.common.utils.TimeUtils;
+import com.luoo.mywork.modules.act.utils.Variable;
 
 /**
  * 工作流Entity

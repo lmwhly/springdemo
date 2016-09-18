@@ -3,15 +3,16 @@
  */
 package com.luoo.mywork.modules.act.utils;
 
-import com.luoo.mywork.common.utils.CacheUtils;
-import com.luoo.mywork.common.utils.SpringContextHolder;
+import java.util.List;
+
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.commons.lang3.ObjectUtils;
 
-import java.util.List;
+import com.luoo.mywork.common.utils.CacheUtils;
+import com.luoo.mywork.common.utils.SpringContextHolder;
 
 /**
  * 流程定义缓存
@@ -29,7 +30,7 @@ public class ProcessDefCache {
 	 * @return
 	 */
 	public static ProcessDefinition get(String procDefId) {
-		ProcessDefinition pd = (ProcessDefinition) CacheUtils.get(ACT_CACHE, ACT_CACHE_PD_ID_ + procDefId);
+		ProcessDefinition pd = (ProcessDefinition)CacheUtils.get(ACT_CACHE, ACT_CACHE_PD_ID_ + procDefId);
 		if (pd == null) {
 			RepositoryService repositoryService = SpringContextHolder.getBean(RepositoryService.class);
 //			pd = (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService).getDeployedProcessDefinition(pd);

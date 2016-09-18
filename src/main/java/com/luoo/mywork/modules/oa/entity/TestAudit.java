@@ -1,7 +1,7 @@
-package com.luoo.mywork.modules.oa.entity; /**
+/**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-
+package com.luoo.mywork.modules.oa.entity;
 
 import com.luoo.mywork.common.persistence.ActEntity;
 import com.luoo.mywork.modules.sys.entity.Office;
@@ -15,8 +15,8 @@ import com.luoo.mywork.modules.sys.entity.User;
 public class TestAudit extends ActEntity<TestAudit> {
 	
 	private static final long serialVersionUID = 1L;
-	private User user;	//	归属用户
-	private Office office;	//	归属部门
+	private User 	user;	//	归属用户
+	private Office 	office;	//	归属部门
 	private String 	post;	//	岗位
 	private String 	age;	//	性别
 	private String 	edu;	//	学历

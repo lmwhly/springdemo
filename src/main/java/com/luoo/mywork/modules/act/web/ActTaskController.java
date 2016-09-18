@@ -3,11 +3,13 @@
  */
 package com.luoo.mywork.modules.act.web;
 
-import com.luoo.mywork.common.web.BaseController;
-import com.luoo.mywork.modules.act.entity.Act;
-import com.luoo.mywork.modules.act.service.ActTaskService;
-import com.luoo.mywork.modules.act.utils.ActUtils;
-import com.luoo.mywork.modules.sys.utils.UserUtils;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.modules.act.entity.Act;
+import com.luoo.mywork.modules.act.service.ActTaskService;
+import com.luoo.mywork.modules.act.utils.ActUtils;
+import com.luoo.mywork.modules.sys.utils.UserUtils;
 
 /**
  * 流程个人任务相关Controller
@@ -38,7 +41,7 @@ public class ActTaskController extends BaseController {
 	
 	/**
 	 * 获取待办列表
-	 * @param act 流程定义标识
+	 * @param procDefKey 流程定义标识
 	 * @return
 	 */
 	@RequestMapping(value = {"todo", ""})
@@ -53,26 +56,24 @@ public class ActTaskController extends BaseController {
 	
 	/**
 	 * 获取已办任务
-	 * @param act
-	 *
+	 * @param page
+	 * @param procDefKey 流程定义标识
 	 * @return
 	 */
 	@RequestMapping(value = "historic")
 	public String historicList(Act act, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-
-//		@param procDefKey 流程定义标识
-				/*Page<Act> page = new Page<Act>(request, response);
+		Page<Act> page = new Page<Act>(request, response);
 		page = actTaskService.historicList(page, act);
 		model.addAttribute("page", page);
 		if (UserUtils.getPrincipal().isMobileLogin()){
 			return renderString(response, page);
-		}*/
+		}
 		return "modules/act/actTaskHistoricList";
 	}
 
 	/**
 	 * 获取流转历史列表
-	 * @param act 流程实例
+	 * @param procInsId 流程实例
 	 * @param startAct 开始活动节点名称
 	 * @param endAct 结束活动节点名称
 	 */
@@ -91,25 +92,24 @@ public class ActTaskController extends BaseController {
 	 */
 	@RequestMapping(value = "process")
 	public String processList(String category, HttpServletRequest request, HttpServletResponse response, Model model) {
-	  /*  Page<Object[]> page = new Page<Object[]>(request, response);
+	    Page<Object[]> page = new Page<Object[]>(request, response);
 	    page = actTaskService.processList(page, category);
 		model.addAttribute("page", page);
-		model.addAttribute("category", category);*/
+		model.addAttribute("category", category);
 		return "modules/act/actTaskProcessList";
 	}
 	
 	/**
 	 * 获取流程表单
-	 *@param act 流程
+	 * @param taskId	任务ID
+	 * @param taskName	任务名称
+	 * @param taskDefKey 任务环节标识
+	 * @param procInsId 流程实例ID
+	 * @param procDefId 流程定义ID
 	 */
 	@RequestMapping(value = "form")
 	public String form(Act act, HttpServletRequest request, Model model){
-
-		/*@param taskId	任务ID
-		* @param taskName	任务名称
-		* @param taskDefKey 任务环节标识
-		* @param procInsId 流程实例ID
-		* @param procDefId 流程定义ID*/
+		
 		// 获取流程XML上的表单KEY
 		String formKey = actTaskService.getFormKey(act.getProcDefId(), act.getTaskDefKey());
 
@@ -128,21 +128,20 @@ public class ActTaskController extends BaseController {
 	
 	/**
 	 * 启动流程
-	 *
+	 * @param procDefKey 流程定义KEY
+	 * @param businessTable 业务表表名
+	 * @param businessId	业务表编号
 	 */
 	@RequestMapping(value = "start")
 	@ResponseBody
 	public String start(Act act, String table, String id, Model model) throws Exception {
-		/*@param procDefKey 流程定义KEY
-		* @param businessTable 业务表表名
-		* @param businessId	业务表编号*/
 		actTaskService.startProcess(act.getProcDefKey(), act.getBusinessId(), act.getBusinessTable(), act.getTitle());
 		return "true";//adminPath + "/act/task";
 	}
 
 	/**
 	 * 签收任务
-	 * @param act
+	 * @param taskId 任务ID
 	 */
 	@RequestMapping(value = "claim")
 	@ResponseBody
@@ -154,21 +153,17 @@ public class ActTaskController extends BaseController {
 	
 	/**
 	 * 完成任务
-
+	 * @param taskId 任务ID
+	 * @param procInsId 流程实例ID，如果为空，则不保存任务提交意见
+	 * @param comment 任务提交意见的内容
+	 * @param vars 任务流程变量，如下
 	 * 		vars.keys=flag,pass
 	 * 		vars.values=1,true
-	 * 		vars.types=S,B  @see com.thinkgem.jeesite.modules.act.utils.PropertyType
+	 * 		vars.types=S,B  @see com.luoo.mywork.modules.act.utils.PropertyType
 	 */
 	@RequestMapping(value = "complete")
 	@ResponseBody
 	public String complete(Act act) {
-
-		/** @param taskId 任务ID
-		* @param procInsId 流程实例ID，如果为空，则不保存任务提交意见
-				* @param comment 任务提交意见的内容
-				* @param vars 任务流程变量，如下*/
-
-
 		actTaskService.complete(act.getTaskId(), act.getProcInsId(), act.getComment(), act.getVars().getVariableMap());
 		return "true";//adminPath + "/act/task";
 	}
@@ -191,7 +186,7 @@ public class ActTaskController extends BaseController {
 	/**
 	 * 输出跟踪流程信息
 	 * 
-	 * @param proInsId
+	 * @param processInstanceId
 	 * @return
 	 * @throws Exception
 	 */

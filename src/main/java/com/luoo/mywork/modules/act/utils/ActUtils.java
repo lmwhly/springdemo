@@ -10,13 +10,13 @@ import com.google.common.collect.Maps;
 import com.luoo.mywork.common.annotation.FieldName;
 import com.luoo.mywork.common.config.Global;
 import com.luoo.mywork.common.utils.Encodes;
+import com.luoo.mywork.common.utils.ObjectUtils;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.modules.act.entity.Act;
 import com.luoo.mywork.modules.sys.entity.Role;
 import com.luoo.mywork.modules.sys.entity.User;
 import org.activiti.engine.impl.persistence.entity.GroupEntity;
 import org.activiti.engine.impl.persistence.entity.UserEntity;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

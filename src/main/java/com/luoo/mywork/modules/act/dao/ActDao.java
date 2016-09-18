@@ -3,7 +3,6 @@
  */
 package com.luoo.mywork.modules.act.dao;
 
-
 import com.luoo.mywork.common.persistence.CrudDao;
 import com.luoo.mywork.common.persistence.annotation.MyBatisDao;
 import com.luoo.mywork.modules.act.entity.Act;

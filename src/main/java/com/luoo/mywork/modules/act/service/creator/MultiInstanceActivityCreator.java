@@ -1,6 +1,7 @@
 package com.luoo.mywork.modules.act.service.creator;
 
-import com.luoo.mywork.modules.act.utils.ProcessDefUtils;
+import java.util.List;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.impl.bpmn.behavior.MultiInstanceActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
@@ -11,7 +12,7 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 
-import java.util.List;
+import com.luoo.mywork.modules.act.utils.ProcessDefUtils;
 
 public class MultiInstanceActivityCreator extends RuntimeActivityCreatorSupport implements RuntimeActivityCreator {
 	

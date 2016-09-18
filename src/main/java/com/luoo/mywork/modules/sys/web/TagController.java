@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TagController extends BaseController {
 	
 	/**
-	 * 树结构选择标签（treeselect.tags）
+	 * 树结构选择标签（treeselect.tag）
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "treeselect")
@@ -34,9 +34,9 @@ public class TagController extends BaseController {
 		model.addAttribute("module", request.getParameter("module"));	// 过滤栏目模型（仅针对CMS的Category树）
 		return "modules/sys/tagTreeselect";
 	}
-	
+
 	/**
-	 * 图标选择标签（iconselect.tags）
+	 * 图标选择标签（iconselect.tag）
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "iconselect")

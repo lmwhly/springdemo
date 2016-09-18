@@ -1,19 +1,22 @@
-package com.luoo.mywork.modules.oa.service; /**
+/**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
+package com.luoo.mywork.modules.oa.service;
 
-import com.google.common.collect.Maps;
-import com.luoo.mywork.common.service.CrudService;
-import com.luoo.mywork.common.utils.StringUtils;
-import com.luoo.mywork.modules.act.service.ActTaskService;
-import com.luoo.mywork.modules.act.utils.ActUtils;
-import com.luoo.mywork.modules.oa.dao.TestAuditDao;
-import com.luoo.mywork.modules.oa.entity.TestAudit;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
+import com.google.common.collect.Maps;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.service.CrudService;
+import com.luoo.mywork.common.utils.StringUtils;
+import com.luoo.mywork.modules.act.service.ActTaskService;
+import com.luoo.mywork.modules.act.utils.ActUtils;
+import com.luoo.mywork.modules.oa.entity.TestAudit;
+import com.luoo.mywork.modules.oa.dao.TestAuditDao;
 
 /**
  * 审批Service
@@ -31,11 +34,11 @@ public class TestAuditService extends CrudService<TestAuditDao, TestAudit> {
 		return dao.getByProcInsId(procInsId);
 	}
 	
-	/*public Page<TestAudit> findPage(Page<TestAudit> page, TestAudit testAudit) {
+	public Page<TestAudit> findPage(Page<TestAudit> page, TestAudit testAudit) {
 		testAudit.setPage(page);
 		page.setList(dao.findList(testAudit));
 		return page;
-	}*/
+	}
 	
 	/**
 	 * 审核新增或编辑

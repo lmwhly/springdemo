@@ -72,11 +72,11 @@ var
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
 
 	// A simple way to check for HTML strings
-	// Prioritize #id over <tags> to avoid XSS via location.hash (#9521)
+	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
 	rquickExpr = /^(?:(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
-	// Match a standalone tags
+	// Match a standalone tag
 	rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
 
 	// JSON RegExp
@@ -523,7 +523,7 @@ jQuery.extend({
 		var parsed = rsingleTag.exec( data ),
 			scripts = !keepScripts && [];
 
-		// Single tags
+		// Single tag
 		if ( parsed ) {
 			return [ context.createElement( parsed[1] ) ];
 		}
@@ -8285,7 +8285,7 @@ jQuery.ajaxPrefilter( "script", function( s ) {
 	}
 });
 
-// Bind script tags hack transport
+// Bind script tag hack transport
 jQuery.ajaxTransport( "script", function(s) {
 
 	// This transport only deals with cross domain requests

@@ -3,25 +3,21 @@
  */
 package com.luoo.mywork.modules.act.service;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.luoo.mywork.common.service.BaseService;
-import com.luoo.mywork.common.utils.StringUtils;
-import com.luoo.mywork.modules.act.dao.ActDao;
-import com.luoo.mywork.modules.act.entity.Act;
-import com.luoo.mywork.modules.act.service.cmd.CreateAndTakeTransitionCmd;
-import com.luoo.mywork.modules.act.service.cmd.JumpTaskCmd;
-import com.luoo.mywork.modules.act.service.creator.ChainedActivitiesCreator;
-import com.luoo.mywork.modules.act.service.creator.MultiInstanceActivityCreator;
-import com.luoo.mywork.modules.act.service.creator.RuntimeActivityDefinitionEntityIntepreter;
-import com.luoo.mywork.modules.act.service.creator.SimpleRuntimeActivityDefinitionEntity;
-import com.luoo.mywork.modules.act.utils.ActUtils;
-import com.luoo.mywork.modules.act.utils.ProcessDefCache;
-import com.luoo.mywork.modules.act.utils.ProcessDefUtils;
-import com.luoo.mywork.modules.sys.entity.User;
-import com.luoo.mywork.modules.sys.utils.UserUtils;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.engine.*;
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -54,8 +50,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.io.InputStream;
-import java.util.*;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.service.BaseService;
+import com.luoo.mywork.common.utils.StringUtils;
+import com.luoo.mywork.modules.act.dao.ActDao;
+import com.luoo.mywork.modules.act.entity.Act;
+import com.luoo.mywork.modules.act.service.cmd.CreateAndTakeTransitionCmd;
+import com.luoo.mywork.modules.act.service.cmd.JumpTaskCmd;
+import com.luoo.mywork.modules.act.service.creator.ChainedActivitiesCreator;
+import com.luoo.mywork.modules.act.service.creator.MultiInstanceActivityCreator;
+import com.luoo.mywork.modules.act.service.creator.RuntimeActivityDefinitionEntityIntepreter;
+import com.luoo.mywork.modules.act.service.creator.SimpleRuntimeActivityDefinitionEntity;
+import com.luoo.mywork.modules.act.utils.ActUtils;
+import com.luoo.mywork.modules.act.utils.ProcessDefCache;
+import com.luoo.mywork.modules.act.utils.ProcessDefUtils;
+import com.luoo.mywork.modules.sys.entity.User;
+import com.luoo.mywork.modules.sys.utils.UserUtils;
 
 /**
  * 流程定义相关Service
@@ -89,11 +101,10 @@ public class ActTaskService extends BaseService {
 	
 	/**
 	 * 获取待办列表
-	 *
+	 * @param procDefKey 流程定义标识
 	 * @return
 	 */
 	public List<Act> todoList(Act act){
-//		@param procDefKey 流程定义标识
 		String userId = UserUtils.getUser().getLoginName();//ObjectUtils.toString(UserUtils.getUser().getId());
 		
 		List<Act> result = new ArrayList<Act>();
@@ -163,10 +174,10 @@ public class ActTaskService extends BaseService {
 	/**
 	 * 获取已办任务
 	 * @param page
-//	 * @param procDefKey 流程定义标识
+	 * @param procDefKey 流程定义标识
 	 * @return
 	 */
-	/*public Page<Act> historicList(Page<Act> page, Act act){
+	public Page<Act> historicList(Page<Act> page, Act act){
 		String userId = UserUtils.getUser().getLoginName();//ObjectUtils.toString(UserUtils.getUser().getId());
 
 		HistoricTaskInstanceQuery histTaskQuery = historyService.createHistoricTaskInstanceQuery().taskAssignee(userId).finished()
@@ -205,7 +216,7 @@ public class ActTaskService extends BaseService {
 		}
 		page.setList(actList);
 		return page;
-	}*/
+	}
 	
 	/**
 	 * 获取流转历史列表
@@ -302,10 +313,10 @@ public class ActTaskService extends BaseService {
 	 * 获取流程列表
 	 * @param category 流程分类
 	 */
-	/*public Page<Object[]> processList(Page<Object[]> page, String category) {
-		*//*
+	public Page<Object[]> processList(Page<Object[]> page, String category) {
+		/*
 		 * 保存两个对象，一个是ProcessDefinition（流程定义），一个是Deployment（流程部署）
-		 *//*
+		 */
 	    ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery()
 	    		.latestVersion().active().orderByProcessDefinitionKey().asc();
 	    
@@ -322,7 +333,7 @@ public class ActTaskService extends BaseService {
 	      page.getList().add(new Object[]{processDefinition, deployment});
 	    }
 		return page;
-	}*/
+	}
 	
 	/**
 	 * 获取流程表单（首先获取任务节点表单KEY，如果没有则取流程开始节点表单KEY）

@@ -274,7 +274,7 @@
 	// Process a JSONP mock request.
 	function processJsonpMock( requestSettings, mockHandler, origSettings ) {
 		// Handle JSONP Parameter Callbacks, we need to replicate some of the jQuery core here
-		// because there isn't an easy hook for the cross domain script tags of jsonp
+		// because there isn't an easy hook for the cross domain script tag of jsonp
 
 		processJsonpUrl( requestSettings );
 
@@ -319,7 +319,7 @@
 
 	// Process a JSONP request by evaluating the mocked response text
 	function processJsonpRequest( requestSettings, mockHandler, origSettings ) {
-		// Synthesize the mock request for adding a script tags
+		// Synthesize the mock request for adding a script tag
 		var callbackContext = origSettings && origSettings.context || requestSettings,
 			newMock = null;
 

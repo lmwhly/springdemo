@@ -1,16 +1,16 @@
-﻿﻿/// <reference path="jquery.js"/>
+﻿/// <reference path="jquery.js"/>
 /*
  * jerichotab
- * version: release-2.0.1 (05/13/2009) 
+ * version: release-2.0.1 (05/13/2009)
  * @ jQuery v1.3.*
  *
  * Licensed under the GPL:
  *   http://gplv3.fsf.org
  *
- * Copyright 2008, 2009 Jericho [ thisnamemeansnothing[at]gmail.com ] 
+ * Copyright 2008, 2009 Jericho [ thisnamemeansnothing[at]gmail.com ]
 	========================================
 	#example:
-		
+
 	========================================
 	========================================
 	#API:
@@ -24,7 +24,7 @@
 					**closeable(Boolean): the switch that controls whether the tab can be closed (true as default)
 					}
 				*activeTabIndex(Int): the tab you'd like to select after loading(0 as default)
-				*contentHeight(Int): height of the content div tags
+				*contentHeight(Int): height of the content div tag
 				*contentCss(Object): the same as style sheet
 				*loadOnce(Boolean): the switch controls if load tab content at the first time(true as default)
 				*tabWidth(Int): width of each tab(150 as default)
@@ -37,15 +37,15 @@
 							**dataLink:data link
 								#example(must use as suited):
 								##formtag:
-									*dataType:'formtag', 
+									*dataType:'formtag',
 									//***use the html tags in this page
-									*dataLink:'#example' 
-									//***id of the tags you'd like to display in this tab
+									*dataLink:'#example'
+									//***id of the tag you'd like to display in this tab
 								##iframe:
-									*dataType:'iframe', 
+									*dataType:'iframe',
 									//***use the iframe to load another page
 									*dataLink:''
-									//***such as 'iframetemplates/iframe.htm' 
+									//***such as 'iframetemplates/iframe.htm'
 									//***the relative url of the page you'd like to display in this tab,
 									//***and jerichoTab will use an iframe to load it
 								###html:
@@ -116,10 +116,10 @@ $.extend($.fn, {
             */
             var jerichotab = $('<div id="'+opts.uniqueId+'" class="jericho_tab"><div class="tab_pages" ><div class="tabs"><ul /></div></div><div class="tab_content"><div id="jerichotab_contentholder" class="content" /></div></div>')
                                             .appendTo($(opts.renderTo));
-            
+
             //apply contentcss to the contentholder
             $('.tab_content>.content', jerichotab).css(opts.contentCss);
-            
+
             //fill data
             $.fn.jerichoTab = {
                 master: jerichotab,
@@ -130,7 +130,7 @@ $.extend($.fn, {
                 loadOnce: opts.loadOnce,
                 tabpage: $('.tab_pages>.tabs>ul', jerichotab),
                 addTab: function(tabsetting) {
-                    //set as the unique tab id and tabFirer tags
+                    //set as the unique tab id and tabFirer tag
                     tagGuid = (typeof tagGuid == 'undefined' ? 0 : tagGuid + 1);
                     var curIndex = tagGuid;
                     //this function will be open to all users for them to add tab at any time
@@ -142,15 +142,15 @@ $.extend($.fn, {
                         title: '新增页签'+(curIndex+1),
                         //the dataType and dataLink were suited as:
                         //1.formtag:
-                        //   dataType:'formtag', 
+                        //   dataType:'formtag',
                         //                  --use the html tags in this page
-                        //   dataLink:'#example' 
-                        //                  --id of the tags you'ld like to display in this tab
+                        //   dataLink:'#example'
+                        //                  --id of the tag you'ld like to display in this tab
                         //2.iframe:
-                        //   dataType:'iframe', 
+                        //   dataType:'iframe',
                         //                  --use the iframe to load another page
                         //   dataLink:''
-                        //                  --such as 'iframetemplates/iframe.htm', set 
+                        //                  --such as 'iframetemplates/iframe.htm', set
                         //                  --the relative url of the page u'ld like to display in this tab,
                         //                  --and jerichoTab will use an iframe to load it
                         //3.html:
@@ -238,9 +238,9 @@ $.extend($.fn, {
                         activeTabName:'',
                         isReaload: false
                     }, tabsetting);
-                    
+
                     $.fn.jerichoTab.tabpage.children('li[name='+ps.name+']').remove();
-                    
+
                     var isLoad = 0;
                     if(ps.activeTabName != ''){
                     	var lis = $.fn.jerichoTab.tabpage.children('li');
@@ -255,7 +255,7 @@ $.extend($.fn, {
                     if(isLoad==0){
                     	$.fn.setTabActive(0).loadData(ps.isReaload);
                     }*/
-                    
+
                 },
             };
             $.each(opts.tabs, function(i, n) {
@@ -283,13 +283,13 @@ $.extend($.fn, {
         })
         //window.console && console.log('width :' + $.fn.jerichoTab.tabpage.width());
     },
-    //activate the tags(orderkey is the tab order, start at 1)
+    //activate the tag(orderkey is the tab order, start at 1)
     setTabActiveByOrder: function(orderKey) {
         var lastTab = $.fn.jerichoTab.tabpage.children('li').filter('.tab_selected');
         if (lastTab.length > 0) lastTab.swapTabEnable();
         return $('#jericho_tabs').filter(':nth-child(' + orderKey + ')').swapTabEnable();
     },
-    //activate the tags(orderKey is the tagGuid of each tab)
+    //activate the tag(orderKey is the tagGuid of each tab)
     setTabActive: function(orderKey) {
         var lastTab = $.fn.jerichoTab.tabpage.children('li').filter('.tab_selected');
         if (lastTab.length > 0) lastTab.swapTabEnable();

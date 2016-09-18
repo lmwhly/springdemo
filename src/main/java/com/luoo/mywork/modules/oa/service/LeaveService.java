@@ -1,14 +1,17 @@
-package com.luoo.mywork.modules.oa.service; /**
+/**
  * There are <a href="https://github.com/thinkgem/jeesite">JeeSite</a> code generation
  */
+package com.luoo.mywork.modules.oa.service;
 
-import com.luoo.mywork.common.service.BaseService;
-import com.luoo.mywork.common.utils.Collections3;
-import com.luoo.mywork.common.utils.StringUtils;
-import com.luoo.mywork.modules.act.utils.ActUtils;
-import com.luoo.mywork.modules.oa.dao.LeaveDao;
-import com.luoo.mywork.modules.oa.entity.Leave;
-import org.activiti.engine.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -16,10 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.service.BaseService;
+import com.luoo.mywork.common.utils.Collections3;
+import com.luoo.mywork.common.utils.StringUtils;
+import com.luoo.mywork.modules.act.utils.ActUtils;
+import com.luoo.mywork.modules.oa.dao.LeaveDao;
+import com.luoo.mywork.modules.oa.entity.Leave;
 
 /**
  * 请假Service
@@ -63,7 +69,7 @@ public class LeaveService extends BaseService {
 	
 	/**
 	 * 启动流程
-	 * @param leave
+	 * @param entity
 	 */
 	@Transactional(readOnly = false)
 	public void save(Leave leave, Map<String, Object> variables) {
@@ -127,7 +133,7 @@ public class LeaveService extends BaseService {
 		return results;
 	}
 
-	/*public Page<Leave> find(Page<Leave> page, Leave leave) {
+	public Page<Leave> find(Page<Leave> page, Leave leave) {
 
 		leave.getSqlMap().put("dsf", dataScopeFilter(leave.getCurrentUser(), "o", "u"));
 		
@@ -151,5 +157,5 @@ public class LeaveService extends BaseService {
 			}
 		}
 		return page;
-	}*/
+	}
 }
