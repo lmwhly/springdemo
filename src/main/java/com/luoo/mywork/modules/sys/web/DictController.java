@@ -4,16 +4,15 @@
 package com.luoo.mywork.modules.sys.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.luoo.mywork.common.config.Global;
+import com.luoo.mywork.common.mapper.JsonMapper;
+import com.luoo.mywork.common.persistence.Page;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.common.web.BaseController;
 import com.luoo.mywork.modules.sys.entity.Dict;
 import com.luoo.mywork.modules.sys.service.DictService;
-import com.luoo.mywork.modules.sys.utils.JSPUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,29 +60,24 @@ public class DictController extends BaseController {
 	@RequiresPermissions("sys:dict:view")
 	@RequestMapping(value = "newlist")
 	@ResponseBody
-	public Object newlist(HttpServletRequest request, @RequestBody JSONObject jsonObj) {
+	public Object newlist(Dict dict, HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObj) {
 
-		Map<String, Object> map = new HashMap<String, Object>();
 		String type = jsonObj.getString("type");
 		String description = jsonObj.getString("description");
-		map.put("type",type);
-		map.put("description",description);
 
+		dict.setType(type);
+		dict.setDescription(description);
 
-		int limit = jsonObj.getIntValue("limit");
-		int offset = jsonObj.getIntValue("offset");
+		int pageNumber = jsonObj.getIntValue("pageNumber");
+		int pageSize = jsonObj.getIntValue("pageSize");
 
 		try {
 
-			PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(limit, offset);
+			Page<Dict> page = dictService.findPage(new Page<Dict>(pageNumber, pageSize), dict);
 
-			List<Dict> list = dictService.findNewTypeList(map, pageBounds);
 
-			if (list != null && list.size() > 0) {
-				Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<Dict>) list);
-				return retMap;
+			return JsonMapper.toJsonString(page);
 
-			}
 
 		} catch (Exception e) {
 			logger.error("系统异常e:{}", e);

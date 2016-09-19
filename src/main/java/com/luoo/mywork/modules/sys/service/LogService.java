@@ -4,6 +4,7 @@
 package com.luoo.mywork.modules.sys.service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.luoo.mywork.common.persistence.Page;
 import com.luoo.mywork.common.service.CrudService;
 import com.luoo.mywork.common.utils.DateUtils;
 import com.luoo.mywork.common.utils.StringUtils;
@@ -30,6 +31,21 @@ import java.util.Map;
 public class LogService extends CrudService<LogDao, Log> {
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
+
+
+    public Page<Log> findPage(Page<Log> page, Log log) {
+
+        // 设置默认时间范围，默认当前月
+        if (log.getBeginDate() == null){
+            log.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+        }
+        if (log.getEndDate() == null){
+            log.setEndDate(DateUtils.addMonths(log.getBeginDate(), 1));
+        }
+
+        return super.findPage(page, log);
+
+    }
 
     public List<Log> findNewTypeList(Map<String, Object> params, PageBounds pageBounds) {
 

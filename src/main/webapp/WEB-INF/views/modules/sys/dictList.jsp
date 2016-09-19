@@ -47,7 +47,7 @@
 				undefinedText: '-',
 				//设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 				//设置为limit可以获取limit, offset, search, sort, order
-				queryParamsType: 'limit',
+				queryParamsType: 'undefined',
 				striped: true, // 是否显示行间隔色
 				queryParams: queryParams,
 				responseHandler: responseHandler,
@@ -144,8 +144,8 @@
 			$('#empUserList').bootstrapTable('refresh', {
 				url: "${ctx}/sys/user/data", //重设数据来源
 				query: {
-					limit: params.limit,   //页面大小
-					offset: params.offset,  //页码
+					pageNumber: params.pageNumber,
+					pageSize: params.pageSize,
 					type: $("#type").val(),
 					description:$("#description").val()
 				}//传到后台的参数
@@ -155,8 +155,8 @@
 		/**查询条件与分页数据 */
 		function queryParams(params) {
 			var temp = {
-				limit: params.limit,   //页面大小
-				offset: params.offset,  //页码
+				pageNumber: params.pageNumber,
+				pageSize: params.pageSize,
 				type: $("#type").val(),
 				description:$("#description").val()
 			};
@@ -165,17 +165,10 @@
 
 
 		function responseHandler(res) {
-			if (res.IsOk) {
-				return {
-					total: res.total,
-					rows: res.records
-				};
-			} else {
-				return {
-					"rows": [],
-					"total": 0
-				};
-			}
+			return {
+				total: res.count,
+				rows: res.list
+			};
 
 		}
 	</script>

@@ -32,7 +32,7 @@
 			<label class="control-label">被考核人：</label>
 			<div class="controls">
 				<sys:treeselect id="targetUser" name="targetUser.id" value="${comStaffAssessRecord.targetUser.id}" labelName="targetUser.name" labelValue="${comStaffAssessRecord.targetUser.name}"
-					title="用户" url="/sys/office/treeData?type=3" cssClass="" allowClear="true" notAllowSelectParent="true"/>
+					title="用户" url="/sys/office/treeData?type=3" cssClass=""  allowClear="true" notAllowSelectParent="true"/>
 			</div>
 		</div>
 		<div class="control-group">

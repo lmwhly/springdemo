@@ -4,13 +4,12 @@
 package com.luoo.mywork.modules.sys.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.luoo.mywork.common.mapper.JsonMapper;
+import com.luoo.mywork.common.persistence.Page;
+import com.luoo.mywork.common.utils.DateUtils;
 import com.luoo.mywork.common.web.BaseController;
 import com.luoo.mywork.modules.sys.entity.Log;
 import com.luoo.mywork.modules.sys.service.LogService;
-import com.luoo.mywork.modules.sys.utils.JSPUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 /**
  * 日志Controller
@@ -43,6 +40,17 @@ public class LogController extends BaseController {
     public String list(Log log, HttpServletRequest request, HttpServletResponse response, Model model) {
        /* Page<Log> page = logService.findPage(new Page<Log>(request, response), log);
         model.addAttribute("page", page);*/
+
+
+        // 设置默认时间范围，默认当前月
+        if (log.getBeginDate() == null){
+            log.setBeginDate(DateUtils.setDays(DateUtils.parseDate(DateUtils.getDate()), 1));
+        }
+        if (log.getEndDate() == null){
+            log.setEndDate(DateUtils.addMonths(log.getBeginDate(), 1));
+        }
+        model.addAttribute("log", log);
+
         return "modules/sys/logList";
     }
 
@@ -50,39 +58,32 @@ public class LogController extends BaseController {
     @RequiresPermissions("sys:log:view")
     @RequestMapping(value = "newlist")
     @ResponseBody
-    public String newlist(HttpServletRequest request, @RequestBody JSONObject jsonObj) {
+    public Object newlist(Log log, HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObj) {
 
-        Map<String, Object> map = new HashMap<String, Object>();
         String title = jsonObj.getString("title");
         String id = jsonObj.getString("id");
         String requestUri = jsonObj.getString("requestUri");
-        String beginDate = jsonObj.getString("beginDate");
-        String endDate = jsonObj.getString("endDate");
+        Date beginDate = jsonObj.getDate("beginDate");
+        Date endDate = jsonObj.getDate("endDate");
         String exception = jsonObj.getString("exception");
 
-        map.put("title", title);
-        map.put("id", id);
-        map.put("requestUri", requestUri);
-        map.put("beginDate", beginDate);
-        map.put("endDate", endDate);
-        map.put("exception", exception);
-        map.put("id", id);
+        log.setId(id);
+        log.setRequestUri(requestUri);
+        log.setTitle(title);
+        log.setBeginDate(beginDate);
+        log.setEndDate(endDate);
+        log.setException(exception);
 
-        int limit = jsonObj.getIntValue("limit");
-        int offset = jsonObj.getIntValue("offset");
+        int pageNumber = jsonObj.getIntValue("pageNumber");
+        int pageSize = jsonObj.getIntValue("pageSize");
 
         try {
 
-            PageBounds pageBounds = JSPUtil.getPagerBoundsByParameter(limit, offset);
+            Page<Log> page = logService.findPage(new Page<Log>(pageNumber, pageSize), log);
 
-            List<Log> list = logService.findNewTypeList(map, pageBounds);
 
-            if (list != null && list.size() > 0) {
-                Map<String, Object> retMap = (Map<String, Object>) JSPUtil.pagelistToJSONMapNew((PageList<Log>) list);
-                String ss  = JsonMapper.toJsonString(retMap);
-                return ss;
+            return JsonMapper.toJsonString(page);
 
-            }
 
         } catch (Exception e) {
             logger.error("系统异常e:{}", e);
