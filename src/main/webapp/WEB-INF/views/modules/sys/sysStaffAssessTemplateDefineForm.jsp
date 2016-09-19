@@ -49,7 +49,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-offset-2 col-xs-offset-2 col-sm-offset-2">
+			<div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-md-2 col-sm-2 col-xs-2">
 				<shiro:hasPermission name="sys:sysStaffAssessTemplateDefine:edit">
 					<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 				</shiro:hasPermission>

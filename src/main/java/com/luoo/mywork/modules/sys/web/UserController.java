@@ -69,7 +69,7 @@ public class UserController extends BaseController {
         return "modules/sys/userList";
     }
 
-    @RequiresPermissions("sys:sysStaffAssessTemplateDefine:view")
+    @RequiresPermissions("sys:user:view")
     @RequestMapping(value = "newlist")
     @ResponseBody
     public Object newlist(User user, HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObj) {

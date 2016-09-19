@@ -292,15 +292,17 @@
             <div class="panel-body">
                 <form:form id="formSearch" modelAttribute="user" action="${ctx}/sys/user/newlist"  method="post" class="form-horizontal">
                     <div class="form-group" >
+
+                        <label class="control-label col-sm-2  " for="loginName">登录名</label>
+                        <div class="col-sm-3">
+                            <form:input path="loginName" htmlEscape="false" maxlength="50" class="form-control"/>
+                        </div>
+
                         <label class="control-label col-sm-2" for="company">归属公司</label>
                         <div class="col-sm-3">
                             <sys:treeselect id="company" name="company" value="${user.company.id}"
                                             labelName="company.name" labelValue="${user.company.name}"
                                             title="公司" url="/sys/office/treeData?type=1" cssClass="form-control" allowClear="true"/>
-                        </div>
-                        <label class="control-label col-sm-2  " for="loginName">登录名</label>
-                        <div class="col-sm-3">
-                            <form:input path="loginName" htmlEscape="false" maxlength="50" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group" >

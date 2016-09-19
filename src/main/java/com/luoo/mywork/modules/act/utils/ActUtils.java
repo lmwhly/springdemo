@@ -3,6 +3,15 @@
  */
 package com.luoo.mywork.modules.act.utils;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.activiti.engine.impl.persistence.entity.GroupEntity;
+import org.activiti.engine.impl.persistence.entity.UserEntity;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
@@ -15,14 +24,6 @@ import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.modules.act.entity.Act;
 import com.luoo.mywork.modules.sys.entity.Role;
 import com.luoo.mywork.modules.sys.entity.User;
-import org.activiti.engine.impl.persistence.entity.GroupEntity;
-import org.activiti.engine.impl.persistence.entity.UserEntity;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 流程工具
