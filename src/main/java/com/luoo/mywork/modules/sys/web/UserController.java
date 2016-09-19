@@ -9,10 +9,13 @@ import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.google.common.collect.Lists;
 import com.luoo.mywork.common.beanvalidator.BeanValidators;
 import com.luoo.mywork.common.config.Global;
+import com.luoo.mywork.common.mapper.JsonMapper;
+import com.luoo.mywork.common.persistence.Page;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.common.utils.excel.ExportExcel;
 import com.luoo.mywork.common.utils.excel.ImportExcel;
 import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.modules.sys.entity.Office;
 import com.luoo.mywork.modules.sys.entity.User;
 import com.luoo.mywork.modules.sys.service.SystemService;
 import com.luoo.mywork.modules.sys.utils.JSPUtil;
@@ -284,6 +287,41 @@ public class UserController extends BaseController {
                 return retMap;
 
             }
+
+        } catch (Exception e) {
+            logger.error("系统异常e:{}", e);
+        }
+
+        return null;
+    }
+
+
+
+    @RequiresPermissions("sys:sysStaffAssessTemplateDefine:view")
+    @RequestMapping(value = "newlist")
+    @ResponseBody
+    public Object newlist(User user, HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonObj) {
+
+        String companyId = jsonObj.getString("companyId");
+        String loginName = jsonObj.getString("loginName");
+        String officeId = jsonObj.getString("officeId");
+        String name = jsonObj.getString("name");
+
+        user.setCompany(new Office(companyId));
+        user.setOffice(new Office(officeId));
+        user.setLoginName(loginName);
+        user.setName(name);
+
+        int pageNumber = jsonObj.getIntValue("pageNumber");
+        int pageSize = jsonObj.getIntValue("pageSize");
+
+        try {
+
+            Page<User> page = systemService.findUser(new Page<User>(pageNumber, pageSize), user);
+
+
+            return JsonMapper.toJsonString(page);
+
 
         } catch (Exception e) {
             logger.error("系统异常e:{}", e);

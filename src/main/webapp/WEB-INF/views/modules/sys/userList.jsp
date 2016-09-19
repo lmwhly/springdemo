@@ -25,10 +25,6 @@
         $(document).ready(function () {
             querys();
 
-
-
-
-
             /*$("#btnExport").click(function(){
                 top.$.jBox.confirm("确认要导出用户数据吗？","系统提示",function(v,h,f){
                     if(v=="ok"){
@@ -57,7 +53,7 @@
             $("#edit").attr({"disabled": "disabled"});
             $("#delete").attr({"disabled": "disabled"});
             $("#empUserList").bootstrapTable({
-                url: '${ctx}/sys/user/data',
+                url: '${ctx}/sys/user/newlist',
                 method: "post",  //请求方式（*）
                 dataType: "json",
                 height: $(window).height - 200,
@@ -68,7 +64,7 @@
                 undefinedText: '-',
                 //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
                 //设置为limit可以获取limit, offset, search, sort, order
-                queryParamsType: 'limit',
+                queryParamsType: 'undefined',
                 striped: true, // 是否显示行间隔色
                 queryParams: queryParams,
                 responseHandler: responseHandler,
@@ -93,14 +89,14 @@
                     },
                     {
                         title: '归属公司',
-                        field: 'company', // 字段
+                        field: 'company.name', // 字段
                         align: 'center', // 对齐方式（左 中 右）
                         valign: 'middle' //
                     },
 
                     {
                         title: '归属部门',
-                        field: 'office', // 字段
+                        field: 'office.name', // 字段
                         align: 'center', // 对齐方式（左 中 右）
                         valign: 'middle' //
                     },
@@ -188,10 +184,10 @@
         /** 刷新页面 */
         function refresh() {
             $('#empUserList').bootstrapTable('refresh', {
-                url: "${ctx}/sys/user/data", //重设数据来源
+                url: "${ctx}/sys/user/newlist", //重设数据来源
                 query: {
-                    limit: params.limit,   //页面大小
-                    offset: params.offset,  //页码
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
                     companyId: $("#companyId").val(),
                     loginName:$("#loginName").val(),
                     officeId:$("#officeId").val(),
@@ -202,8 +198,8 @@
         /**查询条件与分页数据 */
         function queryParams(params) {
             var temp = {
-                limit: params.limit,   //页面大小
-                offset: params.offset,  //页码
+                pageNumber: params.pageNumber,
+                pageSize: params.pageSize,
 //                order: params.order,//排位命令（desc，asc）
 //                search: params.search,
                 companyId: $("#companyId").val(),
@@ -216,21 +212,10 @@
 
 
         function responseHandler(res) {
-            //分页后的返回值， 是有格式要求的，必须满足如下格式
-            /* "total": 500,
-             "rows": [{},{}.....]*/
-
-            if (res.IsOk) {
-                return {
-                    total: res.total,
-                    rows: res.records
-                };
-            } else {
-                return {
-                    "rows": [],
-                    "total": 0
-                };
-            }
+            return {
+                total: res.count,
+                rows: res.list
+            };
 
         }
 
@@ -305,7 +290,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">查询条件</div>
             <div class="panel-body">
-                <form:form id="formSearch" modelAttribute="user" action="${ctx}/sys/user/data"  method="post" class="form-horizontal">
+                <form:form id="formSearch" modelAttribute="user" action="${ctx}/sys/user/newlist"  method="post" class="form-horizontal">
                     <div class="form-group" >
                         <label class="control-label col-sm-2" for="company">归属公司</label>
                         <div class="col-sm-3">

@@ -5,6 +5,7 @@ package com.luoo.mywork.modules.sys.service;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.luoo.mywork.common.config.Global;
+import com.luoo.mywork.common.persistence.Page;
 import com.luoo.mywork.common.security.Digests;
 import com.luoo.mywork.common.security.shiro.session.SessionDAO;
 import com.luoo.mywork.common.service.BaseService;
@@ -130,6 +131,16 @@ public class SystemService extends BaseService implements InitializingBean {
      */
     public User getUserByLoginName(String loginName) {
         return UserUtils.getByLoginName(loginName);
+    }
+
+    public Page<User> findUser(Page<User> page, User user) {
+        // 生成数据权限过滤条件（dsf为dataScopeFilter的简写，在xml中使用 ${sqlMap.dsf}调用权限SQL）
+        user.getSqlMap().put("dsf", dataScopeFilter(user.getCurrentUser(), "o", "a"));
+        // 设置分页参数
+        user.setPage(page);
+        // 执行分页查询
+        page.setList(userDao.findList(user));
+        return page;
     }
 
     /**
