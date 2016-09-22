@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.act.service;
 
@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * 流程模型相关Controller
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-11-03
  */
 @Service
@@ -75,7 +75,7 @@ public class ActModelService extends BaseService {
 		editorNode.put("id", "canvas");
 		editorNode.put("resourceId", "canvas");
 		ObjectNode properties = objectMapper.createObjectNode();
-		properties.put("process_author", "jeesite");
+		properties.put("process_author", "luoo");
 		editorNode.put("properties", properties);
 		ObjectNode stencilset = objectMapper.createObjectNode();
 		stencilset.put("namespace", "http://b3mn.org/stencilset/bpmn2.0#");

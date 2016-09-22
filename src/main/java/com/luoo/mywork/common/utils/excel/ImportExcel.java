@@ -27,7 +27,7 @@ import java.util.*;
 
 /**
  * 导入Excel文件（支持“XLS”和“XLSX”格式）
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-03-10
  */
 public class ImportExcel {

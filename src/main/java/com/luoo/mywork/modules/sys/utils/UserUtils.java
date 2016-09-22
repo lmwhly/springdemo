@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * 用户工具类
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-12-05
  */
 public class UserUtils {

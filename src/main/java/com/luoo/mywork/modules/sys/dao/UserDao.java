@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * 用户DAO接口
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-05-16
  */
 @MyBatisDao

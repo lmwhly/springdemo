@@ -1,8 +1,8 @@
 /*!
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  * 
  * 主框架窗口大小调整
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-11-09
  */
 

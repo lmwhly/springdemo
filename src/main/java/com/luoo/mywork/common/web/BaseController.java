@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * 控制器支持类
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-3-23
  */
 public abstract class BaseController {

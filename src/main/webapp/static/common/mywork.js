@@ -2,7 +2,7 @@
  * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
  * 
  * 通用公共方法
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-4-29
  */
 $(document).ready(function() {

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * 数据Entity类
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-05-16
  */
 public abstract class TreeEntity<T> extends DataEntity<T> {

@@ -10,7 +10,7 @@ import com.luoo.mywork.modules.sys.entity.Role;
 
 /**
  * 角色DAO接口
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-12-05
  */
 @MyBatisDao

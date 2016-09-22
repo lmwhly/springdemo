@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * 日志Entity
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-8-19
  */
 public class Log extends DataEntity<Log> {

@@ -10,7 +10,7 @@ import com.luoo.mywork.modules.sys.entity.Office;
 
 /**
  * 机构DAO接口
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-05-16
  */
 @MyBatisDao

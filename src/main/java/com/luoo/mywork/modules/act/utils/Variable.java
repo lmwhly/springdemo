@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.act.utils;
 
@@ -13,7 +13,7 @@ import com.luoo.mywork.common.utils.StringUtils;
 
 /**
  * 流程变量对象
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-11-03
  */
 public class Variable {

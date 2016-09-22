@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 
 /**
  * Cookie工具类
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-01-15
  */
 public class CookieUtils {

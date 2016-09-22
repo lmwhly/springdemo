@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * 系统安全认证实现类
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-7-5
  */
 @Service

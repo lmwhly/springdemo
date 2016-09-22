@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.act.web;
 
@@ -20,7 +20,7 @@ import com.luoo.mywork.modules.act.service.ActModelService;
 
 /**
  * 流程模型相关Controller
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-11-03
  */
 @Controller

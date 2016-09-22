@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/luoo/mywork">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.common.utils;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户代理字符串识别工具
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-6-13
  */
 public class UserAgentUtils {

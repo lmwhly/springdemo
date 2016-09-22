@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * 日志Service
  *
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-05-16
  */
 @Service

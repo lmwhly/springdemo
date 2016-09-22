@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html style="overflow-x:auto;overflow-y:auto;">
 <head>
-    <title><sitemesh:title/></title><!--  - Powered By JeeSite -->
+    <title><sitemesh:title/></title><!--  - Powered By MyWork -->
     <%@include file="/WEB-INF/views/include/head.jsp" %>
     <!-- Baidu tongji analytics -->
     <script>var _hmt = _hmt || [];

@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.oa.entity;
 
@@ -11,7 +11,7 @@ import com.luoo.mywork.common.persistence.DataEntity;
 
 /**
  * 通知通告记录Entity
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-05-16
  */
 public class OaNotifyRecord extends DataEntity<OaNotifyRecord> {

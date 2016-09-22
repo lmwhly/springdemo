@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.sys.web;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 标签Controller
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-3-23
  */
 @Controller

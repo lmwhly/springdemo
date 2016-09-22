@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * 字段类型转换
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-5-29
  */
 public class RoleListType {

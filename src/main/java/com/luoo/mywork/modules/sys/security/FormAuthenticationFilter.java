@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 表单验证（包含验证码）过滤类
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-5-19
  */
 @Service

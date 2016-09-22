@@ -4,3 +4,5 @@ springdemo.iml
 .idea/
 # 只忽略target文件夹,不忽略target文件
 target/
+classes/
+lib/

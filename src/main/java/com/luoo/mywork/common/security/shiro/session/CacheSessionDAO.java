@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.common.security.shiro.session;
 
@@ -23,7 +23,7 @@ import java.util.Set;
 
 /**
  * 系统安全认证实现类
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-7-24
  */
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO {

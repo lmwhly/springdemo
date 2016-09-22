@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * 字典工具类
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-5-29
  */
 public class DictUtils {

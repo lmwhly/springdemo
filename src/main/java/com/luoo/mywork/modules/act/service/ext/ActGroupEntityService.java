@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.act.service.ext;
 
@@ -23,7 +23,7 @@ import com.luoo.mywork.modules.sys.service.SystemService;
 
 /**
  * Activiti Group Entity Service
- * @author ThinkGem
+ * @author Luoo
  * @version 2013-12-05
  */
 @Service

@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * 字典工具类
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-11-7
  */
 public class LogUtils {

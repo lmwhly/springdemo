@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/luoo">MyWork</a> All rights reserved.
  */
 package com.luoo.mywork.modules.oa.dao;
 
@@ -9,7 +9,7 @@ import com.luoo.mywork.modules.oa.entity.OaNotify;
 
 /**
  * 通知通告DAO接口
- * @author ThinkGem
+ * @author Luoo
  * @version 2014-05-16
  */
 @MyBatisDao
