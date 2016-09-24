@@ -12,6 +12,11 @@ import com.luoo.mywork.common.utils.CookieUtils;
 import com.luoo.mywork.common.utils.IdGen;
 import com.luoo.mywork.common.utils.StringUtils;
 import com.luoo.mywork.common.web.BaseController;
+import com.luoo.mywork.modules.portal.entity.PortalInfo;
+import com.luoo.mywork.modules.portal.entity.PortalItem;
+import com.luoo.mywork.modules.portal.entity.PortalRef;
+import com.luoo.mywork.modules.portal.entity.PortalWidget;
+import com.luoo.mywork.modules.portal.service.PortalService;
 import com.luoo.mywork.modules.sys.security.FormAuthenticationFilter;
 import com.luoo.mywork.modules.sys.security.SystemAuthorizingRealm.Principal;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
@@ -24,9 +29,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +48,9 @@ public class LoginController extends BaseController {
 	
 	@Autowired
 	private SessionDAO sessionDAO;
+
+	@Autowired
+	private PortalService portalService;
 	
 	/**
 	 * 管理登录
@@ -131,7 +143,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "${adminPath}")
-	public String index(HttpServletRequest request, HttpServletResponse response) {
+	public String index(Model model,HttpServletRequest request, HttpServletResponse response) {
 		Principal principal = UserUtils.getPrincipal();
 
 		// 登录成功后，验证码计算器清零
@@ -180,7 +192,130 @@ public class LoginController extends BaseController {
 ////			request.getSession().setAttribute("aaa", "aa");
 ////		}
 //		System.out.println("==========================b");
+
+
+
+		String userId = UserUtils.getUser().getId();
+		PortalRef portalRef = portalService.createOrGetPortalRef(userId);
+
+		if (portalRef == null) {
+			return "modules/sys/sysIndex";
+		}
+
+		PortalInfo portalInfo = portalRef.getPortalInfo();
+
+		List<Integer> columnIndexes = portalService.getColumnIndexesByPortalInfoId(portalInfo);
+		logger.debug("columnIndexes : {}", columnIndexes);
+
+		if (!columnIndexes.contains(Integer.valueOf(1))) {
+			columnIndexes.add(Integer.valueOf(1));
+		}
+
+		if (!columnIndexes.contains(Integer.valueOf(2))) {
+			columnIndexes.add(Integer.valueOf(2));
+		}
+
+		if (!columnIndexes.contains(Integer.valueOf(3))) {
+			columnIndexes.add(Integer.valueOf(3));
+		}
+
+		Collections.sort(columnIndexes);
+
+		Map<Integer, List<PortalItem>> map = new LinkedHashMap<Integer, List<PortalItem>>();
+
+		for (Integer columnIndex : columnIndexes) {
+			PortalItem portalItem = new PortalItem();
+			portalItem.setPortalInfo(portalInfo);
+			portalItem.setColumnIndex(columnIndex);
+			List<PortalItem> portalItems = portalService.getPortalItemByPortalInfoIdAndColumnIndex(portalItem);
+			map.put(columnIndex, portalItems);
+		}
+
+		model.addAttribute("map", map);
+
+		List<PortalWidget> portalWidgets = portalService.getAllPortalWidgets();
+		model.addAttribute("portalWidgets", portalWidgets);
+
+
+
 		return "modules/sys/sysIndex";
+	}
+
+
+	@RequestMapping("${adminPath}/save")
+	public String save(@RequestParam(value = "id", required = false) String id,
+					   @RequestParam(value = "portalWidgetId", required = false) Long portalWidgetId,
+					   @RequestParam(value = "portalItemName", required = false) String portalItemName) {
+		String userId = UserUtils.getUser().getId();
+		PortalInfo portalInfo = portalService.copyOrGetPortalInfo(userId);
+
+		PortalWidget portalWidget = portalService.getPortalWidgetById(portalWidgetId);
+		PortalItem portalItem = null;
+
+		if (id == null) {
+			portalItem = new PortalItem();
+
+			Integer columnIndex = (Integer) portalService.getMinColumnIndexOfPortalItemByPortalInfoId(portalInfo);
+
+			if (columnIndex == null) {
+				columnIndex = 0;
+			}
+
+			PortalItem portalItemParam = new PortalItem();
+			portalItemParam.setColumnIndex(columnIndex);
+			portalItemParam.setPortalInfo(portalInfo);
+			Long rowIndexLong = (Long) portalService.getCountOfPortalItemByPortalInfoIdAndColumnIndex(portalItemParam);
+
+			if (rowIndexLong == null) {
+				rowIndexLong = 0L;
+			}
+
+			int rowIndex = rowIndexLong.intValue();
+			portalItem.setColumnIndex(columnIndex);
+			portalItem.setRowIndex(rowIndex);
+			portalItem.setPortalInfo(portalInfo);
+		} else {
+			portalItem = portalService.createOrGetPortalItem(portalInfo, id);
+		}
+
+		portalItem.setName(portalItemName);
+		portalItem.setPortalWidget(portalWidget);
+		portalService.savePortalItem(portalItem);
+
+		return "redirect:" + adminPath;
+	}
+
+
+	@RequestMapping("${adminPath}/updateOrder")
+	public String updateOrder(@RequestParam(value="ids",required = false) List<String> ids,
+							  @RequestParam(value="priorities",required = false) List<String> priorities) {
+		String userId = UserUtils.getUser().getId();
+		PortalInfo portalInfo = portalService.copyOrGetPortalInfo(userId);
+		int index = 0;
+
+		for (String id : ids) {
+			PortalItem portalItem = portalService.createOrGetPortalItem(portalInfo, id);
+			String[] array = priorities.get(index).split(":");
+			int columnIndex = Integer.parseInt(array[0]);
+			int rowIndex = Integer.parseInt(array[1]);
+			portalItem.setColumnIndex(columnIndex);
+			portalItem.setRowIndex(rowIndex);
+			portalService.savePortalItem(portalItem);
+			index++;
+		}
+
+		return "redirect:" + adminPath;
+	}
+
+
+	@RequestMapping("${adminPath}/remove")
+	public String remove(@RequestParam("id") String id) {
+		String userId = UserUtils.getUser().getId();
+		PortalInfo portalInfo = portalService.copyOrGetPortalInfo(userId);
+		PortalItem portalItem = portalService.createOrGetPortalItem(portalInfo, id);
+		portalService.removePortalItem(portalItem);
+
+		return "redirect:" + adminPath;
 	}
 	
 	/**

@@ -1,12 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.luoo.mywork.modules.portal.dao.PortalItemDao">
+
+    <sql id="portalItemColumns">
+
+        item.ID,
+        item.NAME,
+        item.COLUMN_INDEX,
+        item.ROW_INDEX,
+        item.DATA,
+        item.INFO_ID as "portalInfo.id",
+        item.WIDGET_ID as "portalWidget.id",
+        item.TENANT_ID,
+        item.create_by,
+        item.create_date,
+        item.update_by,
+        item.update_date,
+        item.remarks,
+        item.del_flag,
+        info.NAME as "portalInfo.name",
+        info.DESCRIPTION as "portalInfo.description",
+        info.USER_ID as "portalInfo.userId",
+        info.COLUMN_LAYOUT as "portalInfo.columnLayout",
+        info.SHARED_STATUS as "portalInfo.sharedStatus",
+        info.GLOBAL_STATUS as "portalInfo.globalStatus",
+        info.TENANT_ID as "portalInfo.tenantId",
+        widget.NAME as "portalWidget.name",
+        widget.URL as "portalWidget.url",
+        widget.DATA as "portalWidget.data",
+        widget.TENANT_ID as "portalWidget.tenantId"
+    </sql>
+
+    <sql id="portalItemJoins">
+        LEFT JOIN portal_widget widget ON widget.ID = item.WIDGET_ID and widget.del_flag = item.del_flag
+        LEFT JOIN portal_info info ON info.ID = item.INFO_ID and info.del_flag = item.del_flag
+    </sql>
+
+
     <select id="get" resultType="PortalItem">
+
         SELECT
-        *
-        FROM portal_item
-        WHERE id = #{id}
+        <include refid="portalItemColumns"/>
+        FROM portal_item item
+        <include refid="portalItemJoins"/>
+        WHERE item.id = #{id}
+
+
     </select>
+
+    <select id="getColumnIndexesByPortalInfoId" resultType="Integer">
+        select distinct COLUMN_INDEX from portal_item where del_flag = #{DEL_FLAG_NORMAL} and INFO_ID=#{id} order by COLUMN_INDEX
+    </select>
+
+
+    <select id="getPortalItemByPortalInfoIdAndColumnIndex" resultType="PortalItem">
+
+        SELECT
+        <include refid="portalItemColumns"/>
+        FROM portal_item item
+        <include refid="portalItemJoins"/>
+        WHERE item.del_flag = #{DEL_FLAG_NORMAL} and item.INFO_ID = #{portalInfo.id} and item.COLUMN_INDEX= #{columnIndex} order by ROW_INDEX
+    </select>
+
+    <select id="getMinColumnIndexOfPortalItemByPortalInfoId" resultType="Integer">
+       select min(COLUMN_INDEX) from portal_item where del_flag = #{DEL_FLAG_NORMAL} and INFO_ID = #{id}
+    </select>
+
+
+    <select id="getCountOfPortalItemByPortalInfoIdAndColumnIndex" resultType="Long">
+            select count(*) from portal_item where del_flag = #{DEL_FLAG_NORMAL} and INFO_ID = #{portalInfo.id} and COLUMN_INDEX = #{columnIndex}
+    </select>
+
+
 
 
     <select id="findList" resultType="PortalItem">
@@ -69,7 +134,12 @@
 
     <update id="update">
         UPDATE portal_item SET
-        USER_ID = #{userId},
+         NAME = #{name},
+        COLUMN_INDEX = #{columnIndex},
+        ROW_INDEX = #{rowIndex},
+        DATA = #{data},
+        INFO_ID = #{portalInfo.id},
+        WIDGET_ID = #{portalWidget.id},
         TENANT_ID = #{tenantId},
         update_by = #{updateBy.id},
         update_date = #{updateDate},

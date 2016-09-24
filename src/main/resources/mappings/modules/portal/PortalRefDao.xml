@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.luoo.mywork.modules.portal.dao.PortalRefDao">
+
+
+    <sql id="portalRefColumns">
+
+        ref.ID,
+        ref.INFO_ID as "portalInfo.id",
+        ref.USER_ID,
+        ref.TENANT_ID,
+        ref.create_by,
+        ref.create_date,
+        ref.update_by,
+        ref.update_date,
+        ref.remarks,
+        ref.del_flag,
+        info.NAME as "portalInfo.name",
+        info.DESCRIPTION as "portalInfo.description",
+        info.USER_ID as "portalInfo.userId",
+        info.COLUMN_LAYOUT as "portalInfo.columnLayout",
+        info.SHARED_STATUS as "portalInfo.sharedStatus",
+        info.GLOBAL_STATUS as "portalInfo.globalStatus",
+        info.TENANT_ID as "portalInfo.tenantId"
+
+    </sql>
+
+    <sql id="portalRefJoins">
+        LEFT JOIN portal_info info ON info.ID = ref.INFO_ID and info.del_flag = ref.del_flag
+    </sql>
+
+
+
     <select id="get" resultType="PortalRef">
+
         SELECT
-        *
-        FROM portal_ref
-        WHERE id = #{id}
+        <include refid="portalRefColumns"/>
+        FROM portal_ref ref
+        <include refid="portalRefJoins"/>
+        WHERE ref.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="id != null and id != ''">
+            AND ref.ID = #{id}
+        </if>
+        <if test="userId != null and userId != ''">
+            AND ref.USER_ID = #{userId}
+        </if>
+
+
     </select>
 
 
@@ -15,7 +55,7 @@
         FROM portal_ref
         WHERE del_flag = #{DEL_FLAG_NORMAL}
         <if test="userId != null and userId != ''">
-            AND userId = #{userId}
+            AND USER_ID = #{userId}
         </if>
         <if test="description != null and description != ''">
             AND description LIKE
@@ -23,7 +63,7 @@
             <if test="dbName == 'mssql'">'%'+#{description}+'%'</if>
             <if test="dbName == 'mysql'">CONCAT('%', #{description}, '%')</if>
         </if>
-        ORDER BY type, sort, update_date DESC
+        ORDER BY update_date DESC
     </select>
 
     <select id="findAllList" resultType="PortalRef">
@@ -31,7 +71,7 @@
         *
         FROM portal_ref
         WHERE del_flag = #{DEL_FLAG_NORMAL}
-        ORDER BY type, sort, update_date DESC
+        ORDER BY update_date DESC
     </select>
 
     <insert id="insert">

@@ -7,6 +7,7 @@ import com.luoo.mywork.modules.portal.entity.PortalRef;
 import com.luoo.mywork.modules.portal.entity.PortalWidget;
 import com.luoo.mywork.modules.portal.service.PortalService;
 import com.luoo.mywork.modules.sys.utils.UserUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class PortalController extends BaseController {
     @Autowired
     private PortalService portalService;
 
+    @RequiresPermissions("portal:view")
     @RequestMapping("index")
     public String index(Model model) {
 
@@ -35,14 +37,12 @@ public class PortalController extends BaseController {
         PortalRef portalRef = portalService.createOrGetPortalRef(userId);
 
         if (portalRef == null) {
-            return "portal/index";
+            return "modules/portal/index";
         }
 
         PortalInfo portalInfo = portalRef.getPortalInfo();
 
-        List<Integer> columnIndexes = portalItemManager
-                .find("select distinct columnIndex from PortalItem where portalInfo=? order by columnIndex",
-                        portalInfo);
+        List<Integer> columnIndexes = portalService.getColumnIndexesByPortalInfoId(portalInfo);
         logger.debug("columnIndexes : {}", columnIndexes);
 
         if (!columnIndexes.contains(Integer.valueOf(1))) {
@@ -62,18 +62,19 @@ public class PortalController extends BaseController {
         Map<Integer, List<PortalItem>> map = new LinkedHashMap<Integer, List<PortalItem>>();
 
         for (Integer columnIndex : columnIndexes) {
-            List<PortalItem> portalItems = portalItemManager
-                    .find("from PortalItem where portalInfo=? and columnIndex=? order by rowIndex",
-                            portalInfo, columnIndex);
+            PortalItem portalItem = new PortalItem();
+            portalItem.setPortalInfo(portalInfo);
+            portalItem.setColumnIndex(columnIndex);
+            List<PortalItem> portalItems = portalService.getPortalItemByPortalInfoIdAndColumnIndex(portalItem);
             map.put(columnIndex, portalItems);
         }
 
         model.addAttribute("map", map);
 
-        List<PortalWidget> portalWidgets = portalWidgetManager.getAll();
+        List<PortalWidget> portalWidgets = portalService.getAllPortalWidgets();
         model.addAttribute("portalWidgets", portalWidgets);
 
-        return "portal/index";
+        return "modules/portal/index";
 
     }
 

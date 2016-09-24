@@ -9,7 +9,6 @@ import com.luoo.mywork.common.persistence.DataEntity;
 
 public class PortalItem extends DataEntity<PortalItem> {
     private static final long serialVersionUID = 0L;
-    private Long id;
 
     private PortalInfo portalInfo;
 

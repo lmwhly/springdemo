@@ -73,7 +73,13 @@
 
     <update id="update">
         UPDATE portal_info SET
+        NAME = #{name},
+        DESCRIPTION = #{description},
         USER_ID = #{userId},
+        CREATE_TIME = #{createTime},
+        COLUMN_LAYOUT = #{columnLayout},
+        SHARED_STATUS = #{sharedStatus},
+        GLOBAL_STATUS = #{globalStatus},
         TENANT_ID = #{tenantId},
         update_by = #{updateBy.id},
         update_date = #{updateDate},
